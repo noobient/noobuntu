@@ -1,0 +1,24 @@
+# Security
+
+deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu {{ ubuntu_codename }}-security main restricted universe multiverse
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports {{ ubuntu_codename }}-security main restricted universe multiverse
+
+# Internal mirror
+
+deb [arch=amd64,i386] https://{{ internal_mirror }}/ubuntu {{ ubuntu_codename }} main restricted universe multiverse
+deb [arch=amd64,i386] https://{{ internal_mirror }}/ubuntu {{ ubuntu_codename }}-updates main restricted universe multiverse
+deb [arch=amd64,i386] https://{{ internal_mirror }}/ubuntu {{ ubuntu_codename }}-backports main restricted universe multiverse
+
+deb [arch=arm64] https://{{ internal_mirror }}/ubuntu-ports {{ ubuntu_codename }} main restricted universe multiverse
+deb [arch=arm64] https://{{ internal_mirror }}/ubuntu-ports {{ ubuntu_codename }}-updates main restricted universe multiverse
+deb [arch=arm64] https://{{ internal_mirror }}/ubuntu-ports {{ ubuntu_codename }}-backports main restricted universe multiverse
+
+# Canonical fallback mirror
+
+deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu {{ ubuntu_codename }} main restricted universe multiverse
+deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu {{ ubuntu_codename }}-updates main restricted universe multiverse
+deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu {{ ubuntu_codename }}-backports main restricted universe multiverse
+
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports {{ ubuntu_codename }} main restricted universe multiverse
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports {{ ubuntu_codename }}-updates main restricted universe multiverse
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports {{ ubuntu_codename }}-backports main restricted universe multiverse

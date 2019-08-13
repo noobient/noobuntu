@@ -1,0 +1,16 @@
+- name: Check if appstream config exists
+  stat:
+    path: /etc/apt/apt.conf.d/50appstream
+  register: appstream_result
+
+- name: Fix multi-arch apt behavior
+  replace:
+    path: /etc/apt/apt.conf.d/50appstream
+    regexp: 'NATIVE_ARCHITECTURE'
+    replace: 'ARCHITECTURE'
+  when: appstream_result.stat.exists == True
+
+- name: "Internal mirror for {{ ubuntu_codename }}"
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list

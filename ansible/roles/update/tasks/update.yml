@@ -1,0 +1,8 @@
+- name: Update apt info and all OS packages
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Remove obsolete packages
+  apt:
+    autoremove: yes

@@ -1,0 +1,18 @@
+# gotta use grep for non-zero RC
+- name: Check if target is graphical
+  shell: apt list --installed | grep xserver-xorg-video
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: xorg_present
+
+- name: Install HWE kernel
+  apt:
+    name: "linux-generic-hwe-{{ ubuntu_version }}"
+    state: latest
+
+- name: Install HWE X.Org
+  apt:
+    name: "xserver-xorg-hwe-{{ ubuntu_version }}"
+    state: latest
+  when: xorg_present.rc == 0
