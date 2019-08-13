@@ -1,0 +1,17 @@
+- name: Restart time sync service
+  systemd:
+    name: systemd-timesyncd
+    state: restarted
+
+- name: Force time sync
+  command: "timedatectl --adjust-system-clock"
+
+- name: Restart resolved service
+  systemd:
+    name: systemd-resolved
+    state: restarted
+
+- name: Restart SSSD
+  systemd:
+    name: sssd
+    state: restarted

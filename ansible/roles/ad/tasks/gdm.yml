@@ -1,0 +1,6 @@
+- name: Disable greeter screen
+  ini_file:
+    path: /etc/xdg/autostart/gnome-initial-setup-first-login.desktop
+    section: Desktop Entry
+    option: Exec
+    state: absent

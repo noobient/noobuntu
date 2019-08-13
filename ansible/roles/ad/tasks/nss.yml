@@ -1,0 +1,6 @@
+- name: Enable sudo via AD
+  lineinfile:
+    path: /etc/nsswitch.conf
+    line: "sudoers: files sss"
+    regexp: ^sudoers.*
+    state: present

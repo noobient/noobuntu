@@ -1,0 +1,25 @@
+- name: Set up Kerberos options
+  ini_file:
+    path: /etc/krb5.conf
+    section: libdefaults
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+  - { option: default_realm, value: "{{ ad_domain|upper }}" }
+  - { option: dns_lookup_realm, value: 'true' }
+  - { option: dns_lookup_kdc, value: 'true' }
+  notify: Restart resolved service
+
+# workaround for ini_file and lineinfile not handling multiline values
+# https://github.com/ansible/ansible/issues/29711
+- blockinfile:
+    path: /etc/krb5.conf
+    insertafter: '^\[realms\]'
+    block: |
+      {{ ad_domain|upper }} = {
+          {% for dc in ad_dc_names %}
+          kdc = {{ dc|upper }}.{{ ad_domain|upper }}
+          {% endfor %}
+          admin_server = {{ ad_admin_dc|upper }}.{{ ad_domain|upper }}
+      }
+  notify: Restart resolved service

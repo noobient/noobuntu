@@ -1,0 +1,6 @@
+- name: Append domain name to hostname
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1\s*([^\s]*$)'
+    line: '127.0.1.1 \1.{{ ad_domain }} \1'
+    backrefs: yes

@@ -1,0 +1,16 @@
+- name: Install AD prerequisites
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - sssd
+    - sssd-tools
+    - libsss-sudo
+    - realmd
+    - libnss-sss
+    - libpam-sss
+    - adcli
+    - samba-common-bin
+    - krb5-user
+    - packagekit

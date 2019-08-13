@@ -1,0 +1,17 @@
+- name: Fix home dir umask
+  lineinfile:
+    path: /usr/share/pam-configs/mkhomedir
+    regexp: '(.*pam_mkhomedir.so$)'
+    line: '\1 umask=0077'
+    backrefs: yes
+
+- name: PAM inventory
+  command: grep "^session\s*optional\s*pam_mkhomedir.so\s*umask.*" /etc/pam.d/common-session
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: mkhomedir
+
+- name: Enable automatic home dir creation
+  command: "pam-auth-update --enable mkhomedir"
+  when: mkhomedir.rc != 0

@@ -1,0 +1,15 @@
+- name: Ensure SSSD conf.d directory exists
+  file:
+    state: directory
+    path: /etc/sssd/conf.d
+    recurse: yes
+
+- name: Set up SSSD options
+  ini_file:
+    path: /etc/sssd/conf.d/services.conf
+    owner: root
+    group: root
+    mode: 0600
+    section: sssd
+    option: services
+    value: nss, pam, sudo

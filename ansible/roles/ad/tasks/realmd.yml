@@ -1,0 +1,21 @@
+- name: Set up realmd options
+  ini_file:
+    path: /etc/realmd.conf
+    owner: root
+    group: root
+    mode: 0644
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items:
+  - { section: users, option: default-home, value: /home/%D/%U }
+  - { section: users, option: default-shell, value: /bin/bash }
+  - { section: active-directory, option: default-client, value: sssd }
+  - { section: active-directory, option: os-name, value: Ubuntu Workstation }
+  - { section: active-directory, option: os-version, value: "{{ ubuntu_version }}"  }
+  - { section: service, option: automatic-install, value: 'no' }
+  - { section: "{{ ad_domain }}", option: fully-qualified-names, value: 'no' }
+  - { section: "{{ ad_domain }}", option: automatic-id-mapping, value: 'yes' }
+  - { section: "{{ ad_domain }}", option: user-principal, value: 'yes' }
+  - { section: "{{ ad_domain }}", option: manage-system, value: 'yes' }
+  notify: Restart resolved service
