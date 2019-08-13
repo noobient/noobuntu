@@ -1,0 +1,4 @@
+- name: "Check if {{ item }} is defined"
+  fail:
+    msg: "{{ item }} is undefined. Make sure you set up ansible/roles/{{ parent }}/vars/main.yml properly using the provided main.yml.example template."
+  when: vars[item] is not defined

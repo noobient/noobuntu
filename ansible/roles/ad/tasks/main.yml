@@ -1,4 +1,18 @@
 ---
+- include_role:
+    name: varcheck
+  with_items:
+  - ad_domain
+  - ad_dc_names
+  - ad_dc_ips
+  - ad_ntp_dc
+  - ad_admin_dc
+  - ad_smb_shares
+  loop_control:
+    loop_var: item
+  vars:
+  - parent: ad
+
 - include_tasks: install.yml
 - include_tasks: hostname.yml
 - include_tasks: sssd.yml

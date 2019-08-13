@@ -1,4 +1,13 @@
 ---
+- include_role:
+    name: varcheck
+  with_items:
+  - internal_mirror
+  loop_control:
+    loop_var: item
+  vars:
+  - parent: update
+
 - include_tasks: repo.yml
 - include_tasks: hwe.yml
 - include_tasks: update.yml

@@ -1,1 +1,3 @@
+ansible/roles/ad/vars/main.yml
+ansible/roles/update/vars/main.yml
 *.retry
