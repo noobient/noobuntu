@@ -7,7 +7,6 @@
   - ad_dc_ips
   - ad_ntp_dc
   - ad_admin_dc
-  - ad_smb_shares
   loop_control:
     loop_var: item
   vars:

@@ -15,9 +15,3 @@ ad_dc_ips:
 ad_ntp_dc: dc3
 # Hostname of the DC set as Kerberos admin server
 ad_admin_dc: dc1
-# List of SMB shares to be available by default for new users
-# Later these can be edited in ~/.pam_mount.conf.xml
-ad_smb_shares:
-  - { host: filesrv, path: common, version: 2.1, enabled: True }
-  - { host: filesrv, path: legal, version: 2.1, enabled: False }
-  - { host: filesrv, path: hr, version: 2.1, enabled: False }
