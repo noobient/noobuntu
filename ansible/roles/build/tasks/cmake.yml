@@ -1,0 +1,15 @@
+- name: Import Kitware GPG key
+  apt_key:
+    url: https://apt.kitware.com/keys/kitware-archive-latest.asc
+    state: present
+
+- name: Add Kitware repo
+  template:
+    src: kitware.list.j2
+    dest: /etc/apt/sources.list.d/kitware.list
+  register: kitware_repo
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: kitware_repo.changed

@@ -1,0 +1,6 @@
+- name: Fix snaps in non-default home
+  lineinfile:
+    path: /etc/apparmor.d/tunables/home.d/corporate
+    line: '@{HOMEDIRS}+=/home/{{ ad_domain }}/'
+    create: yes
+  notify: Reload AppArmor profiles

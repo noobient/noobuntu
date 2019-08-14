@@ -1,0 +1,6 @@
+Name: keyinit fix
+Default: yes
+Priority: 0
+Session-Type: Additional
+Session:
+	optional	pam_keyinit.so force revoke

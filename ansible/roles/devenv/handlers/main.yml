@@ -1,0 +1,18 @@
+- name: Reload AppArmor profiles
+  systemd:
+    name: apparmor
+    state: reloaded
+
+- name: Compile GLib schema
+  command: glib-compile-schemas /usr/share/glib-2.0/schemas
+
+- name: Update PAM auth
+  command: "{{ item }}"
+  with_items:
+  - pam-auth-update --enable fscrypt
+  - pam-auth-update --enable keyinit-fix
+
+- name: Restart network-manager
+  systemd:
+    name: network-manager
+    state: restarted

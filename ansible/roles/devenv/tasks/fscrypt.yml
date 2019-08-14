@@ -1,0 +1,128 @@
+- name: Install fscrypt apt dependencies
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - libpam0g-dev
+
+- name: Install Go snap
+  snap:
+    name: go
+    classic: yes
+
+- name: Obtain fscrypt sources
+  git:
+    repo: https://github.com/google/fscrypt.git
+    dest: /usr/local/src/fscrypt
+    version: "{{ fscrypt_revision }}"
+
+- name: Build fscrypt
+  make:
+    chdir: /usr/local/src/fscrypt
+    target: default
+  register: makedefault
+
+# we install it on our own but this is needed to generate the config file initially
+- name: Install fscrypt
+  make:
+    chdir: /usr/local/src/fscrypt
+    target: install
+  when: makedefault.changed
+
+- name: Fix PAM module priority
+  replace:
+    path: /usr/local/src/fscrypt/bin/config
+    regexp: '^Priority: .*'
+    replace: 'Priority: 192'
+
+- name: Create config target directory
+  file:
+    path: /usr/local/share/pam-configs
+    state: directory
+
+- name: Create lib target directory
+  file:
+    path: /usr/local/lib/security
+    state: directory
+
+- name: Deploy fscrypt files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    remote_src: yes
+  with_items:
+    - { src: /usr/local/src/fscrypt/bin/fscrypt, dest: /usr/local/bin/fscrypt, mode: '0755' }
+    - { src: /usr/local/src/fscrypt/bin/pam_fscrypt.so, dest: /usr/local/lib/security/pam_fscrypt.so, mode: '0644' }
+    - { src: /usr/local/src/fscrypt/bin/config, dest: /usr/local/share/pam-configs/fscrypt, mode: '0644' }
+  notify: Update PAM auth
+
+- name: Deploy keyinit fix
+  copy:
+    src: keyinit-fix
+    dest: /usr/local/share/pam-configs/keyinit-fix
+  notify: Update PAM auth
+
+- name: Create symlinks
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: /usr/local/share/pam-configs/fscrypt, dest: /usr/share/pam-configs/fscrypt }
+    - { src: /usr/local/share/pam-configs/keyinit-fix, dest: /usr/share/pam-configs/keyinit-fix }
+  notify: Update PAM auth
+
+- name: Find root UUID
+  shell: cat /etc/fstab | grep -v ^[#"[:space:]"] | awk -F" " '{print $1" "$2}' | grep /$ | awk -F" " '{print $1}' | awk -F= '{print $2}'
+  changed_when: no
+  no_log: True
+  register: root_uuid
+- debug: msg="{{ root_uuid.stdout }}"
+
+- name: Find root device
+  shell: "blkid | grep {{ root_uuid.stdout }} | cut -d: -f1"
+  changed_when: no
+  no_log: True
+  register: root_device
+- debug: msg="{{ root_device.stdout }}"
+
+- name: Check encryption status for /
+  shell: "tune2fs -l {{ root_device.stdout }} | grep encrypt"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: tune2fs
+
+- name: Enable encryption for /
+  command: "tune2fs -O encrypt {{ root_device.stdout }}"
+  when: tune2fs.rc != 0
+
+- name: Create global fscrypt config
+  command: fscrypt setup --force
+  args:
+    creates: /etc/fscrypt.conf
+
+- name: Set login passphrase as the default protector
+  replace:
+    path: /etc/fscrypt.conf
+    regexp: '^(\s*)"source": ".*",$'
+    replace: '\1"source": "pam_passphrase",'
+
+- name: Check fscrypt status on /
+  shell: fscrypt status | grep ^/[[:space:]] | awk -F" " '{print $5}' | grep -i yes
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: fscrypt_status
+
+- name: Enable fscrypt on /
+  command: sudo fscrypt setup /
+  when: fscrypt_status.rc != 0
+
+- name: Deploy encryption script
+  copy:
+    src: noobuntu-encrypt
+    dest: /usr/local/sbin/noobuntu-encrypt
+    mode: 0755

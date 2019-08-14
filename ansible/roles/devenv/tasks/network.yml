@@ -1,0 +1,27 @@
+- name: Disable netplan completely
+  file:
+    path: /etc/netplan/01-netcfg.yaml
+    state: absent
+  register: netplan_networkd
+
+- name: Enable NM for all interfaces
+  copy:
+    src: 01-network-manager-all.yaml
+    dest: /etc/netplan/01-network-manager-all.yaml
+  register: netplan_nm
+
+- name: Apply networking changes
+  shell: netplan apply && systemctl restart network-manager
+  register: net_apply
+  when: netplan_networkd.changed or netplan_nm.changed
+
+- name: Make sure network is up and running
+  pause:
+    seconds: 10
+  when: net_apply.changed
+
+- name: Ensure NM is running
+  systemd:
+    name: network-manager
+    enabled: yes
+    state: started

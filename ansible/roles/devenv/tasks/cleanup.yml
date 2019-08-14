@@ -1,0 +1,15 @@
+# make sure these are the last
+- name: Remove broken system monitor snap
+  snap:
+    name: gnome-system-monitor
+    state: absent
+
+# https://bugs.launchpad.net/ubuntu/+source/totem/+bug/1780475
+- name: Remove packages breaking video playback
+  apt:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - mesa-va-drivers
+    - gstreamer1.0-vaapi

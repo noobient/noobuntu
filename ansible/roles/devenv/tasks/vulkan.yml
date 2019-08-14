@@ -1,0 +1,10 @@
+- include_tasks: 3rdparty.yml
+  with_items:
+  - { name: 'Vulkan SDK', gpg_url: 'https://packages.lunarg.com/lunarg-signing-key-pub.asc', repo_file: 'lunarg-vulkan', package: 'vulkan-sdk', ldconfig: True }
+  loop_control:
+    loop_var: item
+
+- name: Set Vulkan SDK path
+  lineinfile:
+    path: /etc/environment
+    line: VULKAN_SDK_PATH=/usr

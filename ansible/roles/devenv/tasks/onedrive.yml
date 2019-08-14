@@ -1,0 +1,22 @@
+- include_tasks: 3rdparty.yml
+  with_items:
+  - { name: 'Insync', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'ACCAF35C', repo_file: 'insync', package: 'insync', repo_overwrite: True }
+  loop_control:
+    loop_var: item
+
+- name: Install Insync Nautilus plugin
+  apt:
+    name: insync-nautilus
+    state: latest
+
+- name: Enable Qt display scaling
+  lineinfile:
+    path: /etc/environment
+    regexp: '^QT_AUTO_SCREEN_SCALE_FACTOR=.*'
+    line: QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+#- name: Fix HiDPI display
+#  replace:
+#    path: /usr/share/applications/insync.desktop
+#    regexp: '^Exec=insync(.*)'
+#    replace: 'Exec=env QT_AUTO_SCREEN_SCALE_FACTOR=1 insync\1'

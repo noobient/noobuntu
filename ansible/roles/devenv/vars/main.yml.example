@@ -1,0 +1,14 @@
+---
+teams_version: 1.2.0
+gcm4ml_version: 2.0.4
+fscrypt_revision: 8956903569b187652d7f068800c240b24cb2e41e
+github_version: 2.1.0-linux1
+
+# TODO use from ad role
+ad_domain: ad.foobar.com
+# List of SMB shares to be available by default for new users
+# Later these can be edited in ~/.pam_mount.conf.xml
+ad_smb_shares:
+  - { host: filesrv, path: common, version: 2.1, enabled: True }
+  - { host: filesrv, path: legal, version: 2.1, enabled: False }
+  - { host: filesrv, path: hr, version: 2.1, enabled: False }

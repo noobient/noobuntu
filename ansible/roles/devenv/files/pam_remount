@@ -1,0 +1,3 @@
+#!/bin/bash
+
+su -c exit $USERNAME

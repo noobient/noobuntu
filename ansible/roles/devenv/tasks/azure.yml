@@ -1,0 +1,10 @@
+- name: Install Azure CLI dependencies
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - curl
+    - apt-transport-https
+    - lsb-release
+    - gnupg

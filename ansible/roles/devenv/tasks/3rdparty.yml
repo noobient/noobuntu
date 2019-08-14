@@ -1,0 +1,41 @@
+- name: "Import {{ item.name }} GPG key"
+  apt_key:
+    url: "{{ item.gpg_url }}"
+    state: present
+  when: item.gpg_url is defined
+
+- name: "Import {{ item.name }} GPG key"
+  apt_key:
+    keyserver: "{{ item.gpg_server }}"
+    id: "{{ item.gpg_id }}"
+    state: present
+  when: item.gpg_server is defined and item.gpg_id is defined
+
+- name: "Import {{ item.name }} GPG key"
+  apt_key:
+    data: "{{ lookup('file', '{{ item.gpg_file }}.asc') }}"
+    state: present
+  when: item.gpg_file is defined
+
+- name: "Add {{ item.name }} repo"
+  template:
+    src: "{{ item.repo_file }}.list.j2"
+    dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
+
+- name: "Install {{ item.name }}"
+  apt:
+    name: "{{ item.package }}"
+    state: latest
+    update_cache: yes
+  register: app_install
+
+# installing the package adds noise to the repo file in postinst, fix it
+- name: "Fix {{ item.name }} repo file"
+  template:
+    src: "{{ item.repo_file }}.list.j2"
+    dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
+  when: app_install.changed and item.repo_overwrite is defined and item.repo_overwrite == True
+
+- name: Run ldconfig
+  command: ldconfig
+  when: app_install.changed and item.ldconfig is defined and item.ldconfig == True

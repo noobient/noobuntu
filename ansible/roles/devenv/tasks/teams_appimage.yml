@@ -1,0 +1,31 @@
+# FIXME requires token, not suitable for automatic deployment
+#- name: Find latest MS Teams client release
+#  github_release:
+#    user: grzego69
+#    repo: ms-teams-linux-next
+#    action: latest_release
+
+- name: Remove MS Teams snap version
+  snap:
+    name: teams-for-linux
+    state: absent
+
+- name: Download MS Teams client
+  get_url:
+#    url: "https://github.com/grzego69/ms-teams-linux-next/releases/download/{{ latest_release }}/ms-teams-capsule-next-{{ latest_release }}-x86_64.AppImage"
+#    dest: "ms-teams-capsule-next-{{ latest_release }}-x86_64.AppImage"
+    url: "https://github.com/grzego69/ms-teams-linux-next/releases/download/1.2.0/ms-teams-capsule-next-{{ teams_version }}-x86_64.AppImage"
+    dest: /Applications/msteams
+    owner: root
+    group: domain users
+    mode: 0775
+
+- name: Deploy Teams shortcut
+  copy:
+    src: msteams.desktop
+    dest: /usr/share/applications/msteams.desktop
+
+- name: Deploy Teams icon
+  copy:
+    src: msteams.png
+    dest: /usr/share/pixmaps/com.microsoft.teams.png

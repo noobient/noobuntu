@@ -1,0 +1,33 @@
+- name: Install GCM4ML dependencies
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - default-jre-headless
+    - gnome-keyring
+    - seahorse
+    - libgnome-keyring-dev
+
+- name: Obtain GCM4ML
+  get_url:
+    url: "https://github.com/Microsoft/Git-Credential-Manager-for-Mac-and-Linux/releases/download/git-credential-manager-{{ gcm4ml_version }}/git-credential-manager-{{ gcm4ml_version }}.jar"
+    dest: "/usr/local/bin/git-credential-manager-{{ gcm4ml_version }}.jar"
+    mode: 0644
+
+- name: Create unversioned symlink
+  file:
+    src: "/usr/local/bin/git-credential-manager-{{ gcm4ml_version }}.jar"
+    dest: /usr/local/bin/git-credential-manager.jar
+    state: link
+
+- name: Deploy wrapper script
+  copy:
+    src: git-credential-manager
+    dest: /usr/local/bin/git-credential-manager
+    mode: 0755
+
+- name: Set default credential helper
+  copy:
+    src: .gitconfig
+    dest: /etc/skel/.gitconfig

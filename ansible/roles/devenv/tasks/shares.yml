@@ -1,0 +1,35 @@
+- name: Install PAM mount prerequisites
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - libpam-mount
+    - python-lxml
+    - cifs-utils
+
+# the XML is non-compliant so this will result in 2 keys but it works
+- name: Enable user share mounts
+  xml:
+    path: /etc/security/pam_mount.conf.xml
+    xpath: "{{ item.xpath }}"
+    attribute: "{{ item.attribute }}"
+    value: "{{ item.value }}"
+  with_items:
+  - { xpath: /pam_mount/luserconf, attribute: name, value: '.pam_mount.conf.xml' }
+  - { xpath: /pam_mount/mntoptions, attribute: allow, value: '*' }
+  - { xpath: /pam_mount/mntoptions, attribute: require, value: '' }
+
+- name: Add default user PAM mount file
+  template:
+    src: .pam_mount.conf.xml.j2
+    dest: /etc/skel/.pam_mount.conf.xml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Add pam_remount command
+  copy:
+    src: pam_remount
+    dest: /usr/local/bin/pam_remount
+    mode: '0755'

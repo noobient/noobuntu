@@ -1,0 +1,5 @@
+- name: Show IP address on login screen
+  replace:
+    path: /etc/issue
+    regexp: '^(Ubuntu .*)\\l$'
+    replace: '\1\\l (\\4)'

@@ -1,0 +1,55 @@
+---
+- include_role:
+    name: varcheck
+  with_items:
+  - teams_version
+  - gcm4ml_version
+  - fscrypt_revision
+  - github_version
+  - ad_domain
+  - ad_smb_shares
+  loop_control:
+    loop_var: item
+  vars:
+  - parent: devenv
+
+- include_tasks: utils.yml
+- include_tasks: tty.yml
+- include_tasks: adcheck.yml
+- include_tasks: gnome.yml
+- include_tasks: apparmor.yml
+- include_tasks: email.yml
+- include_tasks: azure.yml
+
+- include_tasks: 3rdparty.yml
+  with_items:
+  - { name: 'Azure CLI', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'azure-cli', package: 'azure-cli' }
+  - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: 'docker-ce' }
+  - { name: 'Google Chrome', gpg_file: 'google-chrome', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
+  - { name: 'Vagrant', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4', repo_file: 'wolfgang42-vagrant', package: 'vagrant' }
+  - { name: 'VirtualBox', gpg_url: 'https://www.virtualbox.org/download/oracle_vbox_2016.asc', repo_file: 'virtualbox', package: 'virtualbox-6.0' }
+  - { name: 'VS Code', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'vscode', package: 'code' }
+  loop_control:
+    loop_var: item
+
+- include_tasks: onedrive.yml
+- include_tasks: vulkan.yml
+
+# these only work if AD joined
+- include_tasks: appimage.yml
+  when: ad_status.rc == 0
+- include_tasks: teams_appimage.yml
+  when: ad_status.rc == 0
+#- include_tasks: teams_snap.yml
+
+- include_tasks: ide.yml
+- include_tasks: gcm4ml.yml
+- include_tasks: putty.yml
+- include_tasks: apt.yml
+- include_tasks: powershell.yml
+- include_tasks: network.yml
+- include_tasks: shares.yml
+- include_tasks: fscrypt.yml
+
+# keep this one as last
+- include_tasks: cleanup.yml

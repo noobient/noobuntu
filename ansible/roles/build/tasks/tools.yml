@@ -1,0 +1,21 @@
+- name: Install build related tools
+  apt:
+    name: "{{ packages }}"
+    install_recommends: yes
+    state: latest
+  vars:
+    packages:
+    - make
+    - cmake
+    - gcc
+    - m4
+    - clang
+    - clang-format
+    - clang-tidy
+    - doxygen
+    - graphviz
+    - valgrind
+    - gdb
+    - iwyu
+    - texlive-latex-base
+    - texlive-binaries

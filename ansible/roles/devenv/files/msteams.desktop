@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Microsoft Teams
+Comment=Microsoft Teams
+Exec=/Applications/msteams
+Icon=com.microsoft.teams
+Type=Application
+Terminal=false
