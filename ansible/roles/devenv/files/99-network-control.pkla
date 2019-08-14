@@ -1,0 +1,6 @@
+[WiFi and VPN connection control for users]
+Identity=unix-user:*
+Action=org.freedesktop.NetworkManager.settings.modify.system
+ResultAny=auth_admin_keep
+ResultInactive=auth_admin_keep
+ResultActive=yes

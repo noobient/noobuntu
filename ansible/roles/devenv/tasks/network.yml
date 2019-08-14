@@ -25,3 +25,11 @@
     name: network-manager
     enabled: yes
     state: started
+
+- name: Allow users to control network connections
+  copy:
+    src: 99-network-control.pkla
+    dest: 99-network-control.pkla
+    mode: 0640
+    owner: root
+    group: root
