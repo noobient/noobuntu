@@ -40,6 +40,8 @@
     - net-tools
     - snapd
     - python3-pip
+    - colordiff
+    - meld
 
 - name: Install GitHub dependencies
   apt:
