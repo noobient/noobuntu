@@ -36,11 +36,12 @@
 - include_tasks: vulkan.yml
 
 # these only work if AD joined
-- include_tasks: appimage.yml
-  when: ad_status.rc == 0
-- include_tasks: teams_appimage.yml
-  when: ad_status.rc == 0
+#- include_tasks: appimage.yml
+#  when: ad_status.rc == 0
+#- include_tasks: teams_appimage.yml
+#  when: ad_status.rc == 0
 #- include_tasks: teams_snap.yml
+- include_tasks: teams_deb.yml
 
 - include_tasks: ide.yml
 - include_tasks: gcm4ml.yml

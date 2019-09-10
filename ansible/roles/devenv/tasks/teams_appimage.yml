@@ -12,9 +12,7 @@
 
 - name: Download MS Teams client
   get_url:
-#    url: "https://github.com/grzego69/ms-teams-linux-next/releases/download/{{ latest_release }}/ms-teams-capsule-next-{{ latest_release }}-x86_64.AppImage"
-#    dest: "ms-teams-capsule-next-{{ latest_release }}-x86_64.AppImage"
-    url: "https://github.com/grzego69/ms-teams-linux-next/releases/download/1.2.0/ms-teams-capsule-next-{{ teams_version }}-x86_64.AppImage"
+    url: "https://github.com/grzego69/ms-teams-linux-next/releases/download/{{ teams_version }}/ms-teams-capsule-next-{{ teams_version }}-x86_64.AppImage"
     dest: /Applications/msteams
     owner: root
     group: domain users

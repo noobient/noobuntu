@@ -1,0 +1,17 @@
+- name: Remove MS Teams snap version
+  snap:
+    name: teams-for-linux
+    state: absent
+
+- name: Remove MS Teams appimage version
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /Applications/msteams
+    - /usr/share/applications/msteams.desktop
+    - /usr/share/pixmaps/com.microsoft.teams.png
+
+- name: Install unofficial Teams deb
+  apt:
+    deb: "https://github.com/IsmaelMartinez/teams-for-linux/releases/download/v{{ teams_version }}/teams-for-linux_{{ teams_version }}_amd64.deb"
