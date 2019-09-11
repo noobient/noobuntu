@@ -11,8 +11,3 @@
   with_items:
   - pam-auth-update --enable fscrypt
   - pam-auth-update --enable keyinit-fix
-
-- name: Restart network-manager
-  systemd:
-    name: network-manager
-    state: restarted
