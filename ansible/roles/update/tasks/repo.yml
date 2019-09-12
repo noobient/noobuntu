@@ -10,6 +10,13 @@
     replace: 'ARCHITECTURE'
   when: appstream_result.stat.exists == True
 
+- name: Ignore missing HiDPI icons in apt-mirror
+  replace:
+    path: /etc/apt/apt.conf.d/50appstream
+    after: 'deb::DEP-11-icons-hidpi\s*{'
+    before: '};'
+    regexp: '.*'
+
 - name: "Internal mirror for {{ ubuntu_codename }}"
   template:
     src: sources.list.j2
