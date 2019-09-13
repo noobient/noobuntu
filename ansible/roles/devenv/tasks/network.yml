@@ -15,11 +15,6 @@
   register: net_apply
   when: netplan_networkd.changed or netplan_nm.changed
 
-- name: Make sure network is up and running
-  pause:
-    seconds: 10
-  when: net_apply.changed
-
 - name: Ensure NM is running
   systemd:
     name: network-manager
@@ -33,3 +28,8 @@
     mode: 0640
     owner: root
     group: root
+
+- name: Make sure network is up and running
+  pause:
+    seconds: 15
+  when: net_apply.changed
