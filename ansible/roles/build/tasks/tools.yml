@@ -9,9 +9,9 @@
     - cmake
     - gcc
     - m4
-    - clang
-    - clang-format
-    - clang-tidy
+    - clang-8
+    - clang-format-8
+    - clang-tidy-8
     - doxygen
     - graphviz
     - valgrind
