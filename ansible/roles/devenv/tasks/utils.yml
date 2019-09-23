@@ -12,6 +12,7 @@
     - mc
     - git
     - git-lfs
+    - git-gui
     - gitg
     - remmina
     - realmd
