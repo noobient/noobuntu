@@ -19,8 +19,7 @@ Development Environment:
 - Network Shares
 - Corporate Email
 - Microsoft Teams
-- Visual Studio Code
-- CLion, PyCharm
+- CLion, PyCharm, Sublime Text, Visual Studio Code
 - Vulkan
 - Git, Git LFS, Git Credential Manager, GitHub Desktop
 - Pageant + integration for FileZilla, Remmina
