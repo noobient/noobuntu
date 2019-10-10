@@ -1,0 +1,12 @@
+# need to manually remove old version AND its dependencies
+# also libnvidia packages, some switches may cause older versions
+# to be available in the repo, causing a conflict
+- name: Uninstall mismatching NV packages
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    autoremove: yes
+  vars:
+    packages:
+    - "nvidia-driver-*"
+    - "libnvidia-*"

@@ -1,0 +1,7 @@
+---
+- include_tasks: repo_ppa.yml
+  when: cuda_runfile_install == True
+- include_tasks: repo_cuda.yml
+  when: cuda_runfile_install != True
+
+- include_tasks: driver.yml

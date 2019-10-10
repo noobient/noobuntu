@@ -1,0 +1,13 @@
+- name: Search mismatching CUDA LD config files
+  find:
+    paths: /etc/ld.so.conf.d
+    patterns: 'cuda-*.conf'
+    excludes: "cuda-{{ cuda_package_version }}.conf"
+  register: cuda_ld_conf
+
+- name: Remove mismatching CUDA LD config files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ cuda_ld_conf.files }}"
+  notify: Run ldconfig

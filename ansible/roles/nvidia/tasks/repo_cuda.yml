@@ -1,0 +1,15 @@
+- name: Remove graphics-driver PPA
+  file:
+    path: "/etc/apt/sources.list.d/ppa_graphics_drivers_ppa_{{ ubuntu_codename }}.list"
+    state: absent
+  register: ppa_driver
+
+- include_tasks: purge_driver.yml
+  when: ppa_driver.changed
+
+- include_tasks: repo_cuda_key.yml
+
+- name: Add CUDA repo
+  template:
+    src: cuda.list.j2
+    dest: /etc/apt/sources.list.d/cuda.list
