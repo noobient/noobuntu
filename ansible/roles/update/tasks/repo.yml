@@ -17,7 +17,7 @@
     before: '};'
     regexp: '.*'
 
-- name: "Proper multi-arch sources.list for {{ ubuntu_codename }}"
-  template:
-    src: sources.list.j2
-    dest: /etc/apt/sources.list
+#- name: "Proper multi-arch sources.list for {{ ubuntu_codename }}"
+#  template:
+#    src: sources.list.j2
+#    dest: /etc/apt/sources.list
