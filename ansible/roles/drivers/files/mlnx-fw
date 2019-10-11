@@ -1,0 +1,1 @@
+@reboot root /opt/mellanox/mlnx-fw-updater/mlnx_fw_updater.pl >> /var/log/mlnx-fw 2>&1

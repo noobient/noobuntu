@@ -1,0 +1,8 @@
+PACKAGE_NAME="{{ dkms_name }}"
+PACKAGE_VERSION="{{ dkms_version }}"
+MAKE[0]="make -C ${kernel_source_dir} M=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build{% if make_dir|length %}/{{ make_dir }}{% endif %}{% if make_args|length %} {{ make_args }}{% endif %}"
+CLEAN="make -C ${kernel_source_dir} M=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build{% if make_dir|length %}/{{ make_dir }}{% endif %} clean"
+BUILT_MODULE_NAME[0]="{{ ko_name }}"
+BUILT_MODULE_LOCATION="{% if make_dir|length %}{{ make_dir }}{% endif %}"
+DEST_MODULE_LOCATION[0]="/extra"
+AUTOINSTALL="yes"

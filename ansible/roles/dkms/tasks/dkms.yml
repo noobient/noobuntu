@@ -1,0 +1,43 @@
+- name: Install DKMS
+  apt:
+    name: dkms
+    state: latest
+
+- name: "Obtain {{ dkms_name }} driver"
+  get_url:
+    url: "{{ url }}"
+    dest: "/usr/src/{{ dkms_name }}-{{ dkms_version }}.{{ file_ext }}"
+    checksum: "sha256:{{ checksum }}"
+
+- name: "Extract {{ dkms_name }} driver"
+  unarchive:
+    src: "/usr/src/{{ dkms_name }}-{{ dkms_version }}.{{ file_ext }}"
+    dest: /usr/src
+    remote_src: yes
+
+- name: "Install dkms.conf for {{ dkms_name }}"
+  template:
+    src: dkms.conf.j2
+    dest: "/usr/src/{{ dkms_name }}-{{ dkms_version }}/dkms.conf"
+  register: dkms_conf
+
+- name: "Remove existing {{ dkms_name }} driver from DKMS"
+  command: "dkms remove {{ dkms_name }}/{{ dkms_version }} --all"
+  ignore_errors: yes
+  no_log: True
+  when: dkms_conf.changed
+
+- name: "Add {{ dkms_name }} driver to DKMS"
+  command: "dkms add {{ dkms_name }}/{{ dkms_version }}"
+  args:
+    creates: "/var/lib/dkms/{{ dkms_name }}/{{ dkms_version }}/source"
+
+- name: "Build {{ dkms_name }} driver via DKMS"
+  command: "dkms build {{ dkms_name }}/{{ dkms_version }}"
+  register: dkms_build
+  changed_when: '"already built for kernel" not in dkms_build.stdout'
+
+- name: "Install {{ dkms_name }} driver via DKMS"
+  command: "dkms install {{ dkms_name }}/{{ dkms_version }} --force"
+  register: dkms_install
+  changed_when: '"already installed on kernel" not in dkms_install.stdout'

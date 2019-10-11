@@ -1,0 +1,17 @@
+---
+- include_role:
+    name: dkms
+  vars:
+    url: '{{ item.value.url }}'
+    file_ext: '{{ item.value.file_ext }}'
+    ko_name: '{{ item.value.ko_name }}'
+    dkms_name: '{{ item.value.dkms_name }}'
+    dkms_version: '{{ item.value.dkms_version }}'
+    checksum: '{{ item.value.checksum }}'
+    make_dir: '{% if item.value.make_dir is defined %}{{ item.value.make_dir }}{% endif %}'
+    make_args: '{% if item.value.make_args is defined %}{{ item.value.make_args }}{% endif %}'
+  with_dict: "{{ drivers }}"
+
+# TODO fix build
+#- include_tasks: mellanox.yml
+- include_tasks: firmware.yml
