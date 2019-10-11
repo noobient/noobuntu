@@ -1,0 +1,31 @@
+- name: Install ASDM dependencies
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - libxrender-dev:i386
+    - libxtst-dev:i386
+    - libgtk-3-dev:i386
+    - libcanberra-gtk-module:i386
+    - gtk2-engines-murrine:i386
+
+- name: Obtain 32-bit Java
+  get_url:
+    url: "{{ jre_url }}"
+    dest: "/usr/local/src/jre-{{ jre_version }}.tar.gz"
+    checksum: "sha256:{{ jre_checksum }}"
+
+- name: Extract 32-bit Java
+  unarchive:
+    src: "/usr/local/src/jre-{{ jre_version }}.tar.gz"
+    dest: /opt
+    remote_src: yes
+
+- name: Create JRE symlink
+  file:
+    src: "/opt/jre{{ jre_version }}"
+    dest: /opt/jre
+    state: link
+
+# TODO asdm shortcut using variable for jnlp url
