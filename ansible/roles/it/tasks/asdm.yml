@@ -28,4 +28,12 @@
     dest: /opt/jre
     state: link
 
-# TODO asdm shortcut using variable for jnlp url
+- name: Deploy ASDM shortcut
+  template:
+    src: asdm.desktop.j2
+    dest: /usr/share/applications/asdm.desktop
+
+- name: Deploy ASDM icon
+  copy:
+    src: asdm.png
+    dest: /usr/share/pixmaps/com.cisco.asdm.png

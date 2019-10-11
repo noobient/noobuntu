@@ -11,3 +11,4 @@
 
 - include_tasks: powershell.yml
 - include_tasks: asdm.yml
+  when: asa_host is defined
