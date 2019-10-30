@@ -1,0 +1,2 @@
+PATH=/usr/bin:${PATH}
+apt -y update && apt -y dist-upgrade

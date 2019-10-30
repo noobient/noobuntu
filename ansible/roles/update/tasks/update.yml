@@ -1,3 +1,9 @@
+- name: Deploy APT maintenance job
+  copy:
+    src: apt-maintenance
+    dest: /etc/cron.daily/apt-maintenance
+    mode: '0755'
+
 - name: Update apt info and all OS packages
   apt:
     upgrade: dist

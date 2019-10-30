@@ -45,7 +45,8 @@
 - include_tasks: ide.yml
 - include_tasks: gcm4ml.yml
 - include_tasks: putty.yml
-- include_tasks: apt.yml
+# TODO evaluate if can be fixed without own scripts
+#- include_tasks: apt.yml
 - include_tasks: network.yml
 - include_tasks: shares.yml
 - include_tasks: fscrypt.yml
