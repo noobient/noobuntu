@@ -45,6 +45,7 @@
     - meld
     - fuse-zip
     - qbittorrent
+    - vim
 
 - name: Install GitHub dependencies
   apt:
