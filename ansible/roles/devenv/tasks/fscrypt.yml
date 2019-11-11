@@ -16,6 +16,7 @@
     repo: https://github.com/google/fscrypt.git
     dest: /usr/local/src/fscrypt
     version: "{{ fscrypt_revision }}"
+    force: yes
 
 - name: Build fscrypt
   make:
