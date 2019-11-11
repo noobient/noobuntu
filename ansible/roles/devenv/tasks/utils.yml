@@ -54,6 +54,7 @@
     - qbittorrent
     - vim
     - gstreamer1.0-libav
+    - libcanberra-gtk-module
 
 - name: Install GitHub dependencies
   apt:
