@@ -47,11 +47,13 @@
     - net-tools
     - snapd
     - python3-pip
+    - virtualenv
     - colordiff
     - meld
     - fuse-zip
     - qbittorrent
     - vim
+    - gstreamer1.0-libav
 
 - name: Install GitHub dependencies
   apt:
