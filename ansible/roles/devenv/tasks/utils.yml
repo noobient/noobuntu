@@ -55,6 +55,7 @@
     - vim
     - gstreamer1.0-libav
     - libcanberra-gtk-module
+    - silversearcher-ag
 
 - name: Install GitHub dependencies
   apt:
