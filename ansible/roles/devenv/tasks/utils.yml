@@ -8,6 +8,11 @@
     repo: ppa:git-core/ppa
     update_cache: yes
 
+- name: Add GIMP PPA
+  apt_repository:
+    repo: ppa:otto-kesselgulasch/gimp
+    update_cache: yes
+
 - name: Install useful utils
   apt:
     name: "{{ packages }}"
@@ -56,6 +61,7 @@
     - gstreamer1.0-libav
     - libcanberra-gtk-module
     - silversearcher-ag
+    - gimp
 
 - name: Install GitHub dependencies
   apt:
