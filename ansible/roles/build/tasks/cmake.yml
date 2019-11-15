@@ -13,3 +13,8 @@
   apt:
     update_cache: yes
   when: kitware_repo.changed
+
+- name: Install Kitware GPG keyring
+  apt:
+    name: kitware-archive-keyring
+    state: latest
