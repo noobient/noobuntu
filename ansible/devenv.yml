@@ -7,5 +7,5 @@
   roles:
   - update
   - build
-  - devenv
   - vulkan
+  - devenv
