@@ -1,5 +1,5 @@
 - name: Check if machine is AD joined
-  shell: "realm discover | grep 'configured: kerberos-member'"
+  shell: "realm list | grep 'configured: kerberos-member'"
   ignore_errors: yes
   changed_when: no
   no_log: True
