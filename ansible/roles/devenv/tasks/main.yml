@@ -34,7 +34,6 @@
     loop_var: item
 
 - include_tasks: onedrive.yml
-- include_tasks: vulkan.yml
 
 # these only work if AD joined
 #- include_tasks: appimage.yml
