@@ -20,8 +20,9 @@
 - include_tasks: apparmor.yml
 - include_tasks: email.yml
 
-- include_tasks: 3rdparty.yml
-  with_items:
+- include_role:
+    name: 3rdparty
+  loop:
   - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: 'docker-ce' }
   - { name: 'Google Chrome', gpg_file: 'google-chrome', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
   - { name: 'Spotify', gpg_url: 'https://download.spotify.com/debian/pubkey.gpg', repo_file: 'spotify', package: 'spotify-client' }
@@ -30,8 +31,6 @@
   - { name: 'Vagrant', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4', repo_file: 'wolfgang42-vagrant', package: 'vagrant' }
   - { name: 'VirtualBox', gpg_url: 'https://www.virtualbox.org/download/oracle_vbox_2016.asc', repo_file: 'virtualbox', package: 'virtualbox-6.0' }
   - { name: 'VS Code', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'vscode', package: 'code' }
-  loop_control:
-    loop_var: item
 
 - include_tasks: onedrive.yml
 

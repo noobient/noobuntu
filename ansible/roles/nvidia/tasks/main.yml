@@ -7,9 +7,6 @@
 - include_tasks: driver.yml
 
 - include_role:
-    name: devenv
-    tasks_from: 3rdparty
-  with_items:
+    name: 3rdparty
+  loop:
   - { name: 'NVIDIA Container Toolkit', gpg_url: 'https://nvidia.github.io/nvidia-docker/gpgkey', repo_file: 'nvidia-docker', package: 'nvidia-container-toolkit' }
-  loop_control:
-    loop_var: item

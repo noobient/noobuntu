@@ -1,8 +1,7 @@
-- include_tasks: 3rdparty.yml
-  with_items:
+- include_role:
+    name: 3rdparty
+  loop:
   - { name: 'Insync', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'ACCAF35C', repo_file: 'insync', package: 'insync', repo_overwrite: True }
-  loop_control:
-    loop_var: item
 
 - name: Install Insync Nautilus plugin
   apt:
