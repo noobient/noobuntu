@@ -12,6 +12,4 @@
     make_args: '{% if item.value.make_args is defined %}{{ item.value.make_args }}{% endif %}'
   with_dict: "{{ drivers }}"
 
-# TODO fix build
-#- include_tasks: mellanox.yml
 - include_tasks: firmware.yml

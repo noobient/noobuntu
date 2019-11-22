@@ -2,7 +2,6 @@
 # new releases:
 # - https://sourceforge.net/projects/e1000/files/
 # - https://www.aquantia.com/support/driver-download/
-# - https://www.mellanox.com/page/products_dyn?product_family=27
 
 default_ext: tar.gz
 sf_mirror: netcologne

@@ -34,8 +34,6 @@ Drivers:
 - i40e
 - igb
 - ixgbe
-- mlx4
-- mlx5
 - tn40xx
 
 IT:
