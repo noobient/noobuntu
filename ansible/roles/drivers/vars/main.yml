@@ -4,7 +4,8 @@
 # - https://www.aquantia.com/support/driver-download/
 
 default_ext: tar.gz
-sf_mirror: netcologne
+#sf_mirror: netcologne
+sf_mirror: liquidtelecom
 
 drivers:
   atlantic:
