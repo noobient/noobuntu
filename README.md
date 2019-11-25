@@ -10,7 +10,6 @@ Active Directory:
 
 Development Environment:
 
-- Encrypted home
 - OneDrive
 - Network Shares
 - Corporate Email

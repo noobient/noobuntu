@@ -50,7 +50,8 @@
 #- include_tasks: apt.yml
 - include_tasks: network.yml
 - include_tasks: shares.yml
-- include_tasks: fscrypt.yml
+# TODO we settle with LUKS for now
+#- include_tasks: fscrypt.yml
 
 # keep this one as last
 - include_tasks: cleanup.yml
