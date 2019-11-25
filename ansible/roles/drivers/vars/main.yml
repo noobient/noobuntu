@@ -2,10 +2,10 @@
 # new releases:
 # - https://sourceforge.net/projects/e1000/files/
 # - https://www.aquantia.com/support/driver-download/
-# - https://www.mellanox.com/page/products_dyn?product_family=27
 
 default_ext: tar.gz
-sf_mirror: netcologne
+#sf_mirror: netcologne
+sf_mirror: liquidtelecom
 
 drivers:
   atlantic:
@@ -17,37 +17,37 @@ drivers:
     ko_name: atlantic
     dkms_name: atlantic
   e1000e:
-    version: 3.5.1
-    dkms_version: 3.5.1
-    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/e1000e%20stable/3.5.1/e1000e-3.5.1.tar.gz'
-    checksum: 1b8c391c8c7114dcb65f20ae424ff8f89692c8daa4fe2569beecf9b2a2c9ae34
+    version: 3.6.0
+    dkms_version: 3.6.0
+    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/e1000e%20stable/3.6.0/e1000e-3.6.0.tar.gz'
+    checksum: 41d90fd6d236faba0b36e4be4a15c0f71c901ccf61ebf1c2719375daf390e820
     file_ext: '{{ default_ext }}'
     ko_name: e1000e
     dkms_name: e1000e
     make_dir: src
   i40e:
-    version: 2.9.21
-    dkms_version: 2.9.21
-    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/i40e%20stable/2.9.21/i40e-2.9.21.tar.gz'
-    checksum: fc9f185e73cf2a621970f3491c0c960954f287583ea5930d214c8dac5810597d
+    version: 2.10.19.30
+    dkms_version: 2.10.19.30
+    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/i40e%20stable/2.10.19.30/i40e-2.10.19.30.tar.gz'
+    checksum: 23bdbc12a71e58ae68fb6a7173d104dcbd85f97e6a62fa08e8a99521bab6eb77
     file_ext: '{{ default_ext }}'
     ko_name: i40e
     dkms_name: i40e
     make_dir: src
   igb:
-    version: 5.3.5.36
-    dkms_version: 5.3.5.36
-    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/igb%20stable/5.3.5.36/igb-5.3.5.36.tar.gz'
-    checksum: 87f69e85235443ced50b9f87f01e574b7cc620089a02ba2223e0be438e50fda6
+    version: 5.3.5.42
+    dkms_version: 5.3.5.42
+    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/igb%20stable/5.3.5.42/igb-5.3.5.42.tar.gz'
+    checksum: 8feccf37b10cde1d68caa883a153d7584ae03312ad93101fe873c51e43e8b517
     file_ext: '{{ default_ext }}'
     ko_name: igb
     dkms_name: igb
     make_dir: src
   ixgbe:
-    version: 5.6.1
-    dkms_version: 5.6.1
-    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/ixgbe%20stable/5.6.1/ixgbe-5.6.1.tar.gz'
-    checksum: 7e5d3fefe429dfdc989da4478e176ef95808d250cb616bd8400374c3831a7ee3
+    version: 5.6.3
+    dkms_version: 5.6.3
+    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/ixgbe%20stable/5.6.3/ixgbe-5.6.3.tar.gz'
+    checksum: d6a5129b7be0a25bed65843be37e4ac913deab4ca169b215521088e10eb03ef1
     file_ext: '{{ default_ext }}'
     ko_name: ixgbe
     dkms_name: ixgbe

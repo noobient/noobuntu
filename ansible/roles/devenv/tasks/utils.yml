@@ -62,6 +62,7 @@
     - libcanberra-gtk-module
     - silversearcher-ag
     - gimp
+    - gnome-tweaks
 
 - name: Install GitHub dependencies
   apt:
