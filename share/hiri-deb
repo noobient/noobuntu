@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -eu
+
+PKG_VER=2
+WORK_DIR='hiri-tmp'
+rm -rf ${WORK_DIR}
+mkdir -p ${WORK_DIR}
+
+pushd ${WORK_DIR}
+
+wget https://feedback.hiri.com/downloads/Hiri.tar.gz
+tar xf Hiri.tar.gz
+
+HIRI_VER=$(find -maxdepth 1 -name hiri_* | cut -d'_' -f2)
+ROOT_DIR="hiri_${HIRI_VER}-${PKG_VER}"
+OPT_DIR="${ROOT_DIR}/opt"
+APP_DIR="${OPT_DIR}/hiri"
+
+mv "hiri_${HIRI_VER}" "hiri"
+mkdir -p "${OPT_DIR}"
+mv "hiri" "${OPT_DIR}"
+mkdir -p "${ROOT_DIR}/DEBIAN"
+mkdir -p "${ROOT_DIR}/usr/bin"
+mkdir -p "${ROOT_DIR}/usr/share/applications"
+mkdir -p "${ROOT_DIR}/usr/share/pixmaps"
+
+ln -s "/opt/hiri/hiri.sh" "${ROOT_DIR}/usr/bin/hiri"
+ln -s "/opt/hiri/hirimain" "${ROOT_DIR}/usr/bin/hirimain"
+cp "${APP_DIR}/hiri.png" "${ROOT_DIR}/usr/share/pixmaps/"
+
+cat << EOF > "${ROOT_DIR}/usr/share/applications/hiri.desktop"
+[Desktop Entry]
+X-SnapInstanceName=hiri
+Type=Application
+Name=Hiri
+GenericName=Mail Client
+Comment=Hiri Email Client
+Categories=Office;Network;Email;Calendar;
+Keywords=Email;E-mail;Calendar;Contacts;
+Terminal=false
+StartupNotify=true
+MimeType=x-scheme-handler/mailto;
+Exec=/usr/bin/hiri %u
+Icon=/usr/share/pixmaps/hiri.png
+EOF
+
+cat << EOF > "${ROOT_DIR}/DEBIAN/control"
+Package: hiri
+Version: ${HIRI_VER}-${PKG_VER}
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27), zlib1g (>= 1.2.11)
+Maintainer: Viktor Berke <github.bviktor@outlook.com>
+Description: Hiri email client
+EOF
+
+dpkg-deb --build "hiri_${HIRI_VER}-${PKG_VER}"
+
+popd
