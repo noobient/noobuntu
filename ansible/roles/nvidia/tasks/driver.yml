@@ -6,7 +6,7 @@
   register: nv_any
 
 - name: Check if current NV version is installed
-  shell: dpkg -l | grep -E "nvidia-driver-{{ nvidia_version }}"
+  shell: dpkg -l | grep -E "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
   ignore_errors: yes
   changed_when: no
   no_log: True
@@ -24,5 +24,5 @@
     install_recommends: yes
   vars:
     packages:
-    - "nvidia-driver-{{ nvidia_version }}"
+    - "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
     - nvidia-settings

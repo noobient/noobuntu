@@ -1,3 +1,2 @@
 ---
-#nvidia_version: 418
-nvidia_version: 440
+nvidia_default_version: 440
