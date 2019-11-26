@@ -16,7 +16,7 @@
 - include_tasks: purge_driver.yml
   when: nv_any.rc == 0 and nv_current.rc != 0
 
-- name: Install NV driver
+- name: "Install NV driver v{{ nvidia_version | default(nvidia_default_version) }}"
   apt:
     name: "{{ packages }}"
     state: latest
