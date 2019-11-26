@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CUDA_URL='https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/index.html'
+TARGET_DIR='/var/www'
+/bin/wget -N -r -l1 --no-parent -e robots=off --directory-prefix=${TARGET_DIR} ${CUDA_URL}
+
+/bin/chown -R nginx.nginx "${TARGET_DIR}/developer.download.nvidia.com"
+/sbin/restorecon -r "${TARGET_DIR}/developer.download.nvidia.com"
