@@ -4,7 +4,7 @@ set -eu
 
 PKG_VER=3
 WORK_DIR='hiri-tmp'
-rm -rf ${WORK_DIR}
+sudo rm -rf ${WORK_DIR}
 mkdir -p ${WORK_DIR}
 
 pushd ${WORK_DIR}
