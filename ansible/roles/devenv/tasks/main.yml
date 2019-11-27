@@ -25,7 +25,7 @@
   loop:
   - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: 'docker-ce' }
   - { name: 'Google Chrome', gpg_file: 'google-chrome', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
-  - { name: 'Hiri', gpg_url: 'https://nexus.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'hiri' }
+  - { name: 'Hiri', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'hiri' }
   - { name: 'Node.js', gpg_url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key', repo_file: 'nodesource', package: 'nodejs' }
   - { name: 'Spotify', gpg_url: 'https://download.spotify.com/debian/pubkey.gpg', repo_file: 'spotify', package: 'spotify-client' }
   - { name: 'pgAdmin', gpg_url: 'https://www.postgresql.org/media/keys/ACCC4CF8.asc', repo_file: 'pgdg', package: 'pgadmin4' }

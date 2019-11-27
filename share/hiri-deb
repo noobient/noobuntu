@@ -2,7 +2,7 @@
 
 set -eu
 
-PKG_VER=2
+PKG_VER=3
 WORK_DIR='hiri-tmp'
 rm -rf ${WORK_DIR}
 mkdir -p ${WORK_DIR}
@@ -56,6 +56,7 @@ Maintainer: Viktor Berke <github.bviktor@outlook.com>
 Description: Hiri email client
 EOF
 
-dpkg-deb --build "hiri_${HIRI_VER}-${PKG_VER}"
+sudo chown -R root:root "${ROOT_DIR}"
+dpkg-deb --build "${ROOT_DIR}"
 
 popd
