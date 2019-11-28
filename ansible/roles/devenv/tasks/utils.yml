@@ -55,6 +55,7 @@
     - virtualenv
     - colordiff
     - meld
+    - zip
     - fuse-zip
     - qbittorrent
     - vim
