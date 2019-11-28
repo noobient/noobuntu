@@ -1,0 +1,6 @@
+- name: Remove OPA Docker plugin v{{ item }}
+  command: "docker plugin rm --force openpolicyagent/opa-docker-authz-v2:{{ item }}"
+  ignore_errors: yes
+  no_log: True
+  register: opa_rm
+  changed_when: opa_rm.rc == 0

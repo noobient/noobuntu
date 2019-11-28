@@ -1,0 +1,10 @@
+---
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: 'docker-ce' }
+
+- include_tasks: opa_remove.yml
+  loop: "{{ opa_old_versions }}"
+
+- include_tasks: opa_install.yml
