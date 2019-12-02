@@ -1,0 +1,13 @@
+- name: Install ufw
+  apt:
+    name: ufw
+    state: latest
+
+- name: Enable ufw
+  ufw:
+    state: enabled
+
+- name: Enable SSH
+  ufw:
+    rule: limit
+    name: OpenSSH
