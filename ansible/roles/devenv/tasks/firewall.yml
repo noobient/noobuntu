@@ -1,13 +1,35 @@
-- name: Install ufw
+- name: Install UFW and OpenSSH server
   apt:
-    name: ufw
+    name: "{{ item }}"
     state: latest
+  loop:
+    - ufw
+    - openssh-server
 
-- name: Enable ufw
+- name: Check if firewall rule exists
+  stat:
+    path: /etc/ufw/applications.d/openssh-server
+  register: openssh_rule
+
+# reinstall OpenSSH if the rule is missing, dpkg-reconfigure isn't enough
+- name: Purge OpenSSH server
+  apt:
+    name: openssh-server
+    state: absent
+    purge: yes
+  when: openssh_rule.stat.exists == False
+
+- name: Reinstall OpenSSH server
+  apt:
+    name: openssh-server
+    state: latest
+  when: openssh_rule.stat.exists == False
+
+- name: Enable UFW
   ufw:
     state: enabled
 
-- name: Enable SSH
+- name: Enable SSH access
   ufw:
     rule: limit
     name: OpenSSH
