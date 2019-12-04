@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -eu
+
+PKG_NAME='tpm2-tss'
+PKG_VER=2.3.1
+PKG_BUILD=4
+
+TMP_DIR="/tmp/noobuntu"
+WORK_DIR="${TMP_DIR}/${PKG_NAME}"
+DEST_DIR="${TMP_DIR}/${PKG_NAME}_${PKG_VER}-${PKG_BUILD}"
+
+sudo rm -rf ${TMP_DIR}
+
+mkdir -p ${WORK_DIR}
+mkdir -p ${DEST_DIR}
+
+pushd ${WORK_DIR}
+
+wget https://github.com/tpm2-software/tpm2-tss/releases/download/${PKG_VER}/tpm2-tss-${PKG_VER}.tar.gz
+tar xf tpm2-tss-${PKG_VER}.tar.gz
+
+cd tpm2-tss-${PKG_VER}
+./configure --prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu --disable-doxygen-man --disable-doxygen-doc
+make
+DESTDIR=${DEST_DIR} make install
+
+mkdir -p "${DEST_DIR}/DEBIAN"
+
+cat << EOF > "${DEST_DIR}/DEBIAN/control"
+Package: ${PKG_NAME}
+Version: ${PKG_VER}-${PKG_BUILD}
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27), libssl1.1 (>= 1.1.1), pkg-config (>= 0.29.1)
+Maintainer: Viktor Berke <github.bviktor@outlook.com>
+Description: OSS implementation of the TCG TPM2 Software Stack (TSS2)
+EOF
+
+sudo chown -R root:root "${DEST_DIR}"
+dpkg-deb --build "${DEST_DIR}"
+
+popd

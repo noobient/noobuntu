@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -eu
+
+PKG_NAME='clevis'
+PKG_VER="11+git$(date +%Y%m%d)"
+#GIT_REV=62bd6de
+PKG_BUILD=2
+
+SRC_DIR="${PWD}"
+TMP_DIR="/tmp/noobuntu"
+WORK_DIR="${TMP_DIR}/${PKG_NAME}"
+DEST_DIR="${TMP_DIR}/${PKG_NAME}_${PKG_VER}-${PKG_BUILD}"
+
+sudo rm -rf ${TMP_DIR}
+
+mkdir -p ${WORK_DIR}
+mkdir -p ${DEST_DIR}
+
+pushd ${WORK_DIR}
+
+git clone https://github.com/latchset/clevis.git
+
+cd clevis
+patch -i "${SRC_DIR}/clevis-ubuntu-tang.patch" -p1
+#git checkout ${GIT_REV}
+meson build --prefix=/usr
+# --libdir=/usr/lib
+ninja -C build test
+DESTDIR=${DEST_DIR} ninja -C build install
+
+mkdir -p "${DEST_DIR}/DEBIAN"
+
+cat << EOF > "${DEST_DIR}/DEBIAN/control"
+Package: ${PKG_NAME}
+Version: ${PKG_VER}-${PKG_BUILD}
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27), tpm2-tools (>= 3.2.1), jose (>= 10-2build1), libjansson4 (>= 2.11), luksmeta (>= 8-3build1), libpwquality-tools (>= 1.4.0), tang (>= 6), curl (>= 7.58.0), auditd (>= 1:2.8.2), udisks2 (>= 2.7.6), libglib2.0-0 (>= 2.56.4)
+Maintainer: Viktor Berke <github.bviktor@outlook.com>
+Description: TPM (Trusted Platform Module) 2 tools
+EOF
+
+sudo chown -R root:root "${DEST_DIR}"
+dpkg-deb --build "${DEST_DIR}"
+
+popd

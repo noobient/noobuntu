@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -eu
+
+PKG_NAME='tpm2-tools'
+PKG_VER=3.2.1
+PKG_BUILD=5
+
+TMP_DIR="/tmp/noobuntu"
+WORK_DIR="${TMP_DIR}/${PKG_NAME}"
+DEST_DIR="${TMP_DIR}/${PKG_NAME}_${PKG_VER}-${PKG_BUILD}"
+
+sudo rm -rf ${TMP_DIR}
+
+mkdir -p ${WORK_DIR}
+mkdir -p ${DEST_DIR}
+
+pushd ${WORK_DIR}
+
+wget https://github.com/tpm2-software/tpm2-tools/releases/download/${PKG_VER}/tpm2-tools-${PKG_VER}.tar.gz
+tar xf tpm2-tools-${PKG_VER}.tar.gz
+
+cd tpm2-tools-${PKG_VER}
+./configure --prefix=/usr --exec-prefix=/usr
+make
+DESTDIR=${DEST_DIR} make install
+
+mkdir -p "${DEST_DIR}/DEBIAN"
+
+cat << EOF > "${DEST_DIR}/DEBIAN/control"
+Package: ${PKG_NAME}
+Version: ${PKG_VER}-${PKG_BUILD}
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27), libssl1.1 (>= 1.1.1), pkg-config (>= 0.29.1), libcurl4 (>= 7.58.0)
+Maintainer: Viktor Berke <github.bviktor@outlook.com>
+Description: TPM (Trusted Platform Module) 2 tools
+EOF
+
+sudo chown -R root:root "${DEST_DIR}"
+dpkg-deb --build "${DEST_DIR}"
+
+popd
