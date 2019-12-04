@@ -5,7 +5,7 @@ set -eu
 PKG_NAME='clevis'
 PKG_VER="11+git$(date +%Y%m%d)"
 #GIT_REV=62bd6de
-PKG_BUILD=4
+PKG_BUILD=5
 
 SRC_DIR="${PWD}"
 TMP_DIR="/tmp/noobuntu"
