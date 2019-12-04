@@ -1,21 +1,3 @@
-diff --git a/meson.build b/meson.build
-index 15dc6c3..0f241c8 100644
---- a/meson.build
-+++ b/meson.build
-@@ -1,11 +1,13 @@
- project('clevis', 'c', license: 'GPL3+', version: '11',
-         default_options: 'c_std=c99')
- 
-+libdir = join_paths(get_option('prefix'), get_option('libdir'))
- libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'))
- sysconfdir = join_paths(get_option('prefix'), get_option('sysconfdir'))
- bindir = join_paths(get_option('prefix'), get_option('bindir'))
- 
- data = configuration_data()
-+data.set('libdir', libdir)
- data.set('libexecdir', libexecdir)
- data.set('sysconfdir', sysconfdir)
- data.set('bindir', bindir)
 diff --git a/src/pins/tang/meson.build b/src/pins/tang/meson.build
 index 774d0fd..fdabf4a 100644
 --- a/src/pins/tang/meson.build
@@ -24,19 +6,19 @@ index 774d0fd..fdabf4a 100644
    required: false
  )
  kgen = find_program(
-+  join_paths(libdir, 'tangd-keygen'),
++  '/usr/lib/x86_64-linux-gnu/tangd-keygen',
    join_paths(libexecdir, 'tangd-keygen'),
    '/usr/libexec/tangd-keygen',
    required: false
  )
  updt = find_program(
-+  join_paths(libdir, 'tangd-update'),
++  '/usr/lib/x86_64-linux-gnu/tangd-update',
    join_paths(libexecdir, 'tangd-update'),
    '/usr/libexec/tangd-update',
    required: false
  )
  tang = find_program(
-+  join_paths(libdir, 'tangd'),
++  '/usr/lib/x86_64-linux-gnu/tangd',
    join_paths(libexecdir, 'tangd'),
    '/usr/libexec/tangd',
    required: false
@@ -44,7 +26,7 @@ index 774d0fd..fdabf4a 100644
      env.append('PATH',
        join_paths(meson.source_root(), 'src'),
        meson.current_source_dir(),
-+      libdir,
++      '/usr/lib/x86_64-linux-gnu',
        '/usr/libexec',
        libexecdir,
        separator: ':'

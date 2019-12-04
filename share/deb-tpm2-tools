@@ -4,7 +4,7 @@ set -eu
 
 PKG_NAME='tpm2-tools'
 PKG_VER=3.2.1
-PKG_BUILD=5
+PKG_BUILD=7
 
 TMP_DIR="/tmp/noobuntu"
 WORK_DIR="${TMP_DIR}/${PKG_NAME}"
@@ -21,7 +21,7 @@ wget https://github.com/tpm2-software/tpm2-tools/releases/download/${PKG_VER}/tp
 tar xf tpm2-tools-${PKG_VER}.tar.gz
 
 cd tpm2-tools-${PKG_VER}
-./configure --prefix=/usr --exec-prefix=/usr
+./configure --prefix=/usr
 make
 DESTDIR=${DEST_DIR} make install
 
@@ -33,7 +33,7 @@ Version: ${PKG_VER}-${PKG_BUILD}
 Section: base
 Priority: optional
 Architecture: amd64
-Depends: libc6 (>= 2.27), libssl1.1 (>= 1.1.1), pkg-config (>= 0.29.1), libcurl4 (>= 7.58.0)
+Depends: libc6 (>= 2.27), libssl1.1 (>= 1.1.1), pkg-config (>= 0.29.1), libcurl4 (>= 7.58.0), tpm2-tss (>= 2.3.1)
 Maintainer: Viktor Berke <github.bviktor@outlook.com>
 Description: TPM (Trusted Platform Module) 2 tools
 EOF
