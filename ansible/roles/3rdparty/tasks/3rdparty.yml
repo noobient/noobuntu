@@ -28,6 +28,7 @@
     state: latest
     update_cache: yes
   register: app_install
+  when: item.package is defined
 
 # installing the package adds noise to the repo file in postinst, fix it
 - name: "Fix {{ item.name }} repo file"
