@@ -27,6 +27,7 @@
     name: "{{ item.package }}"
     state: latest
     update_cache: yes
+    install_recommends: "{{ item.install_recommends | default('yes') }}"
   register: app_install
   when: item.package is defined
 
