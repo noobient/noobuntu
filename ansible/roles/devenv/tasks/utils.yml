@@ -64,6 +64,7 @@
     - silversearcher-ag
     - gimp
     - gnome-tweaks
+    - putty-tools
 
 - name: Install GitHub dependencies
   apt:
@@ -82,24 +83,3 @@
 - name: Install GitHub Desktop
   apt:
     deb: "https://github.com/shiftkey/desktop/releases/download/release-{{ github_version }}/GitHubDesktop-linux-{{ github_version }}.deb"
-
-# desktop apps don't rely on .bashrc
-- name: Source Pageant variables in GitHub Desktop
-  replace:
-    path: /usr/share/applications/github-desktop.desktop
-    regexp: '^Exec="/opt/GitHub Desktop/github-desktop" (.*)'
-    replace: 'Exec=sh -c "[ -f \$HOME/.pageant ] && . \$HOME/.pageant; /opt/GitHub\ Desktop/github-desktop \1"'
-
-# desktop apps don't rely on .bashrc
-- name: Source Pageant variables in Remmina
-  replace:
-    path: /usr/share/applications/org.remmina.Remmina.desktop
-    regexp: '^Exec=/usr/bin/remmina(.*)'
-    replace: 'Exec=sh -c "[ -f \$HOME/.pageant ] && . \$HOME/.pageant; /usr/bin/remmina\1"'
-
-# desktop apps don't rely on .bashrc
-- name: Source Pageant variables in FileZilla
-  replace:
-    path: /usr/share/applications/filezilla.desktop
-    regexp: '^Exec=filezilla(.*)'
-    replace: 'Exec=sh -c "[ -f \$HOME/.pageant ] && . \$HOME/.pageant; filezilla\1"'
