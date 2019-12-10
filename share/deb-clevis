@@ -22,7 +22,6 @@ pushd ${WORK_DIR}
 git clone https://github.com/latchset/clevis.git
 
 cd clevis
-patch -i "${SRC_DIR}/clevis-ubuntu-tang.patch" -p1
 #git checkout ${GIT_REV}
 meson build --prefix=/usr --libdir=/usr/lib
 ninja -C build test
