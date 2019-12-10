@@ -46,7 +46,7 @@
 
 - include_tasks: ide.yml
 - include_tasks: gcm4ml.yml
-- include_tasks: putty.yml
+#- include_tasks: putty.yml
 # TODO evaluate if can be fixed without own scripts
 #- include_tasks: apt.yml
 - include_tasks: network.yml
