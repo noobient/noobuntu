@@ -1,4 +1,6 @@
 ---
+- include_tasks: sb.yml
+
 - include_tasks: repo_ppa.yml
   when: cuda_runfile_install == True
 - include_tasks: repo_cuda.yml
