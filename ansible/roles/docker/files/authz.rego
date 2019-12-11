@@ -40,24 +40,18 @@ valid_bind_mapping_whitelist
     count(invalid_paths, 0)
 }
 
-# prohibit access to the host file system outside /home
-# which would essentially grant root privileges to the user
-
 # bind mounts
 # `docker run --mount type=bind,source=/,target=/host-root`
 
-valid_host_path_prefixes = {"home/"}
-
-host_mount_paths[trimmed]
+host_mount_paths[mount]
 {
     input.Body.HostConfig.Mounts[_] = mount
-    trim(mount.Source, "/", trimmed)
 }
 
 valid_host_mount_paths[host_path]
 {
     host_mount_paths[host_path]
-    startswith(host_path, valid_host_path_prefixes[_])
+    host_path.ReadOnly
 }
 
 valid_mount_mapping_whitelist
