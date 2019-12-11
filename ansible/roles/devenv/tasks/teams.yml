@@ -12,6 +12,12 @@
     - /usr/share/applications/msteams.desktop
     - /usr/share/pixmaps/com.microsoft.teams.png
 
-- name: Install unofficial Teams deb
+- name: Remove unofficial Teams deb
   apt:
-    deb: "https://github.com/IsmaelMartinez/teams-for-linux/releases/download/v{{ teams_version }}/teams-for-linux_{{ teams_version }}_amd64.deb"
+    name: teams-for-linux
+    state: absent
+
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams' }

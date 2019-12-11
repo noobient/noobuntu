@@ -1,3 +1,0 @@
-- name: Install MS Teams client
-  snap:
-    name: teams-for-linux
