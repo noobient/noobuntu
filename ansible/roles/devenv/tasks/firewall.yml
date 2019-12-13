@@ -1,8 +1,9 @@
 - name: Install UFW and OpenSSH server
   apt:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
-  loop:
+  vars:
+    packages:
     - ufw
     - openssh-server
 
