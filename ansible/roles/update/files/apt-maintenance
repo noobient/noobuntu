@@ -4,22 +4,3 @@ set -eu
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 apt -y update && apt -y dist-upgrade && apt -y autoremove
-
-# Sometimes Vulkan might start failing after an imperfect upgrade. E.g. segfaults, or:
-#
-# WARNING: [Loader Message] Code 0 : loader_icd_scan: Can not find 'ICD' object in ICD JSON file /usr/share/vulkan/icd.d/nvidia_layers.json.  Skipping ICD JSON
-# /build/vulkan-tools-1.1.126.0~rc2/vulkaninfo/vulkaninfo.h:399: failed with ERROR_INITIALIZATION_FAILED
-#
-# Purging and reinstalling seems to resolve this kind of issue.
-# Make sure to only do this if Vulkan is actually installed.
-
-VI_BIN=$(which vulkaninfo) || true
-if [ ! -z ${VI_BIN} ]
-then
-    RET=1
-    ${VI_BIN} && RET=$? || true
-    if [ ${RET} -ne 0 ]
-    then
-        apt -y purge libvulkan-dev libvulkan1 vulkan-sdk vulkan-tools vulkan-validationlayers vulkan-validationlayers-dev && apt -y install vulkan-sdk
-    fi
-fi
