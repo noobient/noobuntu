@@ -1,0 +1,33 @@
+- name: Check if Vulkan is installed
+  shell: apt list --installed | grep vulkan-sdk
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: vulkan_any
+
+# Example output for apt list:
+#
+# vulkan-sdk/now 1.1.126.0~rc1-1lunarg18.04.1.1 all [installed,local]
+#
+# Extract '1.1.126' from that.
+
+- name: Get installed Vulkan version
+  shell: apt list --installed 2>/dev/null | grep vulkan-sdk | awk -F'[ ~]' '{print $2}' | cut -d'.' -f1-3
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: vulkan_current
+  when: vulkan_any.rc == 0
+
+- name: Uninstall mismatching Vulkan packages
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    autoremove: yes
+  vars:
+    packages:
+    - "libvulkan*"
+    - "vulkan-*"
+    - "lunarg-vulkan-*"
+  # we only include this task if vulkan_version is defined, no need to check
+  when: (vulkan_current is defined) and (vulkan_current is version(vulkan_version, '<>'))

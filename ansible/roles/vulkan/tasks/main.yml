@@ -1,2 +1,5 @@
 ---
+- include_tasks: purge_vulkan.yml
+  when: vulkan_version is defined
+
 - include_tasks: vulkan.yml
