@@ -30,4 +30,4 @@
     - "vulkan-*"
     - "lunarg-vulkan-*"
   # we only include this task if vulkan_version is defined, no need to check
-  when: (vulkan_current is defined) and (vulkan_current is version(vulkan_version, '<>'))
+  when: (vulkan_current is defined) and (vulkan_current.stdout is version(vulkan_version, '<>'))
