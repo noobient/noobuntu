@@ -24,6 +24,7 @@
     name: "{{ packages }}"
     state: absent
     autoremove: yes
+    purge: yes
   vars:
     packages:
     - "libvulkan*"
