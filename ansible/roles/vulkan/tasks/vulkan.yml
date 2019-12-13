@@ -3,10 +3,11 @@
   loop:
   - { name: 'Vulkan SDK', gpg_url: 'https://packages.lunarg.com/lunarg-signing-key-pub.asc', repo_file: 'lunarg-vulkan', package: 'vulkan-sdk', ldconfig: True }
 
-- name: Install Mesa Vulkan drivers
-  apt:
-    name: mesa-vulkan-drivers
-    state: latest
+# Shouldn't happen, but installing these actually breaks 'vulkaninfo' with NV cards
+#- name: Install Mesa Vulkan drivers
+#  apt:
+#    name: mesa-vulkan-drivers
+#    state: latest
 
 - name: Set Vulkan SDK path
   lineinfile:
