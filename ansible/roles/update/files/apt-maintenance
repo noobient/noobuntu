@@ -13,7 +13,7 @@ apt -y update && apt -y dist-upgrade && apt -y autoremove
 # Purging and reinstalling seems to resolve this kind of issue.
 # Make sure to only do this if Vulkan is actually installed.
 
-VI_BIN=$(which vulkaninfo)
+VI_BIN=$(which vulkaninfo) || true
 if [ ! -z ${VI_BIN} ]
 then
     RET=1
