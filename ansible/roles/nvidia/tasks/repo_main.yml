@@ -1,0 +1,14 @@
+- name: Remove CUDA repo
+  file:
+    path: "/etc/apt/sources.list.d/cuda.list"
+    state: absent
+  register: cuda_driver
+
+- name: Remove graphics drivers PPA
+  apt_repository:
+    repo: ppa:graphics-drivers/ppa
+    state: absent
+  register: ppa_driver
+
+- include_tasks: purge_driver.yml
+  when: cuda_driver.changed or ppa_driver.changed
