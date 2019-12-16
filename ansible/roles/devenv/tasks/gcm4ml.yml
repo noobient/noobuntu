@@ -30,3 +30,8 @@
 
 - name: Enable Git Credential Manager
   command: git config --system credential.helper '!/etc/alternatives/java -Ddebug=false -Djava.net.useSystemProxies=true -jar /usr/local/bin/git-credential-manager.jar'
+
+- name: Remove old Git skeleton file
+  file:
+    path: /etc/skel/.gitconfig
+    state: absent
