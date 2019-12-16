@@ -29,5 +29,5 @@
 
 - name: Set default credential helper
   copy:
-    src: .gitconfig
-    dest: /etc/skel/.gitconfig
+    src: gitconfig
+    dest: /etc/gitconfig
