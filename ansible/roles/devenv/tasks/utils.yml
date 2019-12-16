@@ -3,11 +3,6 @@
   apt_repository:
     repo: ppa:jakar/qt-heif
 
-- name: Add Git PPA
-  apt_repository:
-    repo: ppa:git-core/ppa
-    update_cache: yes
-
 - name: Add GIMP PPA
   apt_repository:
     repo: ppa:otto-kesselgulasch/gimp
@@ -21,8 +16,6 @@
   vars:
     packages:
     - mc
-    - git
-    - git-lfs
     - git-gui
     - gitg
     - remmina

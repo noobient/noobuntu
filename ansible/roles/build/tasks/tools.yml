@@ -19,3 +19,18 @@
     - iwyu
     - texlive-latex-base
     - texlive-binaries
+
+- name: Add Git PPA
+  apt_repository:
+    repo: ppa:git-core/ppa
+    update_cache: yes
+
+- name: Install Git
+  apt:
+    name: "{{ packages }}"
+    install_recommends: yes
+    state: latest
+  vars:
+    packages:
+    - git
+    - git-lfs
