@@ -4,6 +4,7 @@
     install_recommends: no
   vars:
     packages:
+    - git
     - default-jre-headless
     - gnome-keyring
     - seahorse
@@ -27,7 +28,5 @@
     dest: /usr/local/bin/git-credential-manager
     mode: 0755
 
-- name: Set default credential helper
-  copy:
-    src: gitconfig
-    dest: /etc/gitconfig
+- name: Enable Git Credential Manager
+  command: git config --system credential.helper '!/etc/alternatives/java -Ddebug=false -Djava.net.useSystemProxies=true -jar /usr/local/bin/git-credential-manager.jar'
