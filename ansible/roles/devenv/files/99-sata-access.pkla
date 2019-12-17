@@ -1,0 +1,6 @@
+[SATA access for users]
+Identity=unix-user:*
+Action=org.freedesktop.udisks2.filesystem-mount-system
+ResultAny=auth_admin
+ResultInactive=auth_admin
+ResultActive=yes

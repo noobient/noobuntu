@@ -38,6 +38,7 @@
 - include_tasks: network.yml
 - include_tasks: shares.yml
 - include_tasks: firewall.yml
+- include_tasks: polkit.yml
 
 # keep this one as last
 - include_tasks: cleanup.yml
