@@ -2,9 +2,9 @@
 <pam_mount>
 {% for share in ad_smb_shares %}
 {% if share.enabled == True %}
-    <volume options="uid=%(USER),vers={{ share.version }}" user="*" mountpoint="/media/%(USER)/shares/{{ share.path }}" path="{{ share.path }}" server="{{ share.host }}.{{ ad_domain }}" fstype="cifs" />
+    <volume user="*" mountpoint="/media/%(USER)/shares/{{ share.path }}" path="{{ share.path }}" server="{{ share.host }}.{{ ad_domain }}" fstype="cifs" options="uid=%(USER),vers={{ share.version }}" />
 {% else %}
-    <!--volume options="uid=%(USER),vers={{ share.version }}" user="*" mountpoint="/media/%(USER)/shares/{{ share.path }}" path="{{ share.path }}" server="{{ share.host }}.{{ ad_domain }}" fstype="cifs" /-->
+    <!--volume user="*" mountpoint="/media/%(USER)/shares/{{ share.path }}" path="{{ share.path }}" server="{{ share.host }}.{{ ad_domain }}" fstype="cifs" options="uid=%(USER),vers={{ share.version }}" /-->
 {% endif %}
 {% endfor %}
 </pam_mount>
