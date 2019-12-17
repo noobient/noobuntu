@@ -1,0 +1,21 @@
+- name: Install Git
+  apt:
+    name: git
+    state: present
+
+- name: Check system-wide Git "{{ item.key }}"
+  shell: git config --system --get "{{ item.key }}"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: current_value
+
+- name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}"
+  command: git config --system "{{ item.key }}" "{{ item.value }}"
+  when: (item.value != current_value.stdout) and (item.except is not defined)
+
+# Don't override if some blocker value is specified.
+# E.g. don't set to cache when GCM4ML is in use already.
+- name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}"
+  command: git config --system "{{ item.key }}" "{{ item.value }}"
+  when: (item.value != current_value.stdout) and (item.except is defined) and (item.except != current_value.stdout)

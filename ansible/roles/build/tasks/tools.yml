@@ -35,13 +35,7 @@
     - git
     - git-lfs
 
-- name: Check global Git credential helper status
-  shell: git config --system --get credential.helper
-  ignore_errors: yes
-  changed_when: no
-  no_log: True
-  register: git_cred_helper
-
-- name: Enable Git credential cache
-  command: git config --system credential.helper 'cache'
-  when: ("git-credential-helper" not in git_cred_helper.stdout)
+- include_role:
+    name: gitconfig
+  loop:
+  - { key: 'credential.helper', value: 'cache', except: "{{ gcm4ml_helper }}" }

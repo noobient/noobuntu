@@ -4,7 +4,6 @@
     install_recommends: no
   vars:
     packages:
-    - git
     - default-jre-headless
     - gnome-keyring
     - seahorse
@@ -28,10 +27,12 @@
     dest: /usr/local/bin/git-credential-manager
     mode: 0755
 
-- name: Enable Git Credential Manager
-  command: git config --system credential.helper '!/etc/alternatives/java -Ddebug=false -Djava.net.useSystemProxies=true -jar /usr/local/bin/git-credential-manager.jar'
-
 - name: Remove old Git skeleton file
   file:
     path: /etc/skel/.gitconfig
     state: absent
+
+- include_role:
+    name: gitconfig
+  loop:
+  - { key: 'credential.helper', value: "{{ gcm4ml_helper }}" }
