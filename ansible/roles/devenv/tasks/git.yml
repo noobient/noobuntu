@@ -1,3 +1,39 @@
+# This is a slight duplication of 'build', but it's better to be sure
+- name: Add Git PPA
+  apt_repository:
+    repo: ppa:git-core/ppa
+    update_cache: yes
+
+- name: Install Git and related utils
+  apt:
+    name: "{{ packages }}"
+    install_recommends: yes
+    state: latest
+  vars:
+    packages:
+    - git
+    - git-lfs
+    - git-gui
+    - gitg
+
+- name: Install GitHub dependencies
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - gconf-service
+    - gconf-service-backend
+    - gconf2
+    - gconf2-common
+    - libappindicator1
+    - libcurl4
+    - libgconf-2-4
+    - libindicator7
+
+- name: Install GitHub Desktop
+  apt:
+    deb: "https://github.com/shiftkey/desktop/releases/download/release-{{ github_version }}/GitHubDesktop-linux-{{ github_version }}.deb"
+
 - name: Install GCM4ML dependencies
   apt:
     name: "{{ packages }}"
@@ -20,12 +56,6 @@
     src: "/usr/local/bin/git-credential-manager-{{ gcm4ml_version }}.jar"
     dest: /usr/local/bin/git-credential-manager.jar
     state: link
-
-- name: Deploy wrapper script
-  copy:
-    src: git-credential-manager
-    dest: /usr/local/bin/git-credential-manager
-    mode: 0755
 
 - name: Remove old Git skeleton file
   file:

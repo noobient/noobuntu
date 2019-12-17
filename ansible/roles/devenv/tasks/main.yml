@@ -34,7 +34,7 @@
 - include_tasks: onedrive.yml
 - include_tasks: teams.yml
 - include_tasks: ide.yml
-- include_tasks: gcm4ml.yml
+- include_tasks: git.yml
 - include_tasks: network.yml
 - include_tasks: shares.yml
 - include_tasks: firewall.yml
