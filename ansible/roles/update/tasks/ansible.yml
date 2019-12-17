@@ -1,3 +1,14 @@
 - name: Add Ansible PPA
   apt_repository:
     repo: ppa:ansible/ansible
+
+- name: Install Ansible
+  apt:
+    name: ansible
+    state: latest
+
+- name: Show IP on login screen
+  replace:
+    path: /etc/issue
+    regexp: '(Ubuntu .*)\\l$'
+    replace: '\1\\l (\\4)'
