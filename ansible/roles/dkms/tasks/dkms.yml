@@ -1,7 +1,7 @@
 - name: Install DKMS
   apt:
     name: dkms
-    state: latest
+    state: present
 
 - name: "Obtain {{ dkms_name }} driver"
   get_url:
