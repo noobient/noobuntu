@@ -66,3 +66,5 @@
     name: gitconfig
   loop:
   - { key: 'credential.helper', value: "{{ gcm4ml_helper }}" }
+  - { key: 'core.autocrlf', value: 'false' }
+  - { key: 'core.editor', value: 'vi' }
