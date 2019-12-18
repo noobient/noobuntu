@@ -14,11 +14,19 @@
     - clang-tidy-8
     - doxygen
     - graphviz
+    - imagemagick
+    - gnuplot
     - valgrind
     - gdb
     - iwyu
     - texlive-latex-base
     - texlive-binaries
+    - p7zip-full
+    - p7zip-rar
+    - zip
+    - unzip
+    - fuse-zip
+    - unrar
 
 - name: Add Git PPA
   apt_repository:
