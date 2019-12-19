@@ -1,0 +1,16 @@
+- name: Install Wireshark
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - wireshark
+    - expect
+
+- name: Check Wireshark configuration
+  stat:
+    path: /usr/bin/dumpcap
+  register: dumpcap_result
+
+- name: Allow members of the virtualbox group to capture packets
+  shell: expect -c "spawn dpkg-reconfigure --frontend=readline wireshark-common; expect \"Should non-superusers be able to capture packets?\"; send \"yes\r\"; expect eof"
+  when: dumpcap_result.stat.exists and dumpcap_result.stat.gr_name == 'root'

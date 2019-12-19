@@ -39,6 +39,7 @@
 - include_tasks: shares.yml
 - include_tasks: firewall.yml
 - include_tasks: polkit.yml
+- include_tasks: wireshark.yml
 
 # keep this one as last
 - include_tasks: cleanup.yml
