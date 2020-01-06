@@ -8,7 +8,7 @@
 
 - name: Install HWE kernel
   apt:
-    name: "linux-generic-hwe-{{ ubuntu_version }}"
+    name: "linux-generic-hwe-{{ ubuntu_version }}-edge"
     state: latest
 
 - name: Install HWE X.Org
