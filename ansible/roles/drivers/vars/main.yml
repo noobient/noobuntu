@@ -53,10 +53,10 @@ drivers:
 #    dkms_name: ixgbe
 #    make_dir: src
   tn40xx:
-    version: 0.3.6.17.1
-    dkms_version: 0.3.6.17.1
-    url: https://github.com/noobient/noobuntu/files/3718202/tn40xx-0.3.6.17.1.tar.gz
-    checksum: 8a7910c64c11b7267b9d21bb4f04762e37daca2abf18ef4ff6caea7e189f789a
+    version: 0.3.6.17.2
+    dkms_version: 0.3.6.17.2
+    url: https://github.com/noobient/noobuntu/files/4032184/tn40xx-0.3.6.17.2.tar.gz
+    checksum: 4348c253b26b5dc10f74c4434932825a92c43dbd97fdbecdee7c68e551feaf57
     file_ext: '{{ default_ext }}'
     ko_name: tn40xx
     dkms_name: tn40xx
