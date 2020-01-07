@@ -55,8 +55,8 @@ drivers:
   tn40xx:
     version: 0.3.6.17.2
     dkms_version: 0.3.6.17.2
-    url: https://github.com/noobient/noobuntu/files/4032184/tn40xx-0.3.6.17.2.tar.gz
-    checksum: 4348c253b26b5dc10f74c4434932825a92c43dbd97fdbecdee7c68e551feaf57
+    url: https://github.com/noobient/noobuntu/files/4032229/tn40xx-0.3.6.17.2.tar.gz
+    checksum: 937f8bd619a1c37b0d1da6fed5c214026fd609cf0eae9774605ec1665a04550d
     file_ext: '{{ default_ext }}'
     ko_name: tn40xx
     dkms_name: tn40xx
