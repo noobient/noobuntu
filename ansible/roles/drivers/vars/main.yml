@@ -8,14 +8,14 @@ default_ext: tar.gz
 sf_mirror: liquidtelecom
 
 drivers:
-  atlantic:
-    version: 2.2.6
-    dkms_version: 2.2.6
-    url: https://github.com/noobient/noobuntu/files/3718200/atlantic-2.2.6.tar.gz
-    checksum: 36ff7685d090ac9c19085e470121ae5448c4b7d947e6566b8efb59f21dc6b1e2
-    file_ext: '{{ default_ext }}'
-    ko_name: atlantic
-    dkms_name: atlantic
+#  atlantic:
+#    version: 2.2.6
+#    dkms_version: 2.2.6
+#    url: https://github.com/noobient/noobuntu/files/3718200/atlantic-2.2.6.tar.gz
+#    checksum: 36ff7685d090ac9c19085e470121ae5448c4b7d947e6566b8efb59f21dc6b1e2
+#    file_ext: '{{ default_ext }}'
+#    ko_name: atlantic
+#    dkms_name: atlantic
 #  e1000e:
 #    version: 3.6.0
 #    dkms_version: 3.6.0
