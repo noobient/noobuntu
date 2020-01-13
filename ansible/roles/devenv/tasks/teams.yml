@@ -17,7 +17,12 @@
     name: teams-for-linux
     state: absent
 
+- name: Remove non-insider Teams deb
+  apt:
+    name: teams
+    state: absent
+
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams' }
+  - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams-insiders' }
