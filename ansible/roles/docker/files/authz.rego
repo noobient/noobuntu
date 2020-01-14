@@ -17,21 +17,25 @@ unconfined
     input.Body.HostConfig.SecurityOpt[_] == "seccomp:unconfined"
 }
 
-# prohibit write access to the host file system which
-# would essentially grant root privileges to the user
+# prohibit access to the host file system outside /home
+# which would essentially grant root privileges to the user
+
+valid_host_path_prefixes = {"home/"}
 
 # binds
 # `docker run -v /:/host-root`
 
-host_bind_paths[bind]
+host_bind_paths[trimmed]
 {
     input.Body.HostConfig.Binds[_] = bind
+    split(bind, ":", parts)
+    trim(parts[0], "/", trimmed)
 }
 
 valid_host_bind_paths[host_path]
 {
     host_bind_paths[host_path]
-    endswith(host_path, ":ro")
+    startswith(host_path, valid_host_path_prefixes[_])
 }
 
 valid_bind_mapping_whitelist
@@ -43,15 +47,16 @@ valid_bind_mapping_whitelist
 # bind mounts
 # `docker run --mount type=bind,source=/,target=/host-root`
 
-host_mount_paths[mount]
+host_mount_paths[trimmed]
 {
     input.Body.HostConfig.Mounts[_] = mount
+    trim(mount.Source, "/", trimmed)
 }
 
 valid_host_mount_paths[host_path]
 {
     host_mount_paths[host_path]
-    host_path.ReadOnly
+    startswith(host_path, valid_host_path_prefixes[_])
 }
 
 valid_mount_mapping_whitelist
