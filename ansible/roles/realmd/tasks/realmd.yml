@@ -1,5 +1,8 @@
 - name: Check login policy
-  shell: realm list | grep "^\s*login-policy: allow-permitted-logins$"
+# we need the pipe + newline to ensure Ansible
+# doesn't treat the : as dictionary markup
+  shell: |
+    realm list | grep "^\s*login-policy: allow-permitted-logins$"
   ignore_errors: yes
   changed_when: no
   no_log: True
@@ -12,7 +15,8 @@
 # per-user access control is antipattern
 # so only groups are supported here
 - name: Check currently allowed groups
-  shell: realm list | grep "^\s*permitted-groups:.*{{ item }}.*"
+  shell: |
+    realm list | grep "^\s*permitted-groups:.*{{ item }}.*"
   ignore_errors: yes
   changed_when: no
   no_log: True
