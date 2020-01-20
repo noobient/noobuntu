@@ -21,7 +21,7 @@
     name: 3rdparty
   loop:
   - { name: 'Clevis', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'clevis', install_recommends: no }
-  - { name: 'Google Chrome', gpg_file: 'google-chrome', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
+  - { name: 'Google Chrome', gpg_url: 'https://dl.google.com/linux/linux_signing_key.pub', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
   - { name: 'Hiri', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'hiri' }
   - { name: 'Node.js', gpg_url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key', repo_file: 'nodesource', package: 'nodejs' }
   - { name: 'NoMachine', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'nomachine-enterprise-client' }
