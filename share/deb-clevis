@@ -4,12 +4,12 @@ set -eu
 
 PKG_NAME='clevis'
 
-PKG_VER="11+git$(date +%Y%m%d)"
-GIT_REV=62bd6de
-PKG_BUILD=6
+#PKG_VER="11+git$(date +%Y%m%d)"
+#GIT_REV=62bd6de
+#PKG_BUILD=6
 
-#PKG_VER="12"
-#PKG_BUILD=2
+PKG_VER="12"
+PKG_BUILD=4
 
 SRC_DIR="${PWD}"
 TMP_DIR="/tmp/noobuntu"
@@ -23,13 +23,18 @@ mkdir -p ${DEST_DIR}
 
 pushd ${WORK_DIR}
 
-git clone https://github.com/latchset/clevis.git
-cd clevis
-git checkout ${GIT_REV}
+#git clone https://github.com/latchset/clevis.git
+#cd clevis
+#git checkout ${GIT_REV}
 
-#wget https://github.com/latchset/clevis/releases/download/v${PKG_VER}/clevis-${PKG_VER}.tar.xz
-#tar xf clevis-${PKG_VER}.tar.xz
-#cd clevis-${PKG_VER}
+wget https://github.com/latchset/clevis/releases/download/v${PKG_VER}/clevis-${PKG_VER}.tar.xz
+tar xf clevis-${PKG_VER}.tar.xz
+cd clevis-${PKG_VER}
+
+# ugly I know, but I'm lazy
+# TODO remove once fixed upstream
+# https://github.com/latchset/clevis/issues/158
+sed -i 's@/usr/lib/cryptsetup/passfifo@/lib/cryptsetup/passfifo@' src/initramfs-tools/scripts/local-top/clevis.in
 
 meson build --prefix=/usr --libdir=/usr/lib
 ninja -C build
@@ -46,7 +51,7 @@ Priority: optional
 Architecture: amd64
 Depends: libc6 (>= 2.27), tpm2-tools (>= 3.2.1), jose (>= 10-2build1), libjansson4 (>= 2.11), luksmeta (>= 8-3build1), libpwquality-tools (>= 1.4.0), auditd (>= 1:2.8.2), udisks2 (>= 2.7.6), libglib2.0-0 (>= 2.56.4), tang (>= 6), curl (>= 7.58.0)
 Maintainer: Viktor Berke <github.bviktor@outlook.com>
-Description: TPM (Trusted Platform Module) 2 tools
+Description: Automated Encryption Framework
 EOF
 
 sudo chown -R root:root "${DEST_DIR}"
