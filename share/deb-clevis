@@ -3,9 +3,13 @@
 set -eu
 
 PKG_NAME='clevis'
+
 PKG_VER="11+git$(date +%Y%m%d)"
-#GIT_REV=62bd6de
-PKG_BUILD=5
+GIT_REV=62bd6de
+PKG_BUILD=6
+
+#PKG_VER="12"
+#PKG_BUILD=2
 
 SRC_DIR="${PWD}"
 TMP_DIR="/tmp/noobuntu"
@@ -20,11 +24,16 @@ mkdir -p ${DEST_DIR}
 pushd ${WORK_DIR}
 
 git clone https://github.com/latchset/clevis.git
-
 cd clevis
-#git checkout ${GIT_REV}
+git checkout ${GIT_REV}
+
+#wget https://github.com/latchset/clevis/releases/download/v${PKG_VER}/clevis-${PKG_VER}.tar.xz
+#tar xf clevis-${PKG_VER}.tar.xz
+#cd clevis-${PKG_VER}
+
 meson build --prefix=/usr --libdir=/usr/lib
-ninja -C build test
+ninja -C build
+sudo ninja -C build test
 DESTDIR=${DEST_DIR} ninja -C build install
 
 mkdir -p "${DEST_DIR}/DEBIAN"

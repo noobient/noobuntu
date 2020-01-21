@@ -5,8 +5,8 @@
 set -eu
 
 PKG_NAME='tpm2-tss'
-PKG_VER=2.3.1
-PKG_BUILD=6
+PKG_VER=2.3.2
+PKG_BUILD=1
 
 TMP_DIR="/tmp/noobuntu"
 WORK_DIR="${TMP_DIR}/${PKG_NAME}"
