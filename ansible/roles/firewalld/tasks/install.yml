@@ -1,0 +1,34 @@
+- name: Disable ufw
+  systemd:
+    name: ufw
+    enabled: no
+    state: stopped
+
+# take a leap of faith, SSH is enabled by default
+# and the firewalld module does not work on Ubuntu
+# even though the module is found in python3 shell
+- name: Install firewalld
+  apt:
+    name: firewalld
+    state: latest
+
+# necessary for Ansible to work remotely
+#- name: Enable SSH access
+#  firewalld:
+#    service: ssh
+#    state: enabled
+#    permanent: yes
+#    immediate: yes
+#    offline: yes
+
+- name: Enable firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+
+# make sure
+- name: "Enable SSH service"
+  shell: "firewall-cmd --permanent --add-service=ssh && firewall-cmd --reload"
+  register: fw_ssh
+  changed_when: ("ALREADY_ENABLED" not in fw_ssh.stderr)

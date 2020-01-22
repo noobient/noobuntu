@@ -34,13 +34,15 @@
   - { name: 'VirtualBox', gpg_url: 'https://www.virtualbox.org/download/oracle_vbox_2016.asc', repo_file: 'virtualbox', package: "virtualbox-{{ virtualbox_version }}" }
   - { name: 'VS Code', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'vscode', package: 'code' }
 
+- include_role:
+    name: firewalld
+
 - include_tasks: onedrive.yml
 - include_tasks: teams.yml
 - include_tasks: ide.yml
 - include_tasks: git.yml
 - include_tasks: network.yml
 - include_tasks: shares.yml
-- include_tasks: firewall.yml
 - include_tasks: polkit.yml
 - include_tasks: wireshark.yml
 

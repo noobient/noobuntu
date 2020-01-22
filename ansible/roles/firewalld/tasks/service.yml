@@ -1,0 +1,14 @@
+- name: "Create {{ item.name }} firewall service"
+  shell: "firewall-cmd --permanent --new-service {{ item.name }} && firewall-cmd --reload"
+  args:
+    creates: "/etc/firewalld/services/{{ item.name }}.xml"
+
+- name: "Add port {{ item.port }} to {{ item.name }} firewall service"
+  shell: "firewall-cmd --permanent --service={{ item.name }} --add-port={{ item.port }} && firewall-cmd --reload"
+  register: fw_port
+  changed_when: ("ALREADY_ENABLED" not in fw_port.stderr)
+
+- name: "Enable {{ item.name }} firewall service"
+  shell: "firewall-cmd --permanent --add-service={{ item.name }} && firewall-cmd --reload"
+  register: fw_svc
+  changed_when: ("ALREADY_ENABLED" not in fw_svc.stderr)
