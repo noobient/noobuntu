@@ -1,5 +1,6 @@
 ---
-- include_tasks: sb.yml
+- include_role:
+    name: secureboot
 
 # TODO decide if we want the PPA stuff or not
 #- include_tasks: repo_ppa.yml
