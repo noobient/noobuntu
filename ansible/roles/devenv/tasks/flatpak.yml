@@ -1,0 +1,22 @@
+- name: Add Flatpak PPA
+  apt_repository:
+    repo: ppa:alexlarsson/flatpak
+    update_cache: yes
+
+- name: Install Flatpak
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - flatpak
+    - gnome-software-plugin-flatpak
+
+# System remotes cannot be used for user installs
+# so this would be pretty useless to have
+# TODO find a way to make it work
+#- name: Enable Flathub repo
+#  flatpak_remote:
+#    name: flathub
+#    state: present
+#    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
