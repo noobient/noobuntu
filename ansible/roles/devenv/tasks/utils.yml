@@ -8,7 +8,7 @@
     repo: ppa:otto-kesselgulasch/gimp
     update_cache: yes
 
-- name: Install useful utils
+- name: Install useful utils (deb)
   apt:
     name: "{{ packages }}"
     install_recommends: yes
@@ -52,4 +52,9 @@
     - gnome-tweaks
     - putty-tools
     - screen
-    - steam
+
+- name: Install useful utils (snap)
+  snap:
+    name: "{{ item }}"
+  loop:
+    - prospect-mail
