@@ -1,0 +1,1 @@
+@reboot root /bin/sleep 60 && /usr/bin/condor_q || /bin/systemctl restart htcondor.service

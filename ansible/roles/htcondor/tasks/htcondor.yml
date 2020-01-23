@@ -1,0 +1,48 @@
+- include_role:
+    name: docker
+
+- include_role:
+    name: firewalld
+  loop:
+  - { name: 'ganglia', port: '8649/tcp' }
+  - { name: 'ganglia', port: '8649/udp' }
+  - { name: 'htcondor', port: '9618/tcp' }
+  - { name: 'htcondor', port: '9618/udp' }
+
+- name: Install HTCondor
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - htcondor
+    - ganglia-monitor
+
+- name: Add condor to docker group
+  user:
+    name: condor
+    groups: docker
+    append: yes
+
+- name: Deploy HTCondor systemd unit
+  copy:
+    src: htcondor.service
+    dest: /etc/systemd/system/htcondor.service
+  register: htcondor_unit
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: htcondor_unit.changed
+
+- name: Enable HTCondor unit
+  systemd:
+    name: htcondor
+    state: started
+    enabled: yes
+
+# HTCondor fails EVERY TIME after reboots
+- name: Deploy HTCondor reboot watchdog
+  copy:
+    src: htcondor-watchdog
+    dest: /etc/cron.d/htcondor-watchdog

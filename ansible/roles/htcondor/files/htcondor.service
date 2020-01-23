@@ -1,0 +1,16 @@
+# Source: https://github.com/johannbg/systemd-units/blob/master/projects/condor/service/condor.service
+[Unit]
+Description=Condor Distributed High-Throughput-Computing
+After=network.target
+
+[Service]
+#ControlGroup=/condor
+LimitNOFILE=16384
+ExecStart=/usr/sbin/condor_master -f
+ExecStop=/usr/sbin/condor_off -master
+ExecReload=/usr/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
