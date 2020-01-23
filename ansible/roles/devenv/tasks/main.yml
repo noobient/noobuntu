@@ -19,6 +19,10 @@
 - include_tasks: gnome.yml
 - include_tasks: apparmor.yml
 
+# for VirtualBox
+- include_role:
+    name: secureboot
+
 - include_role:
     name: 3rdparty
   loop:
