@@ -52,6 +52,9 @@
     - gnome-tweaks
     - putty-tools
     - screen
+# TODO remove once added to mainline kernel
+    - exfat-fuse
+    - exfat-utils
 
 - name: Install useful utils (snap)
   snap:
