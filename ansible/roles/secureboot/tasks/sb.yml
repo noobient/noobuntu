@@ -12,4 +12,4 @@
 
 - fail:
     msg: Secure Boot appears to be enabled. Check Secure Boot settigns in the UEFI!
-  when: ("SecureBoot disabled" not in sb_state.stdout)
+  when: ("SecureBoot disabled" not in sb_state.stdout) and ("This system doesn't support Secure Boot" not in sb_state.stdout)
