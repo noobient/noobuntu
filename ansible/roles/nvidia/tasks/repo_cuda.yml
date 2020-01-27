@@ -4,12 +4,23 @@
     state: absent
   register: ppa_driver
 
+- name: Add NVIDIA CUDA repo apt preferences
+  copy:
+    src: nvidia
+    dest: : "/etc/apt/preferences.d/nvidia"
+  register: cuda_driver
+
 - include_tasks: purge_driver.yml
-  when: ppa_driver.changed
+  when: ppa_driver.changed or cuda_driver.changed
 
-- include_tasks: repo_cuda_key.yml
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: "CUDA Repo", gpg_url: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub" }
 
-- name: Add CUDA repo
-  template:
-    src: cuda.list.j2
-    dest: /etc/apt/sources.list.d/cuda.list
+#- include_tasks: repo_cuda_key.yml
+
+#- name: Add CUDA repo
+#  template:
+#    src: cuda.list.j2
+#    dest: /etc/apt/sources.list.d/cuda.list

@@ -1,5 +1,5 @@
 ---
 ubuntu_version: 18.04
 ubuntu_codename: bionic
-cuda_runfile_install: True
+cuda_runfile_install: False
 gcm4ml_helper: '!/etc/alternatives/java -Ddebug=false -Djava.net.useSystemProxies=true -jar /usr/local/bin/git-credential-manager.jar'

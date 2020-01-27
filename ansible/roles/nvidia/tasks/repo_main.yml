@@ -4,6 +4,12 @@
     state: absent
   register: cuda_driver
 
+- name: Remove NVIDIA CUDA repo apt preferences
+  file:
+    path: "/etc/apt/preferences.d/nvidia"
+    state: absent
+  register: cuda_driver2
+
 - name: Remove graphics drivers PPA
   apt_repository:
     repo: ppa:graphics-drivers/ppa
@@ -11,4 +17,4 @@
   register: ppa_driver
 
 - include_tasks: purge_driver.yml
-  when: cuda_driver.changed or ppa_driver.changed
+  when: cuda_driver.changed or cuda_driver2.changed or ppa_driver.changed
