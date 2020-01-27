@@ -7,7 +7,7 @@
 - name: Add NVIDIA CUDA repo apt preferences
   copy:
     src: nvidia
-    dest: : "/etc/apt/preferences.d/nvidia"
+    dest: "/etc/apt/preferences.d/nvidia"
   register: cuda_driver
 
 - include_tasks: purge_driver.yml
