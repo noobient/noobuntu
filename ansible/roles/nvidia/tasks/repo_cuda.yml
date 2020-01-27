@@ -7,7 +7,7 @@
 - name: Add NVIDIA CUDA repo apt preferences
   copy:
     src: nvidia
-    dest: "/etc/apt/preferences.d/nvidia"
+    dest: /etc/apt/preferences.d/nvidia
   register: cuda_driver
 
 - include_tasks: purge_driver.yml
@@ -16,7 +16,7 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: "CUDA Repo", gpg_url: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub" }
+  - { name: 'CUDA Repo', gpg_url: 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub', repo_file: 'cuda' }
 
 #- include_tasks: repo_cuda_key.yml
 
