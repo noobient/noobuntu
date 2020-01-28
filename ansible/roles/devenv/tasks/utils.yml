@@ -1,18 +1,17 @@
-# TODO remove once newer version has this built-in
-- name: Add HEIF plugin PPA
+- name: Add PPAs
   apt_repository:
-    repo: ppa:jakar/qt-heif
-
-- name: Add GIMP PPA
-  apt_repository:
-    repo: ppa:otto-kesselgulasch/gimp
-    update_cache: yes
+    repo: "{{ item }}"
+  loop:
+  - ppa:jakar/qt-heif # TODO remove once newer version has this built-in
+  - ppa:otto-kesselgulasch/gimp
+  - ppa:slgobinath/safeeyes
 
 - name: Install useful utils (deb)
   apt:
     name: "{{ packages }}"
     install_recommends: yes
     state: latest
+    update_cache: yes
   vars:
     packages:
     - mc
@@ -52,6 +51,7 @@
     - gnome-tweaks
     - putty-tools
     - screen
+    - safeeyes
 # TODO remove once added to mainline kernel
     - exfat-fuse
     - exfat-utils
