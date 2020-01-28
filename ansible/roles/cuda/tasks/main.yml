@@ -3,6 +3,7 @@
     name: nvidia
 
 - include_tasks: ld_old.yml
+- include_tasks: check_cuda.yml
 
 - include_tasks: cuda_runfile.yml
   when: cuda_runfile_install == True

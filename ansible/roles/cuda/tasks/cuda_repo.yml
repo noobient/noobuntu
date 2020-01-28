@@ -1,18 +1,3 @@
-- name: Check if CUDA packages are installed
-  shell: apt list --installed | grep "^cuda-"
-  ignore_errors: yes
-  changed_when: no
-  no_log: True
-  register: cuda_packages
-
-# when no cuda package is installed, it's better to nuke it
-# because the package also installs to /usr/local/cuda
-- name: "Purge /usr/local/cuda-{{ cuda_path_version }}"
-  file:
-    path: "/usr/local/cuda-{{ cuda_path_version }}"
-    state: absent
-  when: cuda_packages.rc != 0
-
 - name: Install CUDA
   apt:
     name: "cuda-{{ cuda_package_version }}"

@@ -1,0 +1,76 @@
+# need to manually remove old version AND their dependencies
+# also libnccl as it does not depend on any CUDA package on the deb level
+# but causes conflicts as it uses the same filename across CUDA versions
+
+# TODO shouldn't be needed, remove once bug fixed
+# https://github.com/ansible/ansible/issues/62262
+- name: Check if CUDA packages are installed
+  shell: apt list --installed | grep "^cuda-"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: cuda_packages
+
+- name: Remove CUDA packages
+  apt:
+    name: "cuda-*"
+    state: absent
+    autoremove: yes
+# TODO remove, see above
+  when: cuda_packages.rc == 0
+
+- name: Check if NCCL packages are installed
+  shell: apt list --installed | grep "^libnccl-"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: nccl_packages
+
+- name: Remove NCCL packages
+  apt:
+    name: "libnccl-*"
+    state: absent
+    autoremove: yes
+  when: nccl_packages.rc == 0
+
+- name: Check if cuDNN packages are installed
+  shell: apt list --installed | grep "^libcudnn"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: cudnn_packages
+
+- name: Remove cuDNN packages
+  apt:
+    name: "libcudnn*"
+    state: absent
+    autoremove: yes
+  when: cudnn_packages.rc == 0
+
+# TODO use this, see above
+#- name: Uninstall mismatching CUDA packages
+#  apt:
+#    name: "{{ packages }}"
+#    state: absent
+#    autoremove: yes
+#  vars:
+#    packages:
+#    - "cuda-*"
+#    - "libnccl-*"
+#    - "libcudnn7*"
+
+# when no cuda package is installed, it's better to nuke it
+# because the package also installs to /usr/local/cuda
+- name: Find /usr/local/cuda directories
+  find:
+    paths: /usr/local
+    patterns: "cuda-*"
+    file_type: directory
+  register: cuda_dirs
+
+- name: Purge /usr/local/cuda directories
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  no_log: True
+  with_items: "{{ cuda_dirs.files }}"
