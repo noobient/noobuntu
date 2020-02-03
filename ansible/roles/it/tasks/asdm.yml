@@ -10,13 +10,13 @@
     - libcanberra-gtk-module:i386
     - gtk2-engines-murrine:i386
 
-- name: Obtain 32-bit Java
+- name: Obtain standalone Java
   get_url:
     url: "{{ jre_url }}"
     dest: "/usr/local/src/jre-{{ jre_version }}.tar.gz"
     checksum: "sha256:{{ jre_checksum }}"
 
-- name: Extract 32-bit Java
+- name: Extract standalone Java
   unarchive:
     src: "/usr/local/src/jre-{{ jre_version }}.tar.gz"
     dest: /opt
