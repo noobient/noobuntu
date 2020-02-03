@@ -38,8 +38,6 @@
     - ubuntu-desktop
     - net-tools
     - snapd
-    - python3-pip
-    - virtualenv
     - colordiff
     - meld
     - qbittorrent

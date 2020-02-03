@@ -27,6 +27,8 @@
     - unzip
     - fuse-zip
     - unrar
+    - python3-pip
+    - virtualenv
 
 - name: Add Git PPA
   apt_repository:
