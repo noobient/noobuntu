@@ -1,14 +1,14 @@
-- name: Install ASDM dependencies
-  apt:
-    name: "{{ packages }}"
-    state: latest
-  vars:
-    packages:
-    - libxrender-dev:i386
-    - libxtst-dev:i386
-    - libgtk-3-dev:i386
-    - libcanberra-gtk-module:i386
-    - gtk2-engines-murrine:i386
+#- name: Install ASDM dependencies
+#  apt:
+#    name: "{{ packages }}"
+#    state: latest
+#  vars:
+#    packages:
+#    - libxrender-dev:i386
+#    - libxtst-dev:i386
+#    - libgtk-3-dev:i386
+#    - libcanberra-gtk-module:i386
+#    - gtk2-engines-murrine:i386
 
 - name: Obtain standalone Java
   get_url:
