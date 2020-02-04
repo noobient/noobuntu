@@ -6,6 +6,7 @@
   - github_version
   - nodejs_version
   - virtualbox_version
+  - grub_password
   - ad_domain
   - ad_smb_shares
   loop_control:
@@ -48,6 +49,7 @@
 - include_tasks: polkit.yml
 - include_tasks: wireshark.yml
 - include_tasks: flatpak.yml
+- include_tasks: grub.yml
 
 # keep this one as last
 - include_tasks: cleanup.yml

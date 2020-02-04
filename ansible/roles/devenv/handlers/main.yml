@@ -11,3 +11,6 @@
   with_items:
   - pam-auth-update --enable fscrypt
   - pam-auth-update --enable keyinit-fix
+
+- name: Update GRUB
+  shell: update-grub

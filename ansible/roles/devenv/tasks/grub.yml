@@ -1,0 +1,13 @@
+- name: Add GRUB password file
+  template:
+    src: 50_corporate.j2
+    dest: /etc/grub.d/50_corporate
+    mode: '0755'
+  notify: Update GRUB
+
+- name: Allow booting Linux without a password
+  replace:
+    path: /etc/grub.d/10_linux
+    regexp: '^CLASS="--class (.*)"$'
+    replace: 'CLASS="--unrestricted --class \1"'
+  notify: Update GRUB

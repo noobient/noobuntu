@@ -1,0 +1,4 @@
+cat << EOF
+set superusers="admin"
+password_pbkdf2 admin {{ grub_password }}
+EOF
