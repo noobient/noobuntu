@@ -50,6 +50,7 @@
     - putty-tools
     - screen
     - safeeyes
+    - dos2unix
 # TODO remove once added to mainline kernel
     - exfat-fuse
     - exfat-utils
