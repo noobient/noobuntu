@@ -22,6 +22,15 @@
     src: "{{ item.repo_file }}.list.j2"
     dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
 
+# use inline jinja conditional instead of when: so that
+# thirdparty_conflict is always defined for the next step
+- name: Check if conflicting packages are installed
+  shell: "{% if item.except is defined%}apt list --installed | grep \"{{ item.except }}/\"{% else %}false{% endif %}"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: thirdparty_conflict
+
 - name: "Install {{ item.name }}"
   apt:
     name: "{{ item.package }}"
@@ -29,7 +38,7 @@
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
   register: app_install
-  when: item.package is defined
+  when: (item.package is defined) and (thirdparty_conflict.rc != 0)
 
 # installing the package adds noise to the repo file in postinst, fix it
 - name: "Fix {{ item.name }} repo file"

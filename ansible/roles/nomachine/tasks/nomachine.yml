@@ -1,0 +1,46 @@
+- name: Remove conflicting NoMachine Enterprise Client
+  apt:
+    name: nomachine-enterprise-client
+    state: absent
+
+# install the package separately for easy register
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'NoMachine Enterprise Desktop', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu' }
+
+- name: Install NoMachine Enterprise Desktop
+  apt:
+    package: nomachine-enterprise-desktop
+    state: latest
+  register: ned_pkg
+
+# installing NX adds temporary ports to public zone
+- name: Restart firewalld to flush temporary ports
+  systemd:
+    name: firewalld
+    state: restarted
+  when: ned_pkg.changed
+
+- include_role:
+    name: firewalld
+  loop:
+  - { name: 'nomachine', port: '4000/tcp' }
+  - { name: 'nomachine', port: '4080/tcp' }
+  - { name: 'nomachine', port: '4443/tcp' }
+  - { name: 'nomachine', port: '5353/udp' }
+
+- name: Enable NoMachine service
+  systemd:
+    name: nxserver
+    state: started
+    enabled: yes
+
+# https://www.nomachine.com/AR12P01007
+- name: Enable PAM auth for NoMachine
+  ini_file:
+    path: /etc/sssd/sssd.conf
+    section: domain/ad.adasworks.com
+    option: ad_gpo_map_network
+    value: +nx
+  notify: Restart SSSD
