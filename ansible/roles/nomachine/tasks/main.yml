@@ -1,1 +1,8 @@
+- include_role:
+    name: adcheck
+
+- fail:
+    msg: "Host is not joined to AD. Make sure you run ad.yml, then join to the domain with 'realm join'."
+  when: ad_status.rc != 0
+
 - include_tasks: nomachine.yml
