@@ -15,24 +15,8 @@
     - git-lfs
     - git-gui
     - gitg
-
-- name: Install GitHub dependencies
-  apt:
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - gconf-service
-    - gconf-service-backend
-    - gconf2
-    - gconf2-common
-    - libappindicator1
-    - libcurl4
-    - libgconf-2-4
-    - libindicator7
-
-- name: Install GitHub Desktop
-  apt:
-    deb: "https://github.com/shiftkey/desktop/releases/download/release-{{ github_version }}/GitHubDesktop-linux-{{ github_version }}.deb"
+    - giggle
+    - git-cola
 
 - name: Install GCM4ML dependencies
   apt:

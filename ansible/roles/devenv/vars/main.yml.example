@@ -1,6 +1,5 @@
 ---
 gcm4ml_version: 2.0.4
-github_version: 2.1.0-linux1
 nodejs_version: 12
 virtualbox_version: 6.1
 
