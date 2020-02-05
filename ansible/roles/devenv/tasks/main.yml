@@ -15,7 +15,6 @@
 
 - include_tasks: utils.yml
 - include_tasks: tty.yml
-#- include_tasks: adcheck.yml
 - include_tasks: gnome.yml
 - include_tasks: apparmor.yml
 

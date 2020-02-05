@@ -4,3 +4,7 @@
   changed_when: no
   no_log: True
   register: ad_status
+
+- fail:
+    msg: "Host is not joined to AD. Make sure you run ad.yml, then join to the domain with 'realm join'."
+  when: ad_status.rc != 0
