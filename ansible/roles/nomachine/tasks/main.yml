@@ -2,3 +2,4 @@
     name: adcheck
 
 - include_tasks: nomachine.yml
+- include_tasks: pam.yml

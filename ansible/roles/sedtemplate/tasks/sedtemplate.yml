@@ -1,0 +1,17 @@
+# use intermediate file to ensure idempotency
+- name: "Generate new {{ item.desc }} file"
+  shell: sed -E '{{ item.regex }}' {{ item.src }} > {{ item.dest }}.new
+  changed_when: No
+  no_log: True
+
+- name: Deploy new NX common session file
+  copy:
+    src: "{{ item.dest }}.new"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+
+- name: Remove intermediate file
+  file:
+    path: "{{ item.dest }}.new"
+    state: absent
+  changed_when: No
