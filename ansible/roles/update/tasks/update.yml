@@ -3,6 +3,7 @@
     src: apt-maintenance
     dest: /etc/cron.daily/apt-maintenance
     mode: '0755'
+  notify: Restart cron service
 
 - name: Update apt info and all OS packages
   apt:
