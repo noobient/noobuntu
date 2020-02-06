@@ -1,0 +1,15 @@
+- name: Install perf
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - linux-tools-common
+    - linux-tools-generic-hwe-18.04-edge
+
+# https://www.jetbrains.com/help/clion/cpu-profiler.html
+- name: Apply profiling kernel options
+  copy:
+    src: 99-perf.conf
+    dest: /etc/sysctl.d/99-perf.conf
+  notify: Reload sysctl
