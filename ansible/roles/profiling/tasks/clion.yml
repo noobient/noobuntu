@@ -5,7 +5,7 @@
   vars:
     packages:
     - linux-tools-common
-    - linux-tools-generic-hwe-18.04-edge
+    - "linux-generic-hwe-{{ ubuntu_version }}-edge"
 
 # https://www.jetbrains.com/help/clion/cpu-profiler.html
 - name: Apply profiling kernel options
