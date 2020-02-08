@@ -9,10 +9,17 @@
   loop:
   - { name: 'NoMachine Enterprise Desktop', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu' }
 
+# gotta force apt update because we don't install any package in 3rdparty
+# gotta install firewalld as well, as we need to flush before adding the service
 - name: Install NoMachine Enterprise Desktop
   apt:
-    package: nomachine-enterprise-desktop
+    package: "{{ packages }}"
     state: latest
+    update_cache: yes
+  vars:
+    packages:
+    - firewalld
+    - nomachine-enterprise-desktop
   register: ned_pkg
 
 # installing NX adds temporary ports to public zone
@@ -35,3 +42,12 @@
     name: nxserver
     state: started
     enabled: yes
+
+# applies to all new sessions, no restart necessary
+# https://www.nomachine.com/AR04K00663
+# virtual desktops are not supported in Enterprise Desktop
+- name: Allow NX connections without interactive approval
+  lineinfile:
+    path: /usr/NX/etc/server.cfg
+    line: 'PhysicalDesktopAuthorization 0'
+    regexp: '^PhysicalDesktopAuthorization '
