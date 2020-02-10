@@ -9,7 +9,7 @@ PKG_NAME='clevis'
 #PKG_BUILD=6
 
 PKG_VER="12"
-PKG_BUILD=5
+PKG_BUILD=6
 
 SRC_DIR="${PWD}"
 TMP_DIR="/tmp/noobuntu"
@@ -36,7 +36,7 @@ cd clevis-${PKG_VER}
 # https://github.com/latchset/clevis/issues/158
 sed -i 's@/usr/lib/cryptsetup/passfifo@/lib/cryptsetup/passfifo@' src/initramfs-tools/scripts/local-top/clevis.in
 # https://github.com/latchset/clevis/issues/145
-sed -i 's@sleep 1@sleep 5@' src/initramfs-tools/scripts/local-top/clevis.in
+sed -i 's@sleep 1@sleep 10@' src/initramfs-tools/scripts/local-top/clevis.in
 
 meson build --prefix=/usr --libdir=/usr/lib
 ninja -C build
