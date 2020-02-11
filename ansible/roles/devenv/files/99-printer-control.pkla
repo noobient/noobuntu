@@ -1,0 +1,6 @@
+[Printer control for users]
+Identity=unix-user:*
+Action=org.opensuse.cupspkhelper.mechanism.*
+ResultAny=auth_admin_keep
+ResultInactive=auth_admin_keep
+ResultActive=yes

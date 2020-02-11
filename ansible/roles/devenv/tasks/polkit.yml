@@ -6,5 +6,6 @@
     owner: root
     group: root
   loop:
+  - 99-printer-control.pkla
   - 99-network-control.pkla
   - 99-sata-access.pkla
