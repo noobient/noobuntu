@@ -13,3 +13,10 @@
     section: sssd
     option: services
     value: nss, pam, sudo
+
+# https://bugs.launchpad.net/ubuntu/+source/sssd/+bug/1723350/comments/49
+# https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path
+- include_role:
+    name: sedtemplate
+  loop:
+  - { desc: 'SSSD systemd unit', regex: '/^Wants=.*/a After=systemd-resolved.service', src: '/lib/systemd/system/sssd.service', dest: '/etc/systemd/system/sssd.service'}
