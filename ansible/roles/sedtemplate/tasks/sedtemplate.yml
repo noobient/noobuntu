@@ -4,7 +4,7 @@
   changed_when: No
   no_log: True
 
-- name: Deploy new NX common session file
+- name: "Deploy new {{ item.desc }} file"
   copy:
     src: "{{ item.dest }}.new"
     dest: "{{ item.dest }}"
