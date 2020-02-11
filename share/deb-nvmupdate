@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -eu
+
+pkg_name='nvmupdate'
+pkg_ver=1
+tmp_dir="/tmp/noobuntu"
+work_dir="${tmp_dir}/${pkg_name}"
+pkg_file='NVMUpdatePackage_700_Series_v7_20.zip'
+intel_id='24769'
+
+sudo rm -rf ${work_dir}
+mkdir -p ${work_dir}
+
+pushd ${work_dir}
+
+wget "https://downloadmirror.intel.com/${intel_id}/eng/${pkg_file}"
+unzip ${pkg_file}
+tar xf *_Linux.tar.gz
+
+nvmupdate_ver=$(echo ${pkg_file} | grep -o 'v[0-9]*_[0-9]*' | cut -c 2- | tr _ .)
+root_dir="${pkg_name}_${nvmupdate_ver}-${pkg_ver}"
+app_dir="${root_dir}/opt/${pkg_name}/${nvmupdate_ver}"
+
+mkdir -p "${app_dir}"
+mkdir -p "${root_dir}/DEBIAN"
+
+cp -R 700Series/Linux_x64/* ${app_dir}
+
+# TODO check deps
+cat << EOF > "${root_dir}/DEBIAN/control"
+Package: ${pkg_name}
+Version: ${nvmupdate_ver}-${pkg_ver}
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27)
+Maintainer: Viktor Berke <github.bviktor@outlook.com>
+Description: Intel Ethernet NVM Update Tool
+EOF
+
+sudo chown -R root:root "${root_dir}"
+dpkg-deb --build "${root_dir}"
+
+popd
