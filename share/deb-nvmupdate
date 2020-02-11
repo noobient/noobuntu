@@ -3,7 +3,7 @@
 set -eu
 
 pkg_name='nvmupdate'
-pkg_ver=1
+pkg_ver=2
 tmp_dir="/tmp/noobuntu"
 work_dir="${tmp_dir}/${pkg_name}"
 pkg_file='NVMUpdatePackage_700_Series_v7_20.zip'
@@ -20,7 +20,7 @@ tar xf *_Linux.tar.gz
 
 nvmupdate_ver=$(echo ${pkg_file} | grep -o 'v[0-9]*_[0-9]*' | cut -c 2- | tr _ .)
 root_dir="${pkg_name}_${nvmupdate_ver}-${pkg_ver}"
-app_dir="${root_dir}/opt/${pkg_name}/${nvmupdate_ver}"
+app_dir="${root_dir}/opt/${pkg_name}"
 
 mkdir -p "${app_dir}"
 mkdir -p "${root_dir}/DEBIAN"
