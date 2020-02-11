@@ -18,3 +18,11 @@
     packages:
     - mesa-va-drivers
     - gstreamer1.0-vaapi
+
+# static service, mask is necessary
+- name: Disable automatic UEFI updates
+  systemd:
+    name: fwupd
+    enabled: no
+    masked: yes
+    state: stopped
