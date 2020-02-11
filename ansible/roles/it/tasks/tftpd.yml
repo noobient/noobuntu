@@ -1,0 +1,27 @@
+- name: Install TFTP server
+  apt:
+    name: tftpd-hpa
+    state: latest
+
+- name: Fix TFTP server data directory permissions
+  file:
+    path: /var/lib/tftpboot
+    owner: tftp
+    recurse: yes
+
+# TODO options
+# sed -i.orig 's/TFTP_OPTIONS="--secure"/TFTP_OPTIONS="--secure --create"/g' /etc/default/tftpd-hpa
+- name: Set TFTP server options
+  ini_file:
+    path: /etc/default/tftpd-hpa
+    section: null
+    option: TFTP_OPTIONS
+    value: '"--secure --create"'
+    no_extra_spaces: yes
+  register: tftpd_options
+
+- name: Restart TFTP service
+  systemd:
+    name: tftpd-hpa
+    state: restarted
+  when: tftpd_options.changed
