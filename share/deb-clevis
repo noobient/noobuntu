@@ -20,6 +20,7 @@ sudo rm -rf ${TMP_DIR}
 
 mkdir -p ${WORK_DIR}
 mkdir -p ${DEST_DIR}
+cp clevis.patch ${WORK_DIR}
 
 pushd ${WORK_DIR}
 
@@ -31,12 +32,10 @@ wget https://github.com/latchset/clevis/releases/download/v${PKG_VER}/clevis-${P
 tar xf clevis-${PKG_VER}.tar.xz
 cd clevis-${PKG_VER}
 
-# ugly I know, but I'm lazy
 # TODO remove once fixed upstream
 # https://github.com/latchset/clevis/issues/158
-sed -i 's@/usr/lib/cryptsetup/passfifo@/lib/cryptsetup/passfifo@' src/initramfs-tools/scripts/local-top/clevis.in
 # https://github.com/latchset/clevis/issues/145
-sed -i 's@sleep 1@sleep 10@' src/initramfs-tools/scripts/local-top/clevis.in
+patch -i ../clevis.patch -p1
 
 meson build --prefix=/usr --libdir=/usr/lib
 ninja -C build
