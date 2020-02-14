@@ -1,4 +1,5 @@
 ---
+- include_tasks: tools.yml
 - include_tasks: azure.yml
 
 - include_role:
