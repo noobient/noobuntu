@@ -7,3 +7,6 @@
   loop:
   - { file: 'services', section: 'sssd', option: 'services', value: 'nss, pam, sudo'}
   when: item == 'sudo'
+
+- include_tasks: postgres.yml
+  when: item == 'postgres'
