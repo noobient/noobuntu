@@ -1,0 +1,20 @@
+- include_vars: ../../ad/vars/main.yml
+
+# https://www.nomachine.com/AR12P01007
+- name: Enable PAM auth for NoMachine
+  ini_file:
+    path: /etc/sssd/conf.d/nomachine.conf
+    section: "domain/{{ ad_domain }}"
+    option: ad_gpo_map_network
+    value: +nx
+    mode: '0600'
+  notify: Restart SSSD
+
+- name: Remove old NoMachine setup remnants
+  ini_file:
+    path: /etc/sssd/sssd.conf
+    section: "domain/{{ ad_domain }}"
+    option: ad_gpo_map_network
+    value: +nx
+    state: absent
+  notify: Restart SSSD

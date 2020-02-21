@@ -1,12 +1,3 @@
-# https://www.nomachine.com/AR12P01007
-- name: Enable PAM auth for NoMachine
-  ini_file:
-    path: /etc/sssd/sssd.conf
-    section: domain/ad.adasworks.com
-    option: ad_gpo_map_network
-    value: +nx
-  notify: Restart SSSD
-
 # https://www.nomachine.com/es/AR09N00902
 - include_role:
     name: sedtemplate

@@ -3,3 +3,8 @@
 
 - include_tasks: nomachine.yml
 - include_tasks: pam.yml
+
+- include_role:
+    name: sssd
+  loop:
+  - nomachine
