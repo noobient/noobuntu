@@ -9,7 +9,7 @@
 - include_role:
     name: sssd
   loop:
-  - { file: 'nomachine', section: "domain/{{ ad_domain }}", option: 'ad_gpo_map_network', value: '+nx'}
+  - { file: 'nomachine', section: "domain/{{ ad_domain }}", option: 'ad_gpo_map_network', value: '+nx' }
 
 # TODO remove this sometime
 - name: Remove old NoMachine setup remnants
