@@ -1,2 +1,9 @@
+- include_vars: ../../ad/vars/main.yml
+
 - include_tasks: nomachine.yml
   when: item == 'nomachine'
+
+- include_tasks: confd.yml
+  loop:
+  - { file: 'services', section: 'sssd', option: 'services', value: 'nss, pam, sudo'}
+  when: item == 'sudo'

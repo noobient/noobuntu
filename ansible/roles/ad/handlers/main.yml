@@ -10,8 +10,3 @@
   systemd:
     name: systemd-resolved
     state: restarted
-
-- name: Restart SSSD
-  systemd:
-    name: sssd
-    state: restarted

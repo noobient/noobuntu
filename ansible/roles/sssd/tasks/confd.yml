@@ -1,0 +1,16 @@
+- name: Ensure SSSD conf.d directory exists
+  file:
+    state: directory
+    path: /etc/sssd/conf.d
+    recurse: yes
+
+- name: Set up SSSD options
+  ini_file:
+    path: "/etc/sssd/conf.d/{{ item.file }}.conf"
+    owner: root
+    group: root
+    mode: '0600'
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  notify: Restart SSSD
