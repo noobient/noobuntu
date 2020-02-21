@@ -4,7 +4,19 @@
 - include_tasks: nomachine.yml
 - include_tasks: pam.yml
 
+- include_vars: ../../ad/vars/main.yml
+# https://www.nomachine.com/AR12P01007
 - include_role:
     name: sssd
   loop:
-  - nomachine
+  - { file: 'nomachine', section: "domain/{{ ad_domain }}", option: 'ad_gpo_map_network', value: '+nx'}
+
+# TODO remove this sometime
+- name: Remove old NoMachine setup remnants
+  ini_file:
+    path: /etc/sssd/sssd.conf
+    section: "domain/{{ ad_domain }}"
+    option: ad_gpo_map_network
+    value: +nx
+    state: absent
+  notify: Restart SSSD
