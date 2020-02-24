@@ -4,7 +4,7 @@
 - include_tasks: nomachine.yml
 - include_tasks: pam.yml
 
-- include_vars: ../../ad/vars/main.yml
+- include_vars: "{{ playbook_dir }}/roles/ad/vars/main.yml"
 # https://www.nomachine.com/AR12P01007
 - include_role:
     name: sssd
