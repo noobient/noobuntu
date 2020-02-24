@@ -1,0 +1,14 @@
+- name: Generate .mod file
+  shell: "checkmodule -M -m -o {{ item.module }}.mod {{ item.module }}.te"
+  args:
+    chdir: "{{ item.dir }}"
+
+- name: Compile SELinux module
+  shell: "semodule_package -m {{ item.module }}.mod -o {{ item.module }}.pp"
+  args:
+    chdir: "{{ item.dir }}"
+
+- name: Install SELinux module
+  shell: "semodule -i {{ item.module }}.pp"
+  args:
+    chdir: "{{ item.dir }}"
