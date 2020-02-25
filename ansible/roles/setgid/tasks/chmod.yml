@@ -1,0 +1,10 @@
+- name: "Check {{ item.dir }} mode"
+  stat:
+    path: "{{ item.dir }}"
+  register: dir_info
+
+- name: "Set sticky bit on {{ item.dir }}"
+  shell: "chmod g+s {{ item.dir }}"
+  args:
+    warn: false
+  when: dir_info.stat.mode[0] != '2'

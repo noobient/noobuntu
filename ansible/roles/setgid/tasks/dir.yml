@@ -1,0 +1,4 @@
+- name: "Ensure {{ item.dir }} exists"
+  file:
+    path: "{{ item.dir }}"
+    state: directory

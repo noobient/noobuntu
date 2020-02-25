@@ -1,0 +1,10 @@
+- name: "Check current {{ item.dir }} ACL"
+  shell: setfacl -R --test --set="{{ item.acl }}" "{{ item.dir }}"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: item_acl
+
+- name: "Set {{ item.dir }} ACL"
+  shell: setfacl -R --set="{{ item.acl }}" "{{ item.dir }}"
+  when: item_acl.stdout != acl_pattern
