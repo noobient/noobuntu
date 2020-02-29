@@ -1,0 +1,9 @@
+# Nsight Eclipse only works with Java 8
+# https://devtalk.nvidia.com/default/topic/1048984/cuda-setup-and-installation/nsight-eclipse-won-t-launch-ubuntu-18-04/
+- name: Install profiling utils
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - openjdk-8-jre
