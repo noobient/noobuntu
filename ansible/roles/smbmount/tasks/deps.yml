@@ -1,7 +1,11 @@
-- name: Install SMB packages
-  apt:
-    name: "{{ packages }}"
+- name: Install cifs-utils
+  yum:
+    name: cifs-utils
     state: latest
-  vars:
-    packages:
-    - cifs-utils
+  when: ansible_distribution == 'CentOS'
+
+- name: Install cifs-utils
+  apt:
+    name: cifs-utils
+    state: latest
+  when: ansible_distribution == 'Ubuntu'
