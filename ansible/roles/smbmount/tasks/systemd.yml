@@ -1,20 +1,22 @@
-# TODO use mount point instead of "drive letter"
 # https://unix.stackexchange.com/a/345518/88217
-- name: Add shares to systemd
+# example mount point: /mnt/foo, then the unit file becomes mnt-foo.mount, so
+# assume the first character is /, skip it, and replace the remaining slashes
+# with dashes
+- set_fact:
+    smb_unit: "{{ item.mountpoint[1:] | replace('/','-') }}"
+
+- name: "Add mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }} as {{ item.mountpoint }}"
   template:
     src: foo.mount.j2
-    dest: "/etc/systemd/system/{{ item.letter }}.mount"
-  loop: "{{ smb_shares }}"
+    dest: "/etc/systemd/system/{{ smb_unit }}.mount"
 
-- name: Add share automounts
+- name: "Add auto-mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }}"
   copy:
     src: foo.automount
-    dest: "/etc/systemd/system/{{ item.letter }}.automount"
-  loop: "{{ smb_shares }}"
+    dest: "/etc/systemd/system/{{ smb_unit }}.automount"
 
-- name: Enable share automount
+- name: "Enable auto-mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }}"
   systemd:
     enabled: yes
     daemon_reload: yes
-    name: "{{ item.letter }}.automount"
-  loop: "{{ smb_shares }}"
+    name: "{{ smb_unit }}.automount"
