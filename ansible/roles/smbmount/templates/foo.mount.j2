@@ -1,0 +1,5 @@
+[Mount]
+What=//{{ item.host }}.{{ ad_domain }}/{{ item.path }}
+Where=/{{ item.letter }}
+Options=credentials=/etc/fstab.password,noperm,vers={{ item.version }},_netdev,domain={{ ad_domain.split(".")[0] }}
+Type=cifs

@@ -1,0 +1,19 @@
+- name: Check SMB mount password file
+  shell: grep -E 'password=.+' /etc/fstab.password
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: fstab_password
+
+- fail:
+    msg: "There's no password in /etc/fstab.password and you didn't specify one either!"
+  when: fstab_password.rc != 0 and smb_password|length == 0
+
+- name: Add SMB mount credentials
+  template:
+    src: fstab.password.j2
+    dest: /etc/fstab.password
+    owner: root
+    group: root
+    mode: '0600'
+  when: smb_password|length

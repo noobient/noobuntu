@@ -1,0 +1,7 @@
+- name: Install SMB packages
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - cifs-utils

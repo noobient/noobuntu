@@ -1,0 +1,20 @@
+# TODO use mount point instead of "drive letter"
+# https://unix.stackexchange.com/a/345518/88217
+- name: Add shares to systemd
+  template:
+    src: foo.mount.j2
+    dest: "/etc/systemd/system/{{ item.letter }}.mount"
+  loop: "{{ smb_shares }}"
+
+- name: Add share automounts
+  copy:
+    src: foo.automount
+    dest: "/etc/systemd/system/{{ item.letter }}.automount"
+  loop: "{{ smb_shares }}"
+
+- name: Enable share automount
+  systemd:
+    enabled: yes
+    daemon_reload: yes
+    name: "{{ item.letter }}.automount"
+  loop: "{{ smb_shares }}"

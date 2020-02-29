@@ -1,0 +1,6 @@
+[Unit]
+Requires=remote-fs-pre.target
+After=remote-fs-pre.target
+
+[Install]
+WantedBy=remote-fs.target
