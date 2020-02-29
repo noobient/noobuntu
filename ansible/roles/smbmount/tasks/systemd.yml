@@ -18,5 +18,6 @@
 - name: "Enable auto-mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }}"
   systemd:
     enabled: yes
+    state: started
     daemon_reload: yes
     name: "{{ smb_unit }}.automount"
