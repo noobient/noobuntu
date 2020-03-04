@@ -20,7 +20,7 @@
 - name: Apply networking changes
   shell: netplan apply && systemctl restart network-manager
   register: net_apply
-  when: netplan_networkd.changed or netplan_ifaces.changed or nm_ifaces.changes
+  when: netplan_networkd.changed or netplan_ifaces.changed or nm_ifaces.changed
 
 - name: Ensure NM is running
   systemd:
