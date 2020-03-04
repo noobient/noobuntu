@@ -49,7 +49,7 @@
 - include_tasks: flatpak.yml
 - include_tasks: grub.yml
 - include_tasks: sudolog.yml
-  when: graylog_address is defined
+  when: (graylog_host is defined) and (graylog_port is defined)
 
 # keep this one as last
 - include_tasks: cleanup.yml
