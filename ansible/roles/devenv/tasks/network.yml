@@ -1,19 +1,26 @@
-- name: Disable netplan completely
+- name: Remove netplan configuration
   file:
     path: /etc/netplan/01-netcfg.yaml
     state: absent
   register: netplan_networkd
 
-- name: Enable NM for all interfaces
+- name: Disable netplan on all interfaces
   copy:
     src: 01-network-manager-all.yaml
     dest: /etc/netplan/01-network-manager-all.yaml
-  register: netplan_nm
+  register: netplan_ifaces
+
+# https://bugs.launchpad.net/ubuntu/+source/network-manager/+bug/1638842
+- name: Enable NM on all interfaces
+  copy:
+    src: 10-globally-managed-devices.conf
+    dest: /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
+  register: nm_ifaces
 
 - name: Apply networking changes
   shell: netplan apply && systemctl restart network-manager
   register: net_apply
-  when: netplan_networkd.changed or netplan_nm.changed
+  when: netplan_networkd.changed or netplan_ifaces.changed or nm_ifaces.changes
 
 - name: Ensure NM is running
   systemd:
