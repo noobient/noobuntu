@@ -1,1 +1,1 @@
-auth,authpriv.* action(type="omfwd" target="{{ graylog_host }}" port="{{ graylog_port }}" protocol="udp" action.resumeRetryCount="100" queue.type="linkedList" queue.size="10000")
+auth,authpriv.* action(type="omfwd" target="{{ graylog_host }}" port="{{ graylog_port }}" protocol="tcp" action.resumeRetryCount="100" queue.type="linkedList" queue.size="10000")
