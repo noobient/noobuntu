@@ -1,0 +1,15 @@
+- name: Install rsyslog
+  apt:
+    name: rsyslog
+    state: latest
+
+- name: Ensure rsyslog config folder exists
+  file:
+    path: /etc/rsyslog.d
+    state: directory
+
+- name: Deploy Graylog rsyslog config
+  template:
+    src: 90-graylog.conf.j2
+    dest: /etc/rsyslog.d/90-graylog.conf
+  notify: Restart rsyslog

@@ -14,3 +14,8 @@
 
 - name: Update GRUB
   shell: update-grub
+
+- name: Restart rsyslog
+  systemd:
+    name: rsyslog
+    state: restarted
