@@ -48,6 +48,16 @@
 - include_tasks: wireshark.yml
 - include_tasks: flatpak.yml
 - include_tasks: grub.yml
+
+# conditional tasks
+- name: Check if Defender ATP onboarding config exists
+  stat:
+    path: "{{ role_path }}/files/mdatp_onboard.json"
+  register: atp_config
+
+- include_tasks: defender.yml
+  when: atp_config.stat.exists
+
 - include_tasks: sudolog.yml
   when: (graylog_host is defined) and (graylog_port is defined)
 

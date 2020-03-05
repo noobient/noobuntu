@@ -1,0 +1,22 @@
+- name: Create Defender ATP config folder
+  file:
+    path: /etc/opt/microsoft/mdatp
+    state: directory
+    recurse: yes
+
+- name: Deploy Defender ATP onboarding config
+  copy:
+    src: mdatp_onboard.json
+    dest: /etc/opt/microsoft/mdatp/mdatp_onboard.json
+  notify: Restart Defender ATP
+
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'Defender ATP', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-prod', package: 'mdatp' }
+
+- name: Enable and start Defender ATP service
+  systemd:
+    name: mdatp
+    state: started
+    enabled: yes

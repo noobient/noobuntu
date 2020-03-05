@@ -19,3 +19,8 @@
   systemd:
     name: rsyslog
     state: restarted
+
+- name: Restart Defender ATP
+  systemd:
+    name: mdatp
+    state: restarted
