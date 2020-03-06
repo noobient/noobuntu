@@ -51,6 +51,7 @@
     - screen
     - safeeyes
     - dos2unix
+    - sysstat
 # TODO remove once added to mainline kernel
     - exfat-fuse
     - exfat-utils
