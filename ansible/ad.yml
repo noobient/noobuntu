@@ -6,4 +6,5 @@
       force_apt_get: yes
   roles:
   - update
+  - networkmanager
   - ad
