@@ -1,3 +1,9 @@
+# netplan appears to be installed in every case
+- name: Install NetworkManager
+  apt:
+    name: network-manager
+    state: latest
+
 - name: Remove netplan configuration
   file:
     path: /etc/netplan/01-netcfg.yaml
