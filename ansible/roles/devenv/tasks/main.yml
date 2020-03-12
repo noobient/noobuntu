@@ -50,6 +50,7 @@
 - include_tasks: wireshark.yml
 - include_tasks: flatpak.yml
 - include_tasks: grub.yml
+- include_tasks: convert.yml
 
 # conditional tasks
 - name: Check if Defender ATP onboarding config exists

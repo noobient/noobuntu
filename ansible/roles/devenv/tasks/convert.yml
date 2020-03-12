@@ -1,0 +1,5 @@
+- name: Enable Ghostscript formats in ImageMagick
+  lineinfile:
+    path: /etc/ImageMagick-6/policy.xml
+    regexp: '^\s*<policy domain="coder".*'
+    state: absent
