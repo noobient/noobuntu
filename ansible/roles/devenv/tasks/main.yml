@@ -37,6 +37,8 @@
 
 - include_role:
     name: firewalld
+  loop:
+  - { name: 'ssh' }
 
 - include_role:
     name: networkmanager
