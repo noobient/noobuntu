@@ -44,7 +44,7 @@
     state: started
 
 # make sure
-- name: "Enable SSH service"
-  shell: "firewall-cmd --permanent --add-service=ssh && firewall-cmd --reload"
-  register: fw_ssh
-  changed_when: ("ALREADY_ENABLED" not in fw_ssh.stderr)
+#- name: "Enable SSH service"
+#  shell: "firewall-cmd --permanent --add-service=ssh && firewall-cmd --reload"
+#  register: fw_ssh
+#  changed_when: ("ALREADY_ENABLED" not in fw_ssh.stderr)
