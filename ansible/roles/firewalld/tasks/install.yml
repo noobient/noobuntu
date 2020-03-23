@@ -1,8 +1,17 @@
-- name: Disable ufw
+# this should work regardless of unit path or service state
+- name: Check if UFW service is present
+  shell: systemctl cat ufw.service
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: ufw_service
+
+- name: Disable UFW
   systemd:
     name: ufw
     enabled: no
     state: stopped
+  when: ufw_service.rc == 0
 
 # take a leap of faith, SSH is enabled by default
 # and the firewalld module does not work on Ubuntu
