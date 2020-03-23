@@ -20,6 +20,13 @@
   apt:
     name: firewalld
     state: latest
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install firewalld
+  yum:
+    name: firewalld
+    state: latest
+  when: ansible_distribution == 'CentOS'
 
 # necessary for Ansible to work remotely
 #- name: Enable SSH access
