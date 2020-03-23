@@ -24,3 +24,6 @@
   systemd:
     name: mdatp
     state: restarted
+
+- name: Reload sysctl
+  shell: sysctl -p && sysctl --system

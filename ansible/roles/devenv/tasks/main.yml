@@ -40,9 +40,7 @@
   loop:
   - { name: 'ssh' }
 
-- include_role:
-    name: networkmanager
-
+- include_tasks: ipv6.yml
 - include_tasks: onedrive.yml
 - include_tasks: teams.yml
 - include_tasks: ide.yml
