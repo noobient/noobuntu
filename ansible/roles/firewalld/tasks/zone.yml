@@ -2,5 +2,5 @@
   shell: "firewall-cmd --permanent --new-zone={{ item.zone }} && firewall-cmd --reload"
   when: item.zone is defined
   register: fw_new_zone
-  failed_when: (fw_new_zone.rc != 0) && (fw_zone_str not in fw_new_zone.stderr)
+  failed_when: (fw_new_zone.rc != 0) and (fw_zone_str not in fw_new_zone.stderr)
   changed_when: ('success' in fw_new_zone.stdout)
