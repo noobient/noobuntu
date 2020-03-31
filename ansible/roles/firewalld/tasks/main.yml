@@ -1,3 +1,5 @@
 - include_tasks: install.yml
+- include_tasks: zone.yml
+  when: item.zone is defined
 - include_tasks: service.yml
   when: item.name is defined
