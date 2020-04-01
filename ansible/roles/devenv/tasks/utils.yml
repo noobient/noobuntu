@@ -57,8 +57,9 @@
     - exfat-fuse
     - exfat-utils
 
-- name: Install useful utils (snap)
-  snap:
-    name: "{{ item }}"
-  loop:
-    - prospect-mail
+# TODO useless now, no indicator, no notifications
+#- name: Install useful utils (snap)
+#  snap:
+#    name: "{{ item }}"
+#  loop:
+#    - prospect-mail
