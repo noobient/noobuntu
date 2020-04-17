@@ -1,15 +1,6 @@
 diff -ruN clevis-12.orig/src/initramfs-tools/scripts/local-top/clevis.in clevis-12/src/initramfs-tools/scripts/local-top/clevis.in
 --- clevis-12.orig/src/initramfs-tools/scripts/local-top/clevis.in	2020-01-20 12:39:31.000000000 +0100
 +++ clevis-12/src/initramfs-tools/scripts/local-top/clevis.in	2020-02-11 15:57:30.018342737 +0100
-@@ -92,7 +92,7 @@
-         cryptkeyscript='\/lib\/cryptsetup\/askpass'
-     fi
- 
--    PASSFIFO='/usr/lib/cryptsetup/passfifo'
-+    PASSFIFO='/lib/cryptsetup/passfifo'
- 
-     OLD_CRYPTTAB_SOURCE=""
- 
 @@ -187,7 +187,7 @@
  eth_check() {
      for device in $(clevis_all_netbootable_devices); do
