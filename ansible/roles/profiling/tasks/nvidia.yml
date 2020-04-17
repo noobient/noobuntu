@@ -1,0 +1,4 @@
+- name: Allow NV profiling for users
+  copy:
+    src: nvidia-profiling.conf
+    dest: /etc/modprobe.d/nvidia-profiling.conf

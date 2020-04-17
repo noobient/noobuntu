@@ -1,2 +1,3 @@
 - include_tasks: deps.yml
 - include_tasks: clion.yml
+- include_tasks: nvidia.yml
