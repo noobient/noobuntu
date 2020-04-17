@@ -2,3 +2,4 @@
   copy:
     src: nvidia-profiling.conf
     dest: /etc/modprobe.d/nvidia-profiling.conf
+  notify: Update initramfs

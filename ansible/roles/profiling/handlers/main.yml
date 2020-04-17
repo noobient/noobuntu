@@ -1,2 +1,5 @@
 - name: Reload sysctl
   shell: sysctl -p && sysctl --system
+
+- name: Update initramfs
+  shell: update-initramfs -c -k all
