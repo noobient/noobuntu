@@ -23,4 +23,5 @@
     src: /run/systemd/resolve/resolv.conf
     dest: /etc/resolv.conf
     state: link
+    force: yes
   notify: Restart resolved service
