@@ -53,13 +53,8 @@
 - include_tasks: convert.yml
 
 # conditional tasks
-- name: Check if Defender ATP onboarding config exists
-  stat:
-    path: "{{ role_path }}/files/mdatp_onboard.json"
-  register: atp_config
-
 - include_tasks: defender.yml
-  when: atp_config.stat.exists
+  when: (mdatp_deploy is defined) and (mdatp_deploy == True)
 
 - include_tasks: sudolog.yml
   when: (graylog_host is defined) and (graylog_port is defined)
