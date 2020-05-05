@@ -6,5 +6,5 @@
       force_apt_get: yes
   roles:
   - update
-  - networkmanager
+  - { role: networkmanager, when: ansible_distribution == 'Ubuntu' }
   - ad

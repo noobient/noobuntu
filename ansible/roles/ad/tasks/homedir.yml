@@ -1,9 +1,24 @@
+- name: Set up AD home directory
+  file:
+    path: "/home/{{ ad_domain }}"
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+
+- name: Fix AD home directory fcontext
+  shell: "restorecon -rv /home/{{ ad_domain }}"
+  register: restorecon_cmd
+  changed_when: restorecon_cmd.stdout|length
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+
 - name: Fix home dir umask
   lineinfile:
     path: /usr/share/pam-configs/mkhomedir
     regexp: '(.*pam_mkhomedir.so$)'
     line: '\1 umask=0077'
     backrefs: yes
+  when: ansible_distribution == 'Ubuntu'
 
 - name: PAM inventory
   command: grep "^session\s*optional\s*pam_mkhomedir.so\s*umask.*" /etc/pam.d/common-session
@@ -11,7 +26,28 @@
   changed_when: no
   no_log: True
   register: mkhomedir
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Enable automatic home dir creation
   command: "pam-auth-update --enable mkhomedir"
-  when: mkhomedir.rc != 0
+  when: (ansible_distribution == 'Ubuntu') and (mkhomedir.rc != 0)
+
+# TODO there's no obvious way to detect changes so ignore it for now
+- name: Enable SSSD authentication
+  shell: authconfig --enablesssd --enablesssdauth --enablemkhomedir --updateall
+  changed_when: no
+  no_log: True
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (ansible_distribution_major_version == '7')
+
+# TODO there's no obvious way to detect changes so ignore it for now
+- name: Enable SSSD authentication
+  shell: authselect select sssd with-mkhomedir --force && authselect apply-changes
+  changed_when: no
+  no_log: True
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (ansible_distribution_major_version == '8')
+
+- name: Enable oddjobd
+  systemd:
+    name: oddjobd.service
+    enabled: yes
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

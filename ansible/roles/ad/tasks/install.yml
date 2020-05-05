@@ -14,3 +14,25 @@
     - samba-common-bin
     - krb5-user
     - packagekit
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install AD prerequisites
+  yum:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - sssd-ad
+    - krb5-workstation
+    - oddjob-mkhomedir
+    - samba-common-tools
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+
+- name: Install AD prerequisites
+  yum:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - authselect
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (ansible_distribution_major_version == '8')

@@ -1,0 +1,14 @@
+- name: Update yum info and all OS packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install yum-cron
+  yum:
+    name: yum-cron
+
+- name: Enable automatic updates
+  systemd:
+    name: yum-cron.service
+    state: started
+    enabled: yes

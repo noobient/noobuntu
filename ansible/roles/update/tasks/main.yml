@@ -1,5 +1,13 @@
 ---
 #- include_tasks: repo.yml
 - include_tasks: hwe.yml
+  when: ansible_distribution == 'Ubuntu'
+
 - include_tasks: ansible.yml
-- include_tasks: update.yml
+
+- include_tasks: update_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+- include_tasks: update_el7.yml
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (ansible_distribution_major_version == '7')
+- include_tasks: update_el8.yml
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (ansible_distribution_major_version == '8')

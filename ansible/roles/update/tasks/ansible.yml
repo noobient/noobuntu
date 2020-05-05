@@ -1,14 +1,28 @@
 - name: Add Ansible PPA
   apt_repository:
     repo: ppa:ansible/ansible
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Enable EPEL repo
+  yum:
+    name: epel-release
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
 
 - name: Install Ansible
   apt:
     name: ansible
     state: latest
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Ansible
+  yum:
+    name: ansible
+    state: latest
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
 
 - name: Show IP on login screen
   replace:
     path: /etc/issue
     regexp: '(Ubuntu .*)\\l$'
     replace: '\1\\l (\\4)'
+  when: ansible_distribution == 'Ubuntu'

@@ -13,12 +13,21 @@
   - parent: ad
 
 - include_tasks: install.yml
+
 - include_tasks: hostname.yml
+  when: ansible_distribution == 'Ubuntu'
+
 - include_tasks: sssd.yml
 - include_tasks: kerberos.yml
 - include_tasks: ntp.yml
+
 - include_tasks: realmd.yml
+  when: ansible_distribution == 'Ubuntu'
+
 - include_tasks: homedir.yml
 - include_tasks: nss.yml
+
 - include_tasks: gdm.yml
+  when: ansible_distribution == 'Ubuntu'
 - include_tasks: resolved.yml
+  when: ansible_distribution == 'Ubuntu'

@@ -8,3 +8,23 @@
   notify:
   - Restart time sync service
   - Force time sync
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Chrony
+  yum:
+    name: chrony
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+
+- name: Sync NTP from DCs
+  lineinfile:
+    path: /etc/chrony.conf
+    line: "server {{ ad_ntp_dc }}.{{ ad_domain }}"
+  notify: Restart Chrony
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+
+- name: Enable Chrony
+  systemd:
+    name: chronyd.service
+    enabled: yes
+    state: started
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
