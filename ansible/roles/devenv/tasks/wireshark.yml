@@ -5,6 +5,7 @@
     packages:
     - wireshark
     - expect
+    - tshark
 
 - name: Check Wireshark configuration
   stat:
