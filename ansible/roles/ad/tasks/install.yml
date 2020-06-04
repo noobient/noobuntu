@@ -19,7 +19,6 @@
 - name: Install AD prerequisites
   yum:
     name: "{{ packages }}"
-    install_recommends: no
   vars:
     packages:
     - sssd-ad
@@ -31,7 +30,6 @@
 - name: Install AD prerequisites
   yum:
     name: "{{ packages }}"
-    install_recommends: no
   vars:
     packages:
     - authselect
