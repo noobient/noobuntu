@@ -30,5 +30,7 @@
   - { section: "domain/{{ ad_domain }}", option: cache_credentials, value: 'True' }
   - { section: "domain/{{ ad_domain }}", option: override_homedir, value: /home/%d/%u }
   - { section: "domain/{{ ad_domain }}", option: default_shell, value: /bin/bash }
-  notify: Restart SSSD service
+# TODO on EL krb5.keytab doesn't exist until domain joined
+# and SSSD fails to start without it
+#  notify: Restart SSSD service
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
