@@ -50,5 +50,5 @@
   systemd:
     name: oddjobd.service
     enabled: yes
-    started: yes
+    state: started
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
