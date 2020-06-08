@@ -1,0 +1,11 @@
+#Package: cuda* libcublas* libcuda* libcutensor* libnvidia-* libxnvctrl* nsight-* nvidia-* xserver-xorg-video-nvidia-*
+Package: *
+Pin: origin developer.download.nvidia.com
+Pin-Priority: 900
+
+# CUDA pin to match NV version
+# without this cuda-10-1 > cuda-runtime-10-1 > cuda-drivers (without version in name!)
+# replaces the NV drivers to the latest which results in unwanted autoremoves
+Package: cuda-drivers libxnvctrl0
+Pin: version {{ nvidia_version | default(nvidia_default_version) }}.*
+Pin-Priority: 901

@@ -5,8 +5,8 @@
   register: ppa_driver
 
 - name: Add NVIDIA CUDA repo apt preferences
-  copy:
-    src: nvidia
+  template:
+    src: nvidia.j2
     dest: /etc/apt/preferences.d/nvidia
   register: cuda_driver
 

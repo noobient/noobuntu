@@ -1,4 +1,0 @@
-#Package: cuda* libcublas* libcuda* libcutensor* libnvidia-* libxnvctrl* nsight-* nvidia-* xserver-xorg-video-nvidia-*
-Package: *
-Pin: origin developer.download.nvidia.com
-Pin-Priority: 900

@@ -25,4 +25,7 @@
   vars:
     packages:
     - "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
+    - "nvidia-dkms-{{ nvidia_version | default(nvidia_default_version) }}"
+    - "nvidia-kernel-source-{{ nvidia_version | default(nvidia_default_version) }}"
+    - "nvidia-kernel-common-{{ nvidia_version | default(nvidia_default_version) }}"
     - nvidia-settings
