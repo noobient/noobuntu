@@ -20,7 +20,7 @@
   changed_when: ("already enabled" not in opa_enable.stderr)
   notify: Restart Docker daemon
 
-- name: Enable Docker AuthZ
+- name: Configure Docker daemon
   template:
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
