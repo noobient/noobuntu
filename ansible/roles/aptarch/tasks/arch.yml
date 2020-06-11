@@ -1,0 +1,10 @@
+- name: Check currently enabled foreign architectures
+  shell: "dpkg --print-foreign-architectures | grep ^{{ item }}$"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: foreign_arches
+
+- name: "Enable {{ item }} architecture"
+  shell: "dpkg --add-architecture {{ item }}"
+  when: foreign_arches.rc != 0
