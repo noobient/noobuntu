@@ -47,7 +47,10 @@
 - include_tasks: git.yml
 - include_tasks: shares.yml
 - include_tasks: polkit.yml
-- include_tasks: wireshark.yml
+
+- include_role:
+    name: wireshark
+
 - include_tasks: flatpak.yml
 - include_tasks: grub.yml
 - include_tasks: convert.yml
