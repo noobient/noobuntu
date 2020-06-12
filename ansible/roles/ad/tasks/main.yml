@@ -27,8 +27,8 @@
 - include_tasks: homedir.yml
 - include_tasks: nss.yml
 
-- include_tasks: gdm.yml
-  when: ansible_distribution == 'Ubuntu'
+#- include_tasks: gdm.yml
+#  when: ansible_distribution == 'Ubuntu'
 - include_tasks: resolved.yml
   when: ansible_distribution == 'Ubuntu'
 

@@ -1,0 +1,3 @@
+Package: gnome-initial-setup
+Pin: release *
+Pin-Priority: -1

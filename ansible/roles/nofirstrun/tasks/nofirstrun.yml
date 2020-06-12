@@ -1,0 +1,10 @@
+- name: Remove GNOME initial setup package
+  apt:
+    name: gnome-initial-setup
+    state: absent
+    purge: yes
+
+- name: Blacklist GNOME initial setup package
+  copy:
+    src: nofirstrun
+    dest: /etc/apt/preferences.d/nofirstrun
