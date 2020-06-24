@@ -4,3 +4,9 @@
   register: fw_new_zone
   failed_when: (fw_new_zone.rc != 0) and (fw_zone_str not in fw_new_zone.stderr)
   changed_when: ('success' in fw_new_zone.stdout)
+
+- name: "Set {{ item.zone }} zone source"
+  shell: "firewall-cmd --zone={{ item.zone }} --add-source={{ item.source }} --permanent && firewall-cmd --reload"
+  register: fw_add_src
+  changed_when: (fw_src_str not in fw_add_src.stderr)
+# TODO does this fail on 2nd run?
