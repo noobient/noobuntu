@@ -3,10 +3,10 @@
 set -eu
 
 pkg_name='nvmupdate'
-pkg_ver=2
+pkg_ver=1
 tmp_dir="/tmp/noobuntu"
 work_dir="${tmp_dir}/${pkg_name}"
-pkg_file='NVMUpdatePackage_700_Series_v7_20.zip'
+pkg_file='NVMUpdatePackage_700_Series_v7_30.zip'
 intel_id='24769'
 
 sudo rm -rf ${work_dir}
