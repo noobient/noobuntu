@@ -1,16 +1,16 @@
-- name: "Create {{ item.name }} firewall service"
-  shell: "firewall-cmd --permanent --new-service {{ item.name }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
+- name: "Create {{ item.service }} firewall service"
+  shell: "firewall-cmd --permanent --new-service {{ item.service }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
   args:
-    creates: "/etc/firewalld/services/{{ item.name }}.xml"
+    creates: "/etc/firewalld/services/{{ item.service }}.xml"
   when: item.port is defined
 
-- name: "Add port {{ item.port }} to {{ item.name }} firewall service"
-  shell: "firewall-cmd --permanent --service={{ item.name }} --add-port={{ item.port }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
+- name: "Add port {{ item.port }} to {{ item.service }} firewall service"
+  shell: "firewall-cmd --permanent --service={{ item.service }} --add-port={{ item.port }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
   register: fw_port
   changed_when: ("ALREADY_ENABLED" not in fw_port.stderr)
   when: item.port is defined
 
-- name: "Enable {{ item.name }} firewall service"
-  shell: "firewall-cmd --permanent --add-service={{ item.name }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
+- name: "Enable {{ item.service }} firewall service"
+  shell: "firewall-cmd --permanent --add-service={{ item.service }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
   register: fw_svc
   changed_when: ("ALREADY_ENABLED" not in fw_svc.stderr)

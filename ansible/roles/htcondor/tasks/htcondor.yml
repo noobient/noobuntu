@@ -4,10 +4,10 @@
 - include_role:
     name: firewalld
   loop:
-  - { name: 'ganglia', port: '8649/tcp' }
-  - { name: 'ganglia', port: '8649/udp' }
-  - { name: 'htcondor', port: '9618/tcp' }
-  - { name: 'htcondor', port: '9618/udp' }
+  - { service: 'ganglia', port: '8649/tcp' }
+  - { service: 'ganglia', port: '8649/udp' }
+  - { service: 'htcondor', port: '9618/tcp' }
+  - { service: 'htcondor', port: '9618/udp' }
 
 - name: Install HTCondor
   apt:

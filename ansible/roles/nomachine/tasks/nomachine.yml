@@ -32,10 +32,10 @@
 - include_role:
     name: firewalld
   loop:
-  - { name: 'nomachine', port: '4000/tcp' }
-  - { name: 'nomachine', port: '4080/tcp' }
-  - { name: 'nomachine', port: '4443/tcp' }
-  - { name: 'nomachine', port: '5353/udp' }
+  - { service: 'nomachine', port: '4000/tcp' }
+  - { service: 'nomachine', port: '4080/tcp' }
+  - { service: 'nomachine', port: '4443/tcp' }
+  - { service: 'nomachine', port: '5353/udp' }
 
 - name: Enable NoMachine service
   systemd:

@@ -3,4 +3,4 @@
 - include_tasks: zone.yml
   when: (item.zone is defined) and (item.source is defined)
 - include_tasks: service.yml
-  when: item.name is defined
+  when: item.service is defined
