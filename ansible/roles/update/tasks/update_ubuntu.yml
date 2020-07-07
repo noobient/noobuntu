@@ -6,6 +6,13 @@
   notify: Restart cron service
   when: no_apt_maintenance is not defined
 
+- name: Remove APT maintenance job
+  file:
+    path: /etc/cron.daily/apt-maintenance
+    state: absent
+  notify: Restart cron service
+  when: no_apt_maintenance is defined
+
 - name: Update apt cache
   apt:
     update_cache: yes
