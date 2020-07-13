@@ -34,7 +34,9 @@
 - name: "Install {{ item.name }}"
   apt:
     name: "{{ item.package }}"
-    state: latest
+    # TODO use this conditionally, when package name doesn't have the version specified
+    # or add arg for specifying version?
+    # state: latest
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
   register: app_install
