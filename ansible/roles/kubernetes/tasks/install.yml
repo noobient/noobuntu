@@ -14,3 +14,5 @@
   - kubelet
   - kubeadm
   - kubectl
+  register: k8s_hold
+  changed_when: ('was already set on hold.' not in k8s_hold.stdout)
