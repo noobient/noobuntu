@@ -1,0 +1,16 @@
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: "{{ packages }}" }
+  vars:
+    packages:
+    - "kubelet={{ k8s_version }}"
+    - "kubeadm={{ k8s_version }}"
+    - "kubectl={{ k8s_version }}"
+
+- name: Hold K8s packages
+  command: "apt mark hold {{ item }}"
+  loop:
+  - kubelet
+  - kubeadm
+  - kubectl
