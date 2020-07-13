@@ -9,7 +9,7 @@
     - "kubectl={{ k8s_version }}"
 
 - name: Hold K8s packages
-  command: "apt mark hold {{ item }}"
+  command: "apt-mark hold {{ item }}"
   loop:
   - kubelet
   - kubeadm
