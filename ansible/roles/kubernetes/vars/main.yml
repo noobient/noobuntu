@@ -1,1 +1,2 @@
-k8s_version: '1.17.3-00'
+# you can specify your desired version with this variable, preferably somewhere else
+#k8s_version: '1.17.3-00'

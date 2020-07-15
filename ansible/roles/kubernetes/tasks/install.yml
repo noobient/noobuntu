@@ -1,16 +1,30 @@
+- name: Unhold Kubernetes packages
+  command: "apt-mark unhold {{ item }}"
+  loop:
+  - kubelet
+  - kubeadm
+  - kubectl
+  register: k8s_unhold
+  changed_when: ('was already not hold.' not in k8s_unhold.stdout)
+  when: k8s_version is not defined
+
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: "{{ packages }}" }
+# you can't conditionally pass parameters using jinja, so the next best thing is passing them as empty strings
+  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: "{{ packages }}" , version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }
   vars:
     packages:
-    - "kubelet={{ k8s_version }}"
-    - "kubeadm={{ k8s_version }}"
-    - "kubectl={{ k8s_version }}"
+    - "kubelet{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
+    - "kubeadm{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
+    - "kubectl{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
 
-- name: Hold K8s packages
+- name: Hold Kubernetes packages
   command: "apt-mark hold {{ item }}"
   loop:
   - kubelet
   - kubeadm
   - kubectl
+  register: k8s_hold
+  changed_when: ('was already set on hold.' not in k8s_hold.stdout)
+  when: k8s_version is defined

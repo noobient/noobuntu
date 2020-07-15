@@ -1,2 +1,5 @@
 ---
+- include_role:
+    name: docker
+
 - include_tasks: install.yml
