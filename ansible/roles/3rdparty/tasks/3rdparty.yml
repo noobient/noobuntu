@@ -37,8 +37,6 @@
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
-    # allow passing dpkg options on top of the ansible defaults
-    dpkg_options: "-o 'Dpkg::Options::=--force-confdef' -o 'Dpkg::Options::=--force-confold' {% if item.dpkg_options is defined %}{{ item.dpkg_options }}{% endif %}"
   register: app_install
   when: (item.package is defined) and (thirdparty_conflict.rc != 0)
 
