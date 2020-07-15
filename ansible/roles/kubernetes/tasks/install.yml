@@ -12,7 +12,7 @@
     name: 3rdparty
   loop:
 # you can't conditionally pass parameters using jinja, so the next best thing is passing them as empty strings
-  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: "{{ packages }}" , version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }
+  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: "{{ packages }}" , version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}", dpkg_options: "-o 'APT::Get::allow-change-held-packages'" }
   vars:
     packages:
     - "kubelet{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
