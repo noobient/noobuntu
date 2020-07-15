@@ -1,9 +1,3 @@
-- name: Disable IPv6 globally
-  copy:
-    src: 99-disable-ipv6.conf
-    dest: /etc/sysctl.d/99-disable-ipv6.conf
-  notify: Reload sysctl
-
 # IPv6 breaks PPAs and 3rd-party repos, amongst others things
 - include_role:
     name: sysctl
