@@ -8,8 +8,8 @@
     - "linux-generic-hwe-{{ ubuntu_version }}-edge"
 
 # https://www.jetbrains.com/help/clion/cpu-profiler.html
-- name: Apply profiling kernel options
-  copy:
-    src: 99-perf.conf
-    dest: /etc/sysctl.d/99-perf.conf
-  notify: Reload sysctl
+- include_role:
+    name: sysctl
+  loop:
+  - { file: '99-perf', option: 'kernel.perf_event_paranoid', value: '1' }
+  - { file: '99-perf', option: 'kernel.kptr_restrict', value: '0' }
