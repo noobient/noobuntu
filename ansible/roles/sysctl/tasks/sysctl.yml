@@ -4,4 +4,4 @@
     section: null
     option: "{{ item.option }}"
     value: "{{ item.value }}"
-  notify: Restart sysctl
+  notify: Reload sysctl
