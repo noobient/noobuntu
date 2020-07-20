@@ -1,6 +1,6 @@
 - include_tasks: install.yml
 # a zone is pointless without a source defined
 - include_tasks: zone.yml
-  when: (item.zone is defined) and (item.source is defined)
+  when: (item.zone is defined) and (item.source is defined) and (k8s_node is not defined)
 - include_tasks: service.yml
-  when: item.service is defined
+  when: (item.service is defined) and (k8s_node is not defined)

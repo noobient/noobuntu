@@ -42,6 +42,14 @@
     name: firewalld
     enabled: yes
     state: started
+  when: k8s_node is not defined
+
+- name: Disable firewalld
+  systemd:
+    name: firewalld
+    enabled: no
+    state: stopped
+  when: k8s_node is defined
 
 # make sure
 #- name: "Enable SSH service"
