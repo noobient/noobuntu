@@ -40,6 +40,18 @@
   register: app_install
   when: (item.package is defined) and (thirdparty_conflict.rc != 0)
 
+# enforce upgrade if the repo provides a newer version of an Ubuntu package
+# e.g. PostgreSQL's libpq/libgeos packages
+- name: Update all packages
+  apt:
+    upgrade: dist
+    update_cache: no
+
+# remove the superseded Ubuntu packages
+- name: Remove obsolete packages
+  apt:
+    autoremove: yes
+
 # installing the package adds noise to the repo file in postinst, fix it
 - name: "Fix {{ item.name }} repo file"
   template:
