@@ -2,5 +2,7 @@
 - include_role:
     name: docker
 
-- include_tasks: firewall.yml
+# TODO figure out how to get K8s to work w/ active firewall
+# till then it's pointless to add rules that'll be unused
+#- include_tasks: firewall.yml
 - include_tasks: install.yml
