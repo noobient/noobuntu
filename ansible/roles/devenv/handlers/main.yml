@@ -3,9 +3,6 @@
     name: apparmor
     state: reloaded
 
-- name: Compile GLib schema
-  command: glib-compile-schemas /usr/share/glib-2.0/schemas
-
 - name: Update PAM auth
   command: "{{ item }}"
   with_items:
