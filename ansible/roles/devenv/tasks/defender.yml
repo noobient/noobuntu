@@ -19,7 +19,7 @@
 - include_role:
     name: sedtemplate
   loop:
-  - { desc: 'MDATP systemd unit', regex: '/^Restart=.*/a RuntimeMaxSec=3600', src: '/lib/systemd/system/mdatp.service', dest: '/etc/systemd/system/mdatp.service'}
+  - { desc: 'MDATP systemd unit', regex: '/^Restart=.*/a TimeoutStopSec=10', src: '/lib/systemd/system/mdatp.service', dest: '/etc/systemd/system/mdatp.service'}
 
 - name: Enable and start Defender ATP service
   systemd:
