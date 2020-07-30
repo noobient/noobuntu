@@ -26,3 +26,9 @@
 - name: Remove obsolete packages
   apt:
     autoremove: yes
+
+- name: List packages needing a reboot
+  copy:
+    src: 99-reboot-pkgs
+    dest: /etc/update-motd.d/99-reboot-pkgs
+    mode: '0755'
