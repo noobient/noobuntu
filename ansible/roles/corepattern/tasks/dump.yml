@@ -1,0 +1,27 @@
+- name: Check if Apport is installed
+  shell: apt list --installed | grep ^apport/
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: apport_pkg
+
+- name: Disable Apport
+  ini_file:
+    path: /etc/default/apport
+    section: null
+    option: enabled
+    value: '0'
+    no_extra_spaces: yes
+  when: apport_pkg.rc == 0
+
+- name: Disable Apport service
+  systemd:
+    name: apport
+    enabled: no
+    state: stopped
+  when: apport_pkg.rc == 0
+
+- include_role:
+    name: sysctl
+  loop:
+  - { file: '99-corepattern', option: 'kernel.core_pattern', value: "{{ item }}" }
