@@ -6,7 +6,7 @@
 - name: Enable EPEL repo
   yum:
     name: epel-release
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 - name: Install Ansible
   apt:
@@ -18,7 +18,7 @@
   yum:
     name: ansible
     state: latest
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 - name: Show IP on login screen
   replace:

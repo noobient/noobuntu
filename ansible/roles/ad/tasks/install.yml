@@ -25,7 +25,7 @@
     - krb5-workstation
     - oddjob-mkhomedir
     - samba-common-tools
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 - name: Install AD prerequisites
   yum:
@@ -33,4 +33,4 @@
   vars:
     packages:
     - authselect
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (ansible_distribution_major_version == '8')
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (ansible_distribution_major_version == '8')

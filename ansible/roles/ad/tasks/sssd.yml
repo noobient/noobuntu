@@ -33,4 +33,4 @@
 # TODO on EL krb5.keytab doesn't exist until domain joined
 # and SSSD fails to start without it on EL7
 #  notify: Restart SSSD service
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')

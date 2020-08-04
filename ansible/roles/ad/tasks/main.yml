@@ -33,4 +33,4 @@
   when: ansible_distribution == 'Ubuntu'
 
 - include_tasks: samba.yml
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
