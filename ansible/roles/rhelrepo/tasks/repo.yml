@@ -1,5 +1,5 @@
 - name: "Check if the {{ item }} repo is enabled"
-  shell: "subscription-manager repos --list-enabled | grep 'Repo ID:\s*{{ item }}$'"
+  shell: subscription-manager repos --list-enabled | grep 'Repo ID:\s*{{ item }}$'
   ignore_errors: yes
   changed_when: no
   no_log: True
