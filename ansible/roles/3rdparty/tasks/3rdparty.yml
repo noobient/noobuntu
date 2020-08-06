@@ -52,7 +52,7 @@
   register: 3rdparty_unhold
   changed_when: ('was already not hold.' not in 3rdparty_unhold.stdout)
   failed_when: (3rdparty_unhold.rc != 0) and (3rdparty_unhold.rc != 100)
-  when: (ansible_distribution == 'Ubuntu') and (item.version is not defined)
+  when: (ansible_distribution == 'Ubuntu') and (item.version is not defined) and (item.package is defined)
 
 # allow upgrades from one specified version to another, but not downgrades
 - name: "Unhold {{ item.package }}"
@@ -61,7 +61,7 @@
   no_log: True
   register: 3rdparty_unhold2
   changed_when: 3rdparty_unhold2.rc == 0
-  when: (ansible_distribution == 'Ubuntu') and (item.version is defined)
+  when: (ansible_distribution == 'Ubuntu') and (item.version is defined) and (item.package is defined)
 
 - name: "Install {{ item.name }}"
   apt:
@@ -83,7 +83,7 @@
   command: "apt-mark hold {{ item.package }}"
   register: 3rdparty_hold
   changed_when: ('was already set on hold.' not in 3rdparty_hold.stdout)
-  when: (ansible_distribution == 'Ubuntu') and (item.version is defined)
+  when: (ansible_distribution == 'Ubuntu') and (item.version is defined) and (item.package is defined)
 
 # enforce upgrade if the repo provides a newer version of an Ubuntu package
 # e.g. PostgreSQL's libpq/libgeos packages
