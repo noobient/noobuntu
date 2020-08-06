@@ -19,6 +19,6 @@
     state: present
 
 - name: Add CUDA repo
-  src:
+  copy:
     src: cuda.list
     dest: /etc/apt/sources.list.d/cuda.list
