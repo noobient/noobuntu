@@ -1,12 +1,11 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Insync', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'ACCAF35C', repo_file: 'insync', package: 'insync', repo_overwrite: True }
-
-- name: Install Insync Nautilus plugin
-  apt:
-    name: insync-nautilus
-    state: latest
+  - { name: 'Insync', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'ACCAF35C', repo_file: 'insync', package: '{{ packages }}', repo_overwrite: True }
+  vars:
+    packages:
+    - insync
+    - insync-nautilus
 
 - name: Enable Qt display scaling
   lineinfile:
