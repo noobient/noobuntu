@@ -13,14 +13,12 @@
 - include_tasks: purge_driver.yml
   when: ppa_driver.changed or cuda_driver.changed
 
-- include_role:
-    name: 3rdparty
-  loop:
-  - { name: 'CUDA Repo', gpg_url: 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub', repo_file: 'cuda' }
+- name: Import CUDA repo GPG key
+  apt_key:
+    url: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+    state: present
 
-#- include_tasks: repo_cuda_key.yml
-
-#- name: Add CUDA repo
-#  template:
-#    src: cuda.list.j2
-#    dest: /etc/apt/sources.list.d/cuda.list
+- name: Add CUDA repo
+  src:
+    src: cuda.list
+    dest: /etc/apt/sources.list.d/cuda.list

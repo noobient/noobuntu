@@ -1,4 +1,0 @@
-- name: Import CUDA GPG key
-  apt_key:
-    url: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-    state: present
