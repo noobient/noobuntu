@@ -1,3 +1,8 @@
+- name: Install HWE X.Org
+  apt:
+    name: "xserver-xorg-hwe-{{ ubuntu_version }}"
+    state: latest
+
 - name: Check if any NV version is installed
   shell: dpkg -l | grep -E "nvidia-driver-[0-9]{3}"
   ignore_errors: yes
