@@ -49,9 +49,9 @@
 # rc = 100 when 'Unable to locate package' = not installed yet
 - name: "Unhold {{ item.package }}"
   command: "apt-mark unhold {{ item.package }}"
-  register: 3rdparty_unhold
-  changed_when: ('was already not hold.' not in 3rdparty_unhold.stdout)
-  failed_when: (3rdparty_unhold.rc != 0) and (3rdparty_unhold.rc != 100)
+  register: thirdparty_unhold
+  changed_when: ('was already not hold.' not in thirdparty_unhold.stdout)
+  failed_when: (thirdparty_unhold.rc != 0) and (thirdparty_unhold.rc != 100)
   when: (ansible_distribution == 'Ubuntu') and (item.version is not defined) and (item.package is defined)
 
 # allow upgrades from one specified version to another, but not downgrades
@@ -59,8 +59,8 @@
   shell: "apt install --simulate {{ item.package }}={{ item.version }} | grep 'The following packages will be upgraded' && apt-mark unhold {{ item.package }}"
   ignore_errors: yes
   no_log: True
-  register: 3rdparty_unhold2
-  changed_when: 3rdparty_unhold2.rc == 0
+  register: thirdparty_unhold2
+  changed_when: thirdparty_unhold2.rc == 0
   when: (ansible_distribution == 'Ubuntu') and (item.version is defined) and (item.package is defined)
 
 - name: "Install {{ item.name }}"
@@ -81,8 +81,8 @@
 
 - name: "Hold {{ item.package }}"
   command: "apt-mark hold {{ item.package }}"
-  register: 3rdparty_hold
-  changed_when: ('was already set on hold.' not in 3rdparty_hold.stdout)
+  register: thirdparty_hold
+  changed_when: ('was already set on hold.' not in thirdparty_hold.stdout)
   when: (ansible_distribution == 'Ubuntu') and (item.version is defined) and (item.package is defined)
 
 # enforce upgrade if the repo provides a newer version of an Ubuntu package
