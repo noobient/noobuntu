@@ -50,7 +50,7 @@
 - name: "Unhold {{ item.package }}"
   command: "apt-mark unhold {{ item.package }}"
   register: thirdparty_unhold
-  changed_when: ('was already not hold.' not in thirdparty_unhold.stdout)
+  changed_when: ('was already not hold.' not in thirdparty_unhold.stdout) and (thirdparty_unhold.rc != 100)
   failed_when: (thirdparty_unhold.rc != 0) and (thirdparty_unhold.rc != 100)
   when: (ansible_distribution == 'Ubuntu') and (item.version is not defined)
 
