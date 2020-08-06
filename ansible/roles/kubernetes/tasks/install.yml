@@ -1,43 +1,8 @@
-- name: Unhold Kubernetes packages
-  command: "apt-mark unhold {{ item }}"
-  loop:
-  - kubelet
-  - kubeadm
-  - kubectl
-  register: k8s_unhold
-  changed_when: ('was already not hold.' not in k8s_unhold.stdout)
-  when: k8s_version is not defined
-
-# allow upgrades, but not downgrades
-- name: Unhold Kubernetes packages
-  shell: "apt install --simulate {{ item }}={{ k8s_version }} | grep 'The following packages will be upgraded' && apt-mark unhold {{ item }}"
-  loop:
-  - kubelet
-  - kubeadm
-  - kubectl
-  ignore_errors: yes
-  no_log: True
-  register: k8s_unhold2
-  changed_when: k8s_unhold2.rc == 0
-  when: k8s_version is defined
-
+# kubeadm depends on kubelet and kubectl so make sure it's installed last
 - include_role:
     name: 3rdparty
   loop:
 # you can't conditionally pass parameters using jinja, so the next best thing is passing them as empty strings
-  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: "{{ packages }}" , version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }
-  vars:
-    packages:
-    - "kubelet{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
-    - "kubeadm{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
-    - "kubectl{% if k8s_version is defined %}={{ k8s_version }}{% endif %}"
-
-- name: Hold Kubernetes packages
-  command: "apt-mark hold {{ item }}"
-  loop:
-  - kubelet
-  - kubeadm
-  - kubectl
-  register: k8s_hold
-  changed_when: ('was already set on hold.' not in k8s_hold.stdout)
-  when: k8s_version is defined
+  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: kubelet, version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }
+  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: kubectl, version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }
+  - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: kubeadm, version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }

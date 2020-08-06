@@ -45,9 +45,27 @@
   register: thirdparty_conflict
   when: ansible_distribution == 'Ubuntu'
 
+# if version is undefined, unhold to ensure the latest is installed
+# rc = 100 when 'Unable to locate package' = not installed yet
+- name: "Unhold {{ item.package }}"
+  command: "apt-mark unhold {{ item.package }}"
+  register: 3rdparty_unhold
+  changed_when: ('was already not hold.' not in 3rdparty_unhold.stdout)
+  failed_when: (3rdparty_unhold.rc != 0) and (3rdparty_unhold.rc != 100)
+  when: (ansible_distribution == 'Ubuntu') and (item.version is not defined)
+
+# allow upgrades from one specified version to another, but not downgrades
+- name: "Unhold {{ item.package }}"
+  shell: "apt install --simulate {{ item.package }}={{ item.version }} | grep 'The following packages will be upgraded' && apt-mark unhold {{ item.package }}"
+  ignore_errors: yes
+  no_log: True
+  register: 3rdparty_unhold2
+  changed_when: 3rdparty_unhold2.rc == 0
+  when: (ansible_distribution == 'Ubuntu') and (item.version is defined)
+
 - name: "Install {{ item.name }}"
   apt:
-    name: "{{ item.package }}"
+    name: "{{ item.package }}{% if item.version is defined and item.version | length > 0 %}={{ item.version }}{% endif %}"
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
@@ -60,6 +78,12 @@
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
   register: app_install
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (item.package is defined)
+
+- name: "Hold {{ item.package }}"
+  command: "apt-mark hold {{ item.package }}"
+  register: 3rdparty_hold
+  changed_when: ('was already set on hold.' not in 3rdparty_hold.stdout)
+  when: (ansible_distribution == 'Ubuntu') and (item.version is defined)
 
 # enforce upgrade if the repo provides a newer version of an Ubuntu package
 # e.g. PostgreSQL's libpq/libgeos packages
