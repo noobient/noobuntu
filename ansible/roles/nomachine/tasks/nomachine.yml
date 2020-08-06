@@ -3,31 +3,25 @@
     name: nomachine-enterprise-client
     state: absent
 
+# gotta install firewalld, as we need to flush before adding the service
+- name: Install firewalld
+  apt:
+    name: firewalld
+    state: latest
+
 # install the package separately for easy register
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'NoMachine Enterprise Desktop', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu' }
-
-# gotta force apt update because we don't install any package in 3rdparty
-# gotta install firewalld as well, as we need to flush before adding the service
-- name: Install NoMachine Enterprise Desktop
-  apt:
-    package: "{{ packages }}"
-    state: latest
-    update_cache: yes
-  vars:
-    packages:
-    - firewalld
-    - nomachine-enterprise-desktop
-  register: ned_pkg
+  - { name: 'NoMachine Enterprise Desktop', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'nomachine-enterprise-desktop' }
 
 # installing NX adds temporary ports to public zone
+# thirdparty_install is the variable registered by 3rdparty
 - name: Restart firewalld to flush temporary ports
   systemd:
     name: firewalld
     state: restarted
-  when: ned_pkg.changed
+  when: thirdparty_install.changed
 
 - include_role:
     name: firewalld

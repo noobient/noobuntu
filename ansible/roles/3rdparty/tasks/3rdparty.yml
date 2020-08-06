@@ -69,14 +69,14 @@
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
-  register: app_install
+  register: thirdparty_install
   when: (ansible_distribution == 'Ubuntu') and (item.package is defined) and (thirdparty_conflict.rc != 0)
 
 - name: "Install {{ item.name }}"
   yum:
     name: "{{ item.package }}"
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
-  register: app_install
+  register: thirdparty_install
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (item.package is defined)
 
 - name: "Hold {{ item.package }}"
@@ -104,8 +104,8 @@
   template:
     src: "{{ item.repo_file }}.list.j2"
     dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
-  when: (app_install.changed) and (item.repo_overwrite is defined) and (item.repo_overwrite == True) and (ansible_distribution == 'Ubuntu')
+  when: (thirdparty_install.changed) and (item.repo_overwrite is defined) and (item.repo_overwrite == True) and (ansible_distribution == 'Ubuntu')
 
 - name: Run ldconfig
   command: ldconfig
-  when: app_install.changed and item.ldconfig is defined and item.ldconfig == True
+  when: thirdparty_install.changed and item.ldconfig is defined and item.ldconfig == True
