@@ -9,11 +9,13 @@
   template:
     src: foo.mount.j2
     dest: "/etc/systemd/system/{{ smb_unit }}.mount"
+    mode: '0644'
 
 - name: "Add auto-mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }}"
   copy:
     src: foo.automount
     dest: "/etc/systemd/system/{{ smb_unit }}.automount"
+    mode: '0644'
 
 - name: "Enable auto-mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }}"
   systemd:
