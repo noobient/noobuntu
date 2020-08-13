@@ -27,12 +27,14 @@
   template:
     src: "{{ item.repo_file }}.list.j2"
     dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
+    mode: '0644'
   when: ansible_distribution == 'Ubuntu'
 
 - name: "Add {{ item.name }} repo"
   template:
     src: "{{ item.repo_file }}.repo.j2"
     dest: "/etc/yum.repos.d/{{ item.repo_file }}.repo"
+    mode: '0644'
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 # use inline jinja conditional instead of when: so that
@@ -104,6 +106,7 @@
   template:
     src: "{{ item.repo_file }}.list.j2"
     dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
+    mode: '0644'
   when: (thirdparty_install.changed) and (item.repo_overwrite is defined) and (item.repo_overwrite == True) and (ansible_distribution == 'Ubuntu')
 
 - name: Run ldconfig
