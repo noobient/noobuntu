@@ -2,6 +2,7 @@
   apt_repository:
     repo: ppa:alexlarsson/flatpak
     update_cache: yes
+    mode: '0644'
 
 - name: Install Flatpak
   apt:

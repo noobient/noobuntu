@@ -8,6 +8,7 @@
   copy:
     src: mdatp_onboard.json
     dest: /etc/opt/microsoft/mdatp/mdatp_onboard.json
+    mode: '0644'
   notify: Restart Defender ATP
 
 - include_role:
