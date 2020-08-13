@@ -8,3 +8,4 @@
   copy:
     src: nofirstrun
     dest: /etc/apt/preferences.d/nofirstrun
+    mode: '0644'
