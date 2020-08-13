@@ -10,3 +10,4 @@
 - name: Add graphics drivers PPA
   apt_repository:
     repo: ppa:graphics-drivers/ppa
+    mode: '0644'

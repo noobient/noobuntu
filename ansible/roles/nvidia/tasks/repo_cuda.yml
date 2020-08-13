@@ -8,6 +8,7 @@
   template:
     src: nvidia.j2
     dest: /etc/apt/preferences.d/nvidia
+    mode: '0644'
   register: cuda_driver
 
 - include_tasks: purge_driver.yml
@@ -22,3 +23,4 @@
   copy:
     src: cuda.list
     dest: /etc/apt/sources.list.d/cuda.list
+    mode: '0644'
