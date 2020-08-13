@@ -9,6 +9,7 @@
     src: "{{ item.dest }}.new"
     dest: "{{ item.dest }}"
     remote_src: yes
+    mode: '0644'
 
 - name: Remove intermediate file
   file:
