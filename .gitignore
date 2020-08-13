@@ -4,3 +4,4 @@ ansible/roles/devenv/vars/main.yml
 ansible/roles/update/vars/main.yml
 *.retry
 share/hiri-tmp
+ansible.log
