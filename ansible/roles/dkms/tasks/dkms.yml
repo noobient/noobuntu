@@ -8,6 +8,7 @@
     url: "{{ url }}"
     dest: "/usr/src/{{ dkms_name }}-{{ dkms_version }}.{{ file_ext }}"
     checksum: "sha256:{{ checksum }}"
+    mode: '0644'
 
 - name: "Extract {{ dkms_name }} driver"
   unarchive:
@@ -19,6 +20,7 @@
   template:
     src: dkms.conf.j2
     dest: "/usr/src/{{ dkms_name }}-{{ dkms_version }}/dkms.conf"
+    mode: '0644'
   register: dkms_conf
 
 - name: "Remove existing {{ dkms_name }} driver from DKMS"
