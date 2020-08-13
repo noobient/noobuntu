@@ -15,6 +15,7 @@
     url: "{{ jre_url }}"
     dest: "/usr/local/src/jre-{{ jre_version }}.tar.gz"
     checksum: "sha256:{{ jre_checksum }}"
+    mode: '0644'
 
 - name: Extract standalone Java
   unarchive:
@@ -32,8 +33,10 @@
   template:
     src: asdm.desktop.j2
     dest: /usr/share/applications/asdm.desktop
+    mode: '0644'
 
 - name: Deploy ASDM icon
   copy:
     src: asdm.png
     dest: /usr/share/pixmaps/com.cisco.asdm.png
+    mode: '0644'
