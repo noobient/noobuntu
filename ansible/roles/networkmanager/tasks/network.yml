@@ -14,6 +14,7 @@
   copy:
     src: 01-network-manager-all.yaml
     dest: /etc/netplan/01-network-manager-all.yaml
+    mode: '0644'
   register: netplan_ifaces
 
 # https://bugs.launchpad.net/ubuntu/+source/network-manager/+bug/1638842
@@ -21,6 +22,7 @@
   copy:
     src: 10-globally-managed-devices.conf
     dest: /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
+    mode: '0644'
   register: nm_ifaces
 
 - name: Apply networking changes
