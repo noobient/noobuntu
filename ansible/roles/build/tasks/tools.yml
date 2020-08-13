@@ -40,6 +40,7 @@
   apt_repository:
     repo: ppa:git-core/ppa
     update_cache: yes
+    mode: '0644'
 
 - name: Install Git
   apt:
