@@ -4,4 +4,5 @@
     section: null
     option: "{{ item.option }}"
     value: "{{ item.value }}"
+    mode: '0644'
   notify: Reload sysctl
