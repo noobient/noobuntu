@@ -28,6 +28,7 @@
   copy:
     src: htcondor.service
     dest: /etc/systemd/system/htcondor.service
+    mode: '0644'
   register: htcondor_unit
 
 - name: Reload systemd units
@@ -46,3 +47,4 @@
   copy:
     src: htcondor-watchdog
     dest: /etc/cron.d/htcondor-watchdog
+    mode: '0644'
