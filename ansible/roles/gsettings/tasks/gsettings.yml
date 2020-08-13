@@ -5,6 +5,7 @@
     option: "{{ item.option }}"
     value: "{{ item.value | string }}"
     create: yes
+    mode: '0644'
   notify: Compile GLib schema
 
 # glib-compile-schemas accepts only one dir and skips overrides without schema definitions
