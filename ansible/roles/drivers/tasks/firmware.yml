@@ -3,3 +3,4 @@
     url: https://github.com/kvalo/ath10k-firmware/raw/master/QCA6174/hw3.0/4.4.1.c3/firmware-6.bin_RM.4.4.1.c3-00013-QCARMSWPZ-1
     dest: /lib/firmware/ath10k/QCA6174/hw3.0/firmware-6.bin
     checksum: "sha256:d5349bbc4151a68b01f7c0410c4d65734eb0a106dfc73c23a2020547ef80e4be"
+    mode: '0644'
