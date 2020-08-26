@@ -1,11 +1,13 @@
 #!/bin/bash
 
 # sudo apt -y install luksmeta libglib2.0-dev libcurl4-openssl-dev libjose-dev jose git meson libluksmeta-dev libudisks2-dev tang libaudit-dev libpwquality-tools pkg-config curl libjansson-dev
+# tpm2-tss: libjson-c-dev
+# tpm2-tools: uuid-dev
 
 set -eu
 
 PKG_NAME='tpm2-tss'
-PKG_VER=2.3.2
+PKG_VER=3.0.0
 PKG_BUILD=1
 
 TMP_DIR="/tmp/noobuntu"
@@ -35,7 +37,7 @@ Version: ${PKG_VER}-${PKG_BUILD}
 Section: base
 Priority: optional
 Architecture: amd64
-Depends: libc6 (>= 2.27), libssl1.1 (>= 1.1.1), pkg-config (>= 0.29.1)
+Depends: libc6 (>= 2.27), libssl1.1 (>= 1.1.1), pkg-config (>= 0.29.1), libjson-c3 (>= 0.12.1)
 Maintainer: Viktor Berke <github.bviktor@outlook.com>
 Description: OSS implementation of the TCG TPM2 Software Stack (TSS2)
 EOF

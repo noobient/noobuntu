@@ -8,8 +8,8 @@ PKG_NAME='clevis'
 #GIT_REV=62bd6de
 #PKG_BUILD=6
 
-PKG_VER="12"
-PKG_BUILD=6
+PKG_VER="13"
+PKG_BUILD=1
 
 SRC_DIR="${PWD}"
 TMP_DIR="/tmp/noobuntu"
