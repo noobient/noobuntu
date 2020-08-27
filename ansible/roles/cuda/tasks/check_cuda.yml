@@ -10,12 +10,13 @@
 
 # find /usr/local/cuda-*, list total size in MiBs, ignore if smaller than 1MiB, ignore if current version
 # cuda-license is around 80K, so 1M should suffice for quite a while
-- name: Check if any mismatching CUDA directory is present
-  shell: for f in $(find /usr/local -maxdepth 1 -name "cuda-*"); do du -sm $f; done | grep -v "^1\s*" | grep -v "cuda-{{ cuda_path_version }}"
-  ignore_errors: yes
-  changed_when: no
-  no_log: True
-  register: cuda_mismatching_dirs
+# TODO CUDA 10.1 installs libcublas10-2 which now installs to 10.2 dir so this check is useless
+#- name: Check if any mismatching CUDA directory is present
+#  shell: for f in $(find /usr/local -maxdepth 1 -name "cuda-*"); do du -sm $f; done | grep -v "^1\s*" | grep -v "cuda-{{ cuda_path_version }}"
+#  ignore_errors: yes
+#  changed_when: no
+#  no_log: True
+#  register: cuda_mismatching_dirs
 
 # we do reverse match, as it's pointless to list all mismatching versions
 # so if something is found, THEN we need to remove it
