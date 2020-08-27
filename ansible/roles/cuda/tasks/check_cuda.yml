@@ -21,4 +21,4 @@
 # we do reverse match, as it's pointless to list all mismatching versions
 # so if something is found, THEN we need to remove it
 - include_tasks: purge_cuda.yml
-  when: cuda_mismatching_pkgs.rc == 0 or cuda_mismatching_dirs.rc == 0
+  when: cuda_mismatching_pkgs.rc == 0 # or cuda_mismatching_dirs.rc == 0
