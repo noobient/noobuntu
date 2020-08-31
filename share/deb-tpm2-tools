@@ -3,8 +3,8 @@
 set -eu
 
 PKG_NAME='tpm2-tools'
-PKG_VER=4.3.0-rc1
-PKG_BUILD=1
+PKG_VER=4.3.0
+PKG_BUILD=2
 
 TMP_DIR="/tmp/noobuntu"
 WORK_DIR="${TMP_DIR}/${PKG_NAME}"

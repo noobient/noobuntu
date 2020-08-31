@@ -8,8 +8,8 @@ PKG_NAME='clevis'
 #GIT_REV=62bd6de
 #PKG_BUILD=6
 
-PKG_VER="13"
-PKG_BUILD=1
+PKG_VER="14"
+PKG_BUILD=2
 
 SRC_DIR="${PWD}"
 TMP_DIR="/tmp/noobuntu"
@@ -35,9 +35,10 @@ cd clevis-${PKG_VER}
 # TODO remove once fixed upstream
 # https://github.com/latchset/clevis/issues/158
 # https://github.com/latchset/clevis/issues/145
-patch -i ../clevis.patch -p1
+#patch -i ../clevis.patch -p1
 
-meson build --prefix=/usr --libdir=/usr/lib
+meson build --prefix=/usr
+# --libdir=/usr/lib
 ninja -C build
 sudo ninja -C build test
 DESTDIR=${DEST_DIR} ninja -C build install
