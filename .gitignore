@@ -1,7 +1,6 @@
 ansible/roles/ad/vars/main.yml
 ansible/roles/devenv/files/mdatp_onboard.json
 ansible/roles/devenv/vars/main.yml
-ansible/roles/update/vars/main.yml
 *.retry
 share/hiri-tmp
 ansible.log
