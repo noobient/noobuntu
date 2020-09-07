@@ -3,8 +3,9 @@
 # TODO extend to EL
 - include_tasks: release.yml
   when: ansible_distribution == 'Ubuntu'
+# TODO enable for 20.04 once applicable
 - include_tasks: hwe.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version == '18.04')
 
 - include_tasks: ansible.yml
 
