@@ -1,0 +1,2 @@
+- fail: msg="Error! Your OS release ({{ ansible_distribution }} {{ ansible_distribution_version }}) is not supported!"
+  when: ansible_distribution_version not in supported_versions

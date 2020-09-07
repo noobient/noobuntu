@@ -1,5 +1,8 @@
 ---
 #- include_tasks: repo.yml
+# TODO extend to EL
+- include_tasks: release.yml
+  when: ansible_distribution == 'Ubuntu'
 - include_tasks: hwe.yml
   when: ansible_distribution == 'Ubuntu'
 
