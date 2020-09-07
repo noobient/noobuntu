@@ -12,7 +12,7 @@
   - { section: users, option: default-shell, value: /bin/bash }
   - { section: active-directory, option: default-client, value: sssd }
   - { section: active-directory, option: os-name, value: Ubuntu Workstation }
-  - { section: active-directory, option: os-version, value: "{{ ubuntu_version }}"  }
+  - { section: active-directory, option: os-version, value: "{{ ansible_distribution_version }}"  }
   - { section: service, option: automatic-install, value: 'no' }
   - { section: "{{ ad_domain }}", option: fully-qualified-names, value: 'no' }
   - { section: "{{ ad_domain }}", option: automatic-id-mapping, value: 'yes' }

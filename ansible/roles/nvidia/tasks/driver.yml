@@ -1,6 +1,6 @@
 - name: Install HWE X.Org
   apt:
-    name: "xserver-xorg-hwe-{{ ubuntu_version }}"
+    name: "xserver-xorg-hwe-{{ ansible_distribution_version }}"
     state: latest
 
 - name: Check if any NV version is installed

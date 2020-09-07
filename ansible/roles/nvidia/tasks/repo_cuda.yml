@@ -1,6 +1,6 @@
 - name: Remove graphics-driver PPA
   file:
-    path: "/etc/apt/sources.list.d/ppa_graphics_drivers_ppa_{{ ubuntu_codename }}.list"
+    path: "/etc/apt/sources.list.d/ppa_graphics_drivers_ppa_{{ ansible_distribution_release }}.list"
     state: absent
   register: ppa_driver
 

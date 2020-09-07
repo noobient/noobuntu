@@ -5,7 +5,7 @@
   vars:
     packages:
     - linux-tools-common
-    - "linux-generic-hwe-{{ ubuntu_version }}-edge"
+    - "linux-generic-hwe-{{ ansible_distribution_version }}-edge"
 
 # https://www.jetbrains.com/help/clion/cpu-profiler.html
 - include_role:

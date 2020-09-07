@@ -18,7 +18,7 @@
     regexp: '.*'
   when: appstream_result.stat.exists == True
 
-#- name: "Proper multi-arch sources.list for {{ ubuntu_codename }}"
+#- name: "Proper multi-arch sources.list for {{ ansible_distribution_release }}"
 #  template:
 #    src: sources.list.j2
 #    dest: /etc/apt/sources.list
