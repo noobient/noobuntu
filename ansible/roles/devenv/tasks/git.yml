@@ -28,7 +28,13 @@
     - default-jre-headless
     - gnome-keyring
     - seahorse
-    - libgnome-keyring-dev
+
+# TODO will this work on 20.04?
+- name: Install GCM4ML 18.04 dependencies
+  apt:
+    name: libgnome-keyring-dev
+    install_recommends: no
+  when: ansible_distribution_version == '18.04'
 
 - name: Obtain GCM4ML
   get_url:

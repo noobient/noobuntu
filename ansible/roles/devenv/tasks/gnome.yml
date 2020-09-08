@@ -19,8 +19,10 @@
     # use location entry instead of pathbar
     #- { section: "org.gnome.nautilus.preferences", option: "always-use-location-entry", value: 'true' }
 
+# TODO 20.04 compat
 - name: Make grouped window preview order static
   patch:
     src: static-dock-preview-order.patch
     dest: /usr/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com/windowPreview.js
     backup: yes
+  when: ansible_distribution_version == '18.04'

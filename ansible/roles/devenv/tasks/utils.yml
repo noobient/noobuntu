@@ -3,9 +3,10 @@
     repo: "{{ item }}"
     mode: '0644'
   loop:
-  - ppa:jakar/qt-heif # TODO remove once newer version has this built-in
-  - ppa:otto-kesselgulasch/gimp
-  - ppa:slgobinath/safeeyes
+  - ppa:jakar/qt-heif # TODO remove once newer version has this built-in, no 20.04 package yet
+  - ppa:otto-kesselgulasch/gimp # ubuntu pkg newer than ppa
+  - ppa:slgobinath/safeeyes # recent enough
+  when: ansible_distribution_version == '18.04'
 
 - name: Install useful utils (deb)
   apt:
@@ -22,7 +23,6 @@
     - vlc
     - gnome-system-monitor
     - nomacs
-    - qt-heif-image-plugin
     - htop
     - nfs-common
     - usb-creator-gtk
@@ -54,13 +54,9 @@
     - dos2unix
     - sysstat
     - tree
-# TODO remove once added to mainline kernel
-    - exfat-fuse
-    - exfat-utils
 
-# TODO useless now, no indicator, no notifications
-#- name: Install useful utils (snap)
-#  snap:
-#    name: "{{ item }}"
-#  loop:
-#    - prospect-mail
+- name: Install Qt HEIF plugin
+  apt:
+    name: qt-heif-image-plugin
+    state: installed
+  when: ansible_distribution_version == '18.04'
