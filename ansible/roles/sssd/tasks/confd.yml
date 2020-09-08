@@ -23,4 +23,16 @@
     option: "{{ item.option }}"
     value: "{{ item.value }}"
   when: sssd_service.rc == 0
-  notify: Restart SSSD
+  register: sssd_opts
+
+# TODO keytab doesn't exist until domain joined and SSSD fails to start without it on 20.04
+- name: Check Kerberos keytab
+  stat:
+    path: /etc/krb5.keytab
+  register: krb5_keytab
+
+- name: Restart SSSD
+  systemd:
+    name: sssd.service
+    state: restarted
+  when: (sssd_opts is defined) and (sssd_opts.changed) and (krb5_keytab.stat.exists == True)
