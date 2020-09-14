@@ -58,5 +58,4 @@
 - name: Install Qt HEIF plugin
   apt:
     name: qt-heif-image-plugin
-    state: installed
   when: ansible_distribution_version == '18.04'
