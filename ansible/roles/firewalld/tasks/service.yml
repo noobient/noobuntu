@@ -1,3 +1,8 @@
+# a possible check for the existence of a service:
+# firewall-cmd --get-services | grep -E '[[:space:]]{{ item.service }}[[:space:]]|^{{ item.service }}[[:space:]]|[[:space:]]{{ item.service }}$'
+# that is, it's either ' http ' (MOL) or 'http ' (SOL) or ' http' (EOL)
+# but it's probably simpler to just omit port number and be done with it
+
 - name: "Create {{ item.service }} firewall service"
   shell: "firewall-cmd --permanent --new-service {{ item.service }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
   args:

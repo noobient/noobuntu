@@ -26,7 +26,7 @@
   yum:
     name: firewalld
     state: latest
-  when: ansible_distribution == 'CentOS'
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 # necessary for Ansible to work remotely
 #- name: Enable SSH access
