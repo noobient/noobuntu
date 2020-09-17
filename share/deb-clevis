@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# sudo apt -y install git meson jose libjose-dev cmake libjansson-dev libluksmeta-dev tang curl tpm2-tools luksmeta libpwquality-tools pkg-config libglib2.0-dev libudisks2-dev libaudit-dev
+
 set -eu
 
 PKG_NAME='clevis'
 
 PKG_VER="14+git$(date +%Y%m%d)"
 GIT_REV=1285061
-PKG_BUILD=3
+PKG_BUILD=4
 
 #PKG_VER="14"
 #PKG_BUILD=2
@@ -51,7 +53,7 @@ Version: ${PKG_VER}-${PKG_BUILD}
 Section: base
 Priority: optional
 Architecture: amd64
-Depends: libc6 (>= 2.27), tpm2-tools (>= 4.3.0), jose (>= 10-2build1), libjansson4 (>= 2.11), luksmeta (>= 8-3build1), libpwquality-tools (>= 1.4.0), auditd (>= 1:2.8.2), udisks2 (>= 2.7.6), libglib2.0-0 (>= 2.56.4), tang (>= 6), curl (>= 7.58.0)
+Depends: libc6 (>= 2.27), tpm2-tools (>= 4.1.1), jose (>= 10-2build1), libjansson4 (>= 2.11), luksmeta (>= 8-3build1), libpwquality-tools (>= 1.4.0), auditd (>= 1:2.8.2), udisks2 (>= 2.7.6), libglib2.0-0 (>= 2.56.4), tang (>= 6), curl (>= 7.58.0)
 Maintainer: Viktor Berke <github.bviktor@outlook.com>
 Description: Automated Encryption Framework
 EOF
