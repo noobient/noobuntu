@@ -39,8 +39,7 @@ git checkout ${GIT_REV}
 # https://github.com/latchset/clevis/issues/145
 patch -i ../clevis.patch -p1
 
-meson build --prefix=/usr
-# --libdir=/usr/lib
+meson build --prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu
 ninja -C build
 sudo ninja -C build test
 DESTDIR=${DEST_DIR} ninja -C build install
