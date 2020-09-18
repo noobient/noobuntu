@@ -52,10 +52,12 @@
     name: wireshark
 
 - include_tasks: flatpak.yml
-- include_tasks: grub.yml
 - include_tasks: convert.yml
 
 # conditional tasks
+- include_tasks: grub.yml
+  when: grub_password is defined
+
 - include_tasks: defender.yml
   when: (mdatp_deploy is defined) and (mdatp_deploy == True)
 
