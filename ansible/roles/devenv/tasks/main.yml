@@ -5,7 +5,6 @@
   - gcm4ml_version
   - nodejs_version
   - virtualbox_version
-  - grub_password
   - ad_domain
   - ad_smb_shares
   loop_control:
