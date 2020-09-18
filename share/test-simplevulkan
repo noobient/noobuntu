@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cp -R /usr/local/cuda/samples/2_Graphics/simpleVulkan ~
+cd ~/simpleVulkan
+sed -Ei 's@(^INCLUDES\s*:=\s*-I).*(/common/inc$)@\1$(CUDA_PATH)/samples/\2@' Makefile
+sed -i 's@.*$(EXEC).*../../bin.*@@' Makefile
+make
+./simpleVulkan
