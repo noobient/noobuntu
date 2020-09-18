@@ -9,7 +9,7 @@
     # terminal accelerator key conflicting with MC
     - { section: "org.gnome.Terminal.Legacy.Settings", option: "menu-accelerator-enabled", value: 'false' }
     # screenshot keyboard shortcut identical to Windows
-    - { section: "org.gnome.settings-daemon.plugins.media-keys", option: "area-screenshot-clip", value: "'<Shift><Super>s'" }
+    - { section: "org.gnome.settings-daemon.plugins.media-keys{% if ansible_distribution_version == '20.04' %}.deprecated{% endif %}", option: "area-screenshot-clip", value: "'<Shift><Super>s'" }
     # disable switch apps shortcut
     - { section: "org.gnome.desktop.wm.keybindings", option: "switch-applications", value: "[]" }
     # enable switch windows shortcut

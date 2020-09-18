@@ -16,11 +16,11 @@
 
 - name: Import CUDA repo GPG key
   apt_key:
-    url: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+    url: "https://{{ cuda_mirror }}/compute/cuda/repos/ubuntu{{ ansible_distribution_version | replace('.', '') }}/x86_64/7fa2af80.pub"
     state: present
 
 - name: Add CUDA repo
-  copy:
-    src: cuda.list
+  template:
+    src: cuda.list.j2
     dest: /etc/apt/sources.list.d/cuda.list
     mode: '0644'
