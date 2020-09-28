@@ -6,8 +6,8 @@ pkg_name='nvmupdate'
 pkg_ver=1
 tmp_dir="/tmp/noobuntu"
 work_dir="${tmp_dir}/${pkg_name}"
-pkg_file='NVMUpdatePackage_700_Series_v7_30.zip'
-intel_id='24769'
+pkg_file='700Series_NVMUpdatePackage_v8_00_Linux.tar.gz'
+intel_id='25791'
 
 sudo rm -rf ${work_dir}
 mkdir -p ${work_dir}
@@ -15,7 +15,6 @@ mkdir -p ${work_dir}
 pushd ${work_dir}
 
 wget "https://downloadmirror.intel.com/${intel_id}/eng/${pkg_file}"
-unzip ${pkg_file}
 tar xf *_Linux.tar.gz
 
 nvmupdate_ver=$(echo ${pkg_file} | grep -o 'v[0-9]*_[0-9]*' | cut -c 2- | tr _ .)
