@@ -2,6 +2,8 @@
   apt:
     name: git
     state: present
+  register: installed_git
+  when: installed_git is not defined
 
 - name: Check system-wide Git "{{ item.key }}"
   shell: git config --system --get "{{ item.key }}"
