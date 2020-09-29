@@ -8,6 +8,8 @@
   - ad_domain
 
 - include_tasks: deps.yml
+  when: installed_cifs is not defined
+
 - include_tasks: cred.yml
 
 # have to loop here so that we can determine the share-specific systemd unit

@@ -2,10 +2,12 @@
   yum:
     name: cifs-utils
     state: latest
+  register: installed_cifs
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 - name: Install cifs-utils
   apt:
     name: cifs-utils
     state: latest
+  register: installed_cifs
   when: ansible_distribution == 'Ubuntu'
