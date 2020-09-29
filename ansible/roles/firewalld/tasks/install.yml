@@ -20,12 +20,14 @@
   apt:
     name: firewalld
     state: latest
+  register: installed_firewalld
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install firewalld
   yum:
     name: firewalld
     state: latest
+  register: installed_firewalld
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 # necessary for Ansible to work remotely
