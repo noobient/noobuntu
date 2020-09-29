@@ -1,17 +1,8 @@
-# this should work regardless of unit path or service state
-- name: Check if SSSD service is present
-  shell: systemctl cat sssd.service
-  ignore_errors: yes
-  changed_when: no
-  no_log: True
-  register: sssd_service
-
 - name: Ensure SSSD conf.d directory exists
   file:
     state: directory
     path: /etc/sssd/conf.d
     recurse: yes
-  when: sssd_service.rc == 0
 
 - name: Set up SSSD options
   ini_file:
@@ -22,7 +13,6 @@
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value }}"
-  when: sssd_service.rc == 0
   register: sssd_opts
 
 # TODO keytab doesn't exist until domain joined and SSSD fails to start without it on 20.04

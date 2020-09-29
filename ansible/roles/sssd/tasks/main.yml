@@ -1,1 +1,1 @@
-- include_tasks: confd.yml
+- include_tasks: inventory.yml
