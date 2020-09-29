@@ -32,3 +32,19 @@
     src: 99-reboot-pkgs
     dest: /etc/update-motd.d/99-reboot-pkgs
     mode: '0755'
+
+- name: Check if release upgrader is installed
+  shell: apt list --installed | grep ubuntu-release-upgrader-core
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: ubuntu_release_upgrader
+
+- name: Disable release upgrade prompts
+  ini_file:
+    path: /etc/update-manager/release-upgrades
+    section: DEFAULT
+    option: Prompt
+    value: never
+    no_extra_spaces: yes
+  when: ubuntu_release_upgrader.rc == 0
