@@ -1,0 +1,33 @@
+- name: Install GCM4ML dependencies
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - default-jre-headless
+    - gnome-keyring
+    - seahorse
+
+# TODO will this work on 20.04?
+- name: Install GCM4ML 18.04 dependencies
+  apt:
+    name: libgnome-keyring-dev
+    install_recommends: no
+  when: ansible_distribution_version == '18.04'
+
+- name: Obtain GCM4ML
+  get_url:
+    url: "https://github.com/Microsoft/Git-Credential-Manager-for-Mac-and-Linux/releases/download/git-credential-manager-{{ gcm4ml_version }}/git-credential-manager-{{ gcm4ml_version }}.jar"
+    dest: "/usr/local/bin/git-credential-manager-{{ gcm4ml_version }}.jar"
+    mode: 0644
+
+- name: Create unversioned symlink
+  file:
+    src: "/usr/local/bin/git-credential-manager-{{ gcm4ml_version }}.jar"
+    dest: /usr/local/bin/git-credential-manager.jar
+    state: link
+
+- include_role:
+    name: gitconfig
+  loop:
+  - { key: 'credential.helper', value: "{{ gcm4ml_helper }}" }
