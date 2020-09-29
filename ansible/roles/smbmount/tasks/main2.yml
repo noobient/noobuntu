@@ -1,0 +1,22 @@
+# must use a single user, otherwise the number of users would become dynamic,
+# but vars_prompt is static
+
+- include_vars: "{{ playbook_dir }}/roles/ad/vars/main.yml"
+- include_role:
+    name: varcheck
+  loop:
+  - ad_domain
+
+- include_tasks: deps.yml
+- include_tasks: cred.yml
+
+# have to loop here so that we can determine the share-specific systemd unit
+# filename without much redundancy
+- include_tasks: systemd.yml
+  loop: "{{ smb_shares }}"
+
+# TODO figure this out for systemd
+#- name: Create cronjob for periodic remount
+#  copy:
+#    src: mountall
+#    dest: /etc/cron.d/mountall
