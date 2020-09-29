@@ -2,6 +2,8 @@
   apt:
     name: dkms
     state: present
+  register: installed_dkms
+  when: installed_dkms is not defined
 
 - name: "Obtain {{ dkms_name }} driver"
   get_url:
