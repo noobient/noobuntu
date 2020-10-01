@@ -1,5 +1,5 @@
 ---
-jre_url: https://javadl.oracle.com/webapps/download/AutoDL?BundleId=241526_1f5b5a70bf22433b84d0e960903adac8
-jre_checksum: 83dfd1e916f0f903fabfd3cb6bcf6e46c14387eeb09d108ec6123f49bb3633e6
-jre_version: 1.8.0_241
-ceph_codename: nautilus
+jre_url: https://javadl.oracle.com/webapps/download/AutoDL?BundleId=242980_a4634525489241b9a9e1aa73d9e118e6
+jre_checksum: 53e33ba35b1a8b799e1be943155c7b3c56a56a82956ddcf5d774325eca1df812
+jre_version: 1.8.0_261
+ceph_codename: octopus
