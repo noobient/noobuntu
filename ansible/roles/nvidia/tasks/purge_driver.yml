@@ -12,3 +12,7 @@
     - "nvidia-*"
     - "libnvidia-*"
     - "libxnvctrl0"
+    - "libnvinfer*"
+    - "xserver-xorg-video-nvidia*"
+    - "tensorrt*"
+    - "cuda-*"
