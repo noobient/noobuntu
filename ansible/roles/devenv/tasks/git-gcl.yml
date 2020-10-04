@@ -6,4 +6,4 @@
 - include_role:
     name: gitconfig
   loop:
-  - { key: 'credential.helper', value: '/usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret' }
+  - { key: 'credential.helper', value: '{{ gcl_helper }}' }
