@@ -20,9 +20,16 @@
   register: nv_current
 #  when: nv_any.rc == 0
 
+- name: Check if mismatching NV packages are installed
+  shell: apt list --installed | grep -E 'nvidia.*\-.*[0-9]{3}\/' | grep -v '{{ nvidia_version | default(nvidia_default_version) }}'
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: nv_mismatch
+
 - include_tasks: purge_driver.yml
 #  when: nv_any.rc == 0 and nv_current.rc != 0
-  when: nv_current.rc != 0
+  when: nv_current.rc != 0 or nv_mismatch == 0
 
 - name: "Install NV driver v{{ nvidia_version | default(nvidia_default_version) }}"
   apt:
