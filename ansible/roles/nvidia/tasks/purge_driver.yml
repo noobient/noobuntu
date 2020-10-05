@@ -1,18 +1,23 @@
 # need to manually remove old version AND its dependencies
 # also libnvidia packages, some switches may cause older versions
 # to be available in the repo, causing a conflict
-- name: Uninstall mismatching NV packages
-  apt:
-    name: "{{ packages }}"
-    state: absent
-    autoremove: yes
-  vars:
-    packages:
+
+#- name: Uninstall mismatching NV packages
+#  apt:
+#    name: "{{ packages }}"
+#    state: absent
+#    autoremove: yes
+#  vars:
+#    packages:
 #    - "nvidia-driver-*"
-    - "nvidia-*"
-    - "libnvidia-*"
-    - "libxnvctrl0"
-    - "libnvinfer*"
-    - "xserver-xorg-video-nvidia*"
-    - "tensorrt*"
-    - "cuda-*"
+#    - "nvidia-*"
+#    - "libnvidia-*"
+#    - "libxnvctrl0"
+#    - "libnvinfer*"
+#    - "xserver-xorg-video-nvidia*"
+#    - "tensorrt*"
+#    - "cuda-*"
+
+# the above command sometime files even though it's supposed to be equivalent, so let's do it manually
+- name: Uninstall mismatching NV packages
+  shell: apt purge --autoremove "nvidia-*" "libnvidia-*" "libxnvctrl0" "libnvinfer*" "xserver-xorg-video-nvidia*" "tensorrt*" "cuda-*"
