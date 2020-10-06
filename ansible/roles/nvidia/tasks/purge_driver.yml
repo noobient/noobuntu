@@ -26,6 +26,7 @@
 - name: Uninstall optional NV libs
   shell: apt purge -y --autoremove "libnvparsers*" "libnvonnxparsers*"
   ignore_errors: yes
+  no_log: True
 
 - name: Uninstall mismatching NV packages
   shell: apt purge -y --autoremove "nvidia-*" "libnvidia-*" "libxnvctrl0" "libnvinfer*" "xserver-xorg-video-nvidia*" "tensorrt*" "cuda-*"
