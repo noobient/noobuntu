@@ -20,7 +20,14 @@
 
 # the above command sometime files even though it's supposed to be equivalent, so let's do it manually
 # rc=100 when apt didn't find any package to remove, that's fine
+
+# These may or may not be available, they are not in the CUDA repo.
+# But when they are installed, they must be purged first, otherwise the other purge fails.
+- name: Uninstall optional NV libs
+  shell: apt purge -y --autoremove "libnvparsers*" "libnvonnxparsers*"
+  ignore_errors: yes
+
 - name: Uninstall mismatching NV packages
-  shell: apt purge -y --autoremove "nvidia-*" "libnvidia-*" "libxnvctrl0" "libnvinfer*" "xserver-xorg-video-nvidia*" "tensorrt*" "cuda-*" "libnvparsers*" "libnvonnxparsers*"
+  shell: apt purge -y --autoremove "nvidia-*" "libnvidia-*" "libxnvctrl0" "libnvinfer*" "xserver-xorg-video-nvidia*" "tensorrt*" "cuda-*"
   register: nv_purge
   failed_when: (nv_purge.rc != 0) and (nv_purge.rc != 100)
