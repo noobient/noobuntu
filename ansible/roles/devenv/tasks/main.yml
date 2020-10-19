@@ -26,6 +26,7 @@
   loop:
   - { name: 'Clevis', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'clevis', install_recommends: no }
   - { name: 'Google Chrome', gpg_url: 'https://dl.google.com/linux/linux_signing_key.pub', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
+  - { name: 'Microsoft Edge', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-edge-dev', package: 'microsoft-edge-dev' }
   - { name: 'Node.js', gpg_url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key', repo_file: 'nodesource', package: 'nodejs' }
   - { name: 'NoMachine Enterprise Client', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'nomachine-enterprise-client', except: 'nomachine-enterprise-desktop' }
   - { name: 'pgAdmin', gpg_url: 'https://www.postgresql.org/media/keys/ACCC4CF8.asc', repo_file: 'pgdg', package: 'pgadmin4' }
