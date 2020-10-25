@@ -11,8 +11,9 @@
     name: "linux-generic-hwe-{{ ansible_distribution_version }}-edge"
     state: latest
 
+# TODO enable for 20.04 once released
 - name: Install HWE X.Org
   apt:
     name: "xserver-xorg-hwe-{{ ansible_distribution_version }}"
     state: latest
-  when: xorg_present.rc == 0
+  when: (xorg_present.rc == 0) and (ansible_distribution_version == '18.04')
