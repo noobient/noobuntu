@@ -5,7 +5,7 @@
 
 - name: Fix TFTP server data directory permissions
   file:
-    path: /var/lib/tftpboot
+    path: "{% if ansible_distribution_version == '18.04' %}/var/lib/tftpboot{% else %}/srv/tftp{% endif %}"
     owner: tftp
     recurse: yes
 
@@ -25,3 +25,8 @@
     name: tftpd-hpa
     state: restarted
   when: tftpd_options.changed
+
+- include_role:
+    name: firewalld
+  loop:
+  - { service: 'tftp' }
