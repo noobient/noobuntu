@@ -21,14 +21,27 @@
 # the above command sometime files even though it's supposed to be equivalent, so let's do it manually
 # rc=100 when apt didn't find any package to remove, that's fine
 
+- name: Check libnvparsers availability
+  shell: apt-cache search "libnvparsers*"
+  no_log: True
+  changed_when: no
+  register: libnvparsers
+
+- name: Check libnvonnxparsers availability
+  shell: apt-cache search "libnvonnxparsers*"
+  no_log: True
+  changed_when: no
+  register: libnvonnxparsers
+
 # These may or may not be available, they are not in the CUDA repo.
 # But when they are installed, they must be purged first, otherwise the other purge fails.
-- name: Uninstall optional NV libs
-  shell: apt purge -y --autoremove "libnvparsers*" "libnvonnxparsers*"
-  ignore_errors: yes
-  no_log: True
+# Edit: actually, this won't work either, tensorrt 6 depends on them
+#- name: Uninstall optional NV libs
+#  shell: apt purge -y --autoremove "libnvparsers*" "libnvonnxparsers*"
+#  ignore_errors: yes
+#  no_log: True
 
 - name: Uninstall mismatching NV packages
-  shell: apt purge -y --autoremove "nvidia-*" "libnvidia-*" "libxnvctrl0" "libnvinfer*" "xserver-xorg-video-nvidia*" "tensorrt*" "cuda-*"
+  shell: "apt purge -y --autoremove nvidia-* libnvidia-* libxnvctrl0 libnvinfer* xserver-xorg-video-nvidia* tensorrt* cuda-* {% if libnvparsers.stdout_lines|length %}libnvparsers*{% endif %} {% if libnvonnxparsers.stdout_lines|length %}libnvonnxparsers*{% endif %}"
   register: nv_purge
   failed_when: (nv_purge.rc != 0) and (nv_purge.rc != 100)
