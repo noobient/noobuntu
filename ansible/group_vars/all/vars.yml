@@ -1,3 +1,2 @@
 ---
-cuda_runfile_install: False
 gcl_helper: '/usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret'

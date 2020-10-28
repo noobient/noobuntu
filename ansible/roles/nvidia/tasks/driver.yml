@@ -27,7 +27,8 @@
   no_log: True
   register: nv_mismatch
 
-- include_tasks: purge_driver.yml
+- include_role:
+    name: nvpurge
 #  when: nv_any.rc == 0 and nv_current.rc != 0
   when: nv_current.rc != 0 or nv_mismatch.rc == 0
 

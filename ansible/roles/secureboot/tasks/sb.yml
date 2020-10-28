@@ -1,7 +1,7 @@
 - name: Install mokutil
   apt:
     name: mokutil
-    state: latest
+    state: present
 
 - name: Check Secure Boot state
   command: mokutil --sb-state

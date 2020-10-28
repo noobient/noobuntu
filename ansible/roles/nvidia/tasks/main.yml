@@ -2,13 +2,7 @@
 - include_role:
     name: secureboot
 
-# TODO decide if we want the PPA stuff or not
-#- include_tasks: repo_ppa.yml
-- include_tasks: repo_main.yml
-  when: cuda_runfile_install == True
-- include_tasks: repo_cuda.yml
-  when: cuda_runfile_install != True
-
+- include_tasks: repo.yml
 - include_tasks: driver.yml
 
 - include_role:

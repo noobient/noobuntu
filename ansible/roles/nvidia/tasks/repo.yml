@@ -1,0 +1,44 @@
+- name: Check for local CUDA repos
+  find:
+    paths: /etc/apt/sources.list.d
+    patterns: "cuda*local*.list"
+    file_type: file
+  register: cuda_local_repos
+
+- name: Remove local CUDA repos
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  no_log: True
+  with_items: "{{ cuda_local_repos.files }}"
+
+- name: Remove graphics drivers PPA
+  apt_repository:
+    repo: ppa:graphics-drivers/ppa
+    state: absent
+  register: ppa_repo
+
+- name: Add NVIDIA CUDA repo apt preferences
+  template:
+    src: nvidia.j2
+    dest: /etc/apt/preferences.d/nvidia
+    mode: '0644'
+  register: cuda_prefs
+
+- name: Import CUDA repo GPG key
+  apt_key:
+    url: "https://{{ cuda_mirror }}/compute/cuda/repos/ubuntu{{ ansible_distribution_version | replace('.', '') }}/x86_64/7fa2af80.pub"
+    state: present
+
+- name: Add CUDA repo
+  template:
+    src: cuda.list.j2
+    dest: /etc/apt/sources.list.d/cuda.list
+    mode: '0644'
+  register: cuda_repo
+
+# need to purge *after* the repo is set, otherwise apt errors out with
+# 'no such package available' messages
+- include_role:
+    name: nvpurge
+  when: cuda_local_repos.matched > 0 or ppa_repo.changed or cuda_prefs.changed or cuda_repo.changed

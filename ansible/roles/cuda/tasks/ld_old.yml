@@ -10,4 +10,5 @@
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ cuda_ld_conf.files }}"
+  no_log: True
   notify: Run ldconfig
