@@ -33,6 +33,7 @@
   - { name: 'Spotify', gpg_url: 'https://download.spotify.com/debian/pubkey_0D811D58.gpg', repo_file: 'spotify', package: 'spotify-client' }
   - { name: 'Vagrant', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4', repo_file: 'wolfgang42-vagrant', package: 'vagrant' }
   - { name: 'VirtualBox', gpg_url: 'https://www.virtualbox.org/download/oracle_vbox_2016.asc', repo_file: 'virtualbox', package: "virtualbox-{{ virtualbox_version }}" }
+  - { name: 'Vivaldi', gpg_url: 'https://repo.vivaldi.com/archive/linux_signing_key.pub', repo_file: 'vivaldi-stable', package: 'vivaldi' }
   - { name: 'VS Code', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'vscode', package: 'code' }
 
 - include_role:
