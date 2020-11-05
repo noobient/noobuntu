@@ -1,0 +1,20 @@
+- include_role:
+    name: rhelrepo
+  loop:
+  - rhel-7-server-extras-rpms
+
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/centos/gpg', repo_file: 'docker-ce', package: "{{ packages }}" }
+  vars:
+    packages:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: Enable Docker service
+  systemd:
+    name: docker.service
+    enabled: yes
+    state: started

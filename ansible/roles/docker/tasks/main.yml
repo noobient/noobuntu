@@ -1,14 +1,5 @@
----
-- include_role:
-    name: 3rdparty
-  loop:
-  - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: "{{ packages }}" }
-  vars:
-    packages:
-    - docker-ce
-    - docker-ce-cli
+- include_tasks: install_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
 
-- include_tasks: opa_remove.yml
-  loop: "{{ opa_old_versions }}"
-
-- include_tasks: opa_install.yml
+- include_tasks: install_el.yml
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
