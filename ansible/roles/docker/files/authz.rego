@@ -20,7 +20,7 @@ unconfined
 # prohibit access to the host file system outside /home
 # which would essentially grant root privileges to the user
 
-valid_host_path_prefixes = {"/home/", "/proc/", "/tmp/.X11-unix", "/dev/shm", "/media/", "/mnt/"}
+valid_host_path_prefixes = {"/home/", "/proc/", "/tmp/.X11-unix", "/dev/shm", "/media/", "/mnt/", "/var/lib/docker/volumes/"}
 
 # binds
 # `docker run -v /:/host-root`
