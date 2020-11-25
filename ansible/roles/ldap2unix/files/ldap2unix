@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -eu
+
+config_file='/usr/local/etc/ldap2unix.conf'
+
+# Either set the envvars or set up the config file. Example config file:
+# ldap_groups='sysadmins,web developers'
+# unix_groups='docker'
+
+if [ -f "${config_file}" ]
+then
+    . "${config_file}"
+fi
+
+if [ -z "${ldap_groups+x}" ] || [ -z "${unix_groups+x}" ]
+then
+    echo 'Please make sure to set the "ldap_groups" and "unix_groups" variables'
+    exit 1
+fi
+
+date "+%F %T %:z"
+
+IFS=',' read -ra u_groups <<< "${unix_groups}"
+for u_group in "${u_groups[@]}"
+do
+    IFS=',' read -ra l_groups <<< "${ldap_groups}"
+    for l_group in "${l_groups[@]}"
+    do
+        IFS=',' read -ra l_members <<< $(getent group "${l_group}" | cut -d':' -f4)
+        for l_member in "${l_members[@]}"
+        do
+            # skip if already member
+            already_member=0
+            IFS=',' read -ra u_members <<< $(getent group "${u_group}" | cut -d':' -f4)
+            for u_member in "${u_members[@]}"
+            do
+                if [ "${u_member}" == "${l_member}" ]
+                then
+                    already_member=1
+                fi
+            done
+
+            if [ $already_member -eq 0 ]
+            then
+                echo "Adding \"${l_group}/${l_member}\" to ${u_group}"
+                usermod --append --groups "${u_group}" "${l_member}"
+            fi
+        done
+    done
+done

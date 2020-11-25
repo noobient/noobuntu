@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -eu
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${PATH}
+
+/usr/local/sbin/ldap2unix >> /var/log/ldap2unix 2>&1
