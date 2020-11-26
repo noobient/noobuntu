@@ -33,13 +33,17 @@ do
             # skip if already member
             already_member=0
             IFS=',' read -ra u_members <<< $(getent group "${u_group}" | cut -d':' -f4)
-            for u_member in "${u_members[@]}"
-            do
-                if [ "${u_member}" == "${l_member}" ]
-                then
-                    already_member=1
-                fi
-            done
+            # the unix group might be empty
+            if [ ${#u_members[@]} -gt 0 ]
+            then
+                for u_member in "${u_members[@]}"
+                do
+                    if [ "${u_member}" == "${l_member}" ]
+                    then
+                        already_member=1
+                    fi
+                done
+            fi
 
             if [ $already_member -eq 0 ]
             then
