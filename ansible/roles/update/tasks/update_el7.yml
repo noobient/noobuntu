@@ -7,8 +7,23 @@
   yum:
     name: yum-cron
 
-- name: Enable automatic updates
+- name: Enable yum-cron service
   systemd:
     name: yum-cron.service
     state: started
     enabled: yes
+
+- name: Enable applying updates
+  ini_file:
+    path: /etc/yum/yum-cron.conf
+    section: commands
+    option: apply_updates
+    value: 'yes'
+    mode: '0644'
+  register: yumcron_apply
+
+- name: Restart yum-cron service
+  systemd:
+    name: yum-cron.service
+    state: restarted
+  when: yumcron_apply.changed
