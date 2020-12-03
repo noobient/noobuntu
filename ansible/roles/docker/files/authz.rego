@@ -23,7 +23,10 @@ unconfined
 valid_host_path_prefixes = {"/home/", "/proc/", "/tmp/.X11-unix", "/dev/shm", "/media/", "/mnt/", "/var/lib/docker/volumes/"}
 
 # binds
-# `docker run -v /:/host-root`
+# `docker run -v /:/host-root` or `docker run -v $(docker volume create):/host-root`
+# possible bind structures:
+# /:/host-root[:ro|:rw]
+# 9a5d267156747933cb53287069f2c4c26fb6a5d3335e02f14b566e8aad17ddaa:/host-root[:ro|:rw]
 
 host_bind_paths[trimmed]
 {
@@ -35,26 +38,25 @@ host_bind_paths[trimmed]
 
     input.Body.HostConfig.Binds[_] = bind
 
-    # find the first / occurence, it is guaranteed to exist
-    slashindex := indexof(bind, "/")
-
-    # take the remainder, '/:/host-root' or '/:rw'
-    afterslash := substring(bind, slashindex, -1)
-
     # split into array via ':' delimiter
-    parts := split(afterslash, ":")
+    parts := split(bind, ":")
 
-    # '/' in both cases, magic!
+    # take full path before first ':'
     trimmed := parts[0]
-
-    # TODO why did they trim leading slashes?
-    #trim(parts[0], "/", trimmed)
 }
 
+# absolute paths, e.g. /root, compare with prefix allowlist
 valid_host_bind_paths[host_path]
 {
     host_bind_paths[host_path]
     startswith(host_path, valid_host_path_prefixes[_])
+}
+
+# volume id, 64-character alphanumeric
+valid_host_bind_paths[host_path]
+{
+    host_bind_paths[host_path]
+    re_match("[a-z0-9]{64}", host_path)
 }
 
 valid_bind_mapping_whitelist
