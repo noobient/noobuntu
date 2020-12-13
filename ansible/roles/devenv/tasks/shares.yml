@@ -10,6 +10,14 @@
     - cifs-utils
     - sshfs
 
+- name: Install PAM mount prerequisites
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - libpam-mount-bin
+  when: ansible_distribution_version == '20.04'
+
 # the XML is non-compliant so this will result in 2 keys but it works
 - name: Enable user share mounts
   xml:
