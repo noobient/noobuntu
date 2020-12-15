@@ -1,0 +1,7 @@
+- include_tasks: opa_install.yml
+
+# Perform remove after install, since you can't uninstall an enforced plugin
+# still being in use. Also ensure Docker has the new version loaded first.
+- meta: flush_handlers
+- include_tasks: opa_remove.yml
+  loop: "{{ opa_old_versions }}"

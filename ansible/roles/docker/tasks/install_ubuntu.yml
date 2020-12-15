@@ -7,13 +7,8 @@
     - docker-ce
     - docker-ce-cli
 
-- include_tasks: opa_install.yml
-
 - include_tasks: nv_runtime.yml
   when: k8s_nv_node is defined and k8s_nv_node == True
 
-# Perform remove after install, since you can't uninstall an enforced plugin
-# still being in use. Also ensure Docker has the new version loaded first.
-- meta: flush_handlers
-- include_tasks: opa_remove.yml
-  loop: "{{ opa_old_versions }}"
+- include_tasks: opa.yml
+  when: ((k8s_node is not defined) or (k8s_node is defined and k8s_node != True)) and ((k8s_nv_node is not defined) or (k8s_nv_node is defined and k8s_nv_node != True))

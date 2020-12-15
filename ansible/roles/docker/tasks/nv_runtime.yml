@@ -14,6 +14,7 @@
     owner: root
     group: root
   register: docker_nv_rt
+  notify: Restart Docker daemon
 
 # use task instead of handler to ensure this is applied before the restart handler is triggered
 - name: Reload systemd config
