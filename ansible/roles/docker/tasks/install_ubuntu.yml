@@ -11,3 +11,5 @@
   loop: "{{ opa_old_versions }}"
 
 - include_tasks: opa_install.yml
+- include_tasks: nv_runtime.yml
+  when: k8s_nv_node is defined and k8s_nv_node == True

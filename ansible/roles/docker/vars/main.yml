@@ -14,11 +14,3 @@ k8s_config: |
   "userland-proxy": false,
   "no-new-privileges": true,
   "experimental": true
-k8s_nv_config: |
-  "runtimes": {
-  "nvidia": {
-    "path": "nvidia-container-runtime",
-    "runtimeArgs": []
-    }
-  },
-  "default-runtime": "nvidia"

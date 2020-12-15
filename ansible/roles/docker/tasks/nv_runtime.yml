@@ -1,0 +1,22 @@
+- name: Create Docker systemd override directory
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Deploy Docker NV runtime config
+  copy:
+    src: override.conf
+    dest: /etc/systemd/system/docker.service.d/override.conf
+    mode: '0644'
+    owner: root
+    group: root
+  register: docker_nv_rt
+
+# use task instead of handler to ensure this is applied before the restart handler is triggered
+- name: Reload systemd config
+  systemd:
+    daemon_reload: yes
+  when: docker_nv_rt.changed
