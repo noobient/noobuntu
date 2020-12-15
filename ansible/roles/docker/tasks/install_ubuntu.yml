@@ -7,8 +7,19 @@
     - docker-ce
     - docker-ce-cli
 
+- name: Configure Docker daemon
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart Docker daemon
+
+# if (k8s_nv) then {...}
 - include_tasks: nv_runtime.yml
   when: k8s_nv_node is defined and k8s_nv_node == True
 
+# if (!k8s) then {...}
 - include_tasks: opa.yml
   when: ((k8s_node is not defined) or (k8s_node is defined and k8s_node != True)) and ((k8s_nv_node is not defined) or (k8s_nv_node is defined and k8s_nv_node != True))

@@ -20,15 +20,6 @@
   changed_when: ("already enabled" not in opa_enable.stderr)
   notify: Restart Docker daemon
 
-- name: Configure Docker daemon
-  template:
-    src: daemon.json.j2
-    dest: /etc/docker/daemon.json
-    owner: root
-    group: root
-    mode: '0644'
-  notify: Restart Docker daemon
-
 - name: Deploy Docker AuthZ policies
   copy:
     src: authz.rego
