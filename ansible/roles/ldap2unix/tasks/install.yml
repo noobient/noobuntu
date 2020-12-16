@@ -1,11 +1,13 @@
 - name: Deploy ldap2unix
   copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: "{{ item2.src }}"
+    dest: "{{ item2.dest }}"
     mode: '0755'
   loop:
     - { src: 'ldap2unix', dest: '/usr/local/sbin/ldap2unix' }
     - { src: 'ldap2unix-cron', dest: '/etc/cron.daily/ldap2unix' }
+  loop_control:
+    loop_var: item2
   notify: Restart cron service
 
 - name: Deploy ldap2unix config file
