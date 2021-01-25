@@ -35,6 +35,7 @@
     - meson
     - ccache
     - lcov
+    - gawk
 
 - name: Add Git PPA
   apt_repository:
