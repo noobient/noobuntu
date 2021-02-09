@@ -1,5 +1,35 @@
+- name: Install yum-versionlock
+  yum:
+    name: yum-versionlock
+    state: latest
+  register: installed_yumversionlock
+  when: installed_yumversionlock is not defined
+
+# use inline jinja conditional instead of when: so that thirdparty_installedversion is always defined for the next step
+- name: Check if matching version is installed
+  shell: "{% if item.version is defined%}rpm -qa | grep {{ item.package }}-{{ item.version }}{% else %}false{% endif %}"
+  ignore_errors: yes
+  changed_when: no
+  no_log: True
+  register: thirdparty_installedversion
+
+# rc=1 when not locked
+- name: "Delete {{ item.package }} version lock"
+  command: "yum versionlock delete {{ item.package }}"
+  register: thirdparty_unlock
+  changed_when: ('versionlock delete: no matches' not in thirdparty_unlock.stderr)
+  failed_when: (thirdparty_unlock.rc != 0) and (thirdparty_unlock.rc != 1)
+  when: (item.version is not defined) or (thirdparty_installedversion.rc != 0)
+
 - name: "Install {{ item.name }}"
   yum:
-    name: "{{ item.package }}"
+    name: "{{ item.package }}{% if item.version is defined and item.version | length > 0 %}-{{ item.version }}{% endif %}"
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
+    allow_downgrade: "{% if item.version is defined and item.version | length > 0 %}yes{% else %}no{% endif %}"
   register: thirdparty_install
+
+- name: "Add {{ item.package }} version lock"
+  command: "yum versionlock add {{ item.package }}"
+  register: thirdparty_lock
+  changed_when: ('versionlock added: 0' not in thirdparty_lock.stdout)
+  when: (item.version is defined) and (thirdparty_installedversion.rc != 0)
