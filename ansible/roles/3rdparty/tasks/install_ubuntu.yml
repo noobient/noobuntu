@@ -1,42 +1,3 @@
-- name: "Import {{ item.name }} GPG key"
-  apt_key:
-    url: "{{ item.gpg_url }}"
-    state: present
-  when: (item.gpg_url is defined) and (ansible_distribution == 'Ubuntu')
-
-- name: "Import {{ item.name }} GPG key"
-  rpm_key:
-    key: "{{ item.gpg_url }}"
-    state: present
-  when: (item.gpg_url is defined) and (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
-
-- name: "Import {{ item.name }} GPG key"
-  apt_key:
-    keyserver: "{{ item.gpg_server }}"
-    id: "{{ item.gpg_id }}"
-    state: present
-  when: (item.gpg_server is defined) and (item.gpg_id is defined) and (ansible_distribution == 'Ubuntu')
-
-- name: "Import {{ item.name }} GPG key"
-  apt_key:
-    data: "{{ lookup('file', '{{ item.gpg_file }}.asc') }}"
-    state: present
-  when: item.gpg_file is defined
-
-- name: "Add {{ item.name }} repo"
-  template:
-    src: "{{ item.repo_file }}.list.j2"
-    dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
-    mode: '0644'
-  when: ansible_distribution == 'Ubuntu'
-
-- name: "Add {{ item.name }} repo"
-  template:
-    src: "{{ item.repo_file }}.repo.j2"
-    dest: "/etc/yum.repos.d/{{ item.repo_file }}.repo"
-    mode: '0644'
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
-
 # use inline jinja conditional instead of when: so that
 # thirdparty_conflict is always defined for the next step
 - name: Check if conflicting packages are installed
@@ -45,7 +6,6 @@
   changed_when: no
   no_log: True
   register: thirdparty_conflict
-  when: ansible_distribution == 'Ubuntu'
 
 # if version is undefined, unhold to ensure the latest is installed
 # rc = 100 when 'Unable to locate package' = not installed yet
@@ -54,7 +14,7 @@
   register: thirdparty_unhold
   changed_when: ('was already not hold.' not in thirdparty_unhold.stdout) and (thirdparty_unhold.rc != 100)
   failed_when: (thirdparty_unhold.rc != 0) and (thirdparty_unhold.rc != 100)
-  when: (ansible_distribution == 'Ubuntu') and (item.version is not defined)
+  when: item.version is not defined
 
 # allow upgrades from one specified version to another, but not downgrades
 - name: "Unhold {{ item.package }}"
@@ -63,7 +23,7 @@
   no_log: True
   register: thirdparty_unhold2
   changed_when: thirdparty_unhold2.rc == 0
-  when: (ansible_distribution == 'Ubuntu') and (item.version is defined)
+  when: item.version is defined
 
 - name: "Install {{ item.name }}"
   apt:
@@ -72,20 +32,13 @@
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
   register: thirdparty_install
-  when: (ansible_distribution == 'Ubuntu') and (thirdparty_conflict.rc != 0)
-
-- name: "Install {{ item.name }}"
-  yum:
-    name: "{{ item.package }}"
-    state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
-  register: thirdparty_install
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+  when: thirdparty_conflict.rc != 0
 
 - name: "Hold {{ item.package }}"
   command: "apt-mark hold {{ item.package }}"
   register: thirdparty_hold
   changed_when: ('was already set on hold.' not in thirdparty_hold.stdout)
-  when: (ansible_distribution == 'Ubuntu') and (item.version is defined)
+  when: item.version is defined
 
 # enforce upgrade if the repo provides a newer version of an Ubuntu package
 # e.g. PostgreSQL's libpq/libgeos packages
@@ -93,13 +46,11 @@
   apt:
     upgrade: dist
     update_cache: no
-  when: ansible_distribution == 'Ubuntu'
 
 # remove the superseded Ubuntu packages
 - name: Remove obsolete packages
   apt:
     autoremove: yes
-  when: ansible_distribution == 'Ubuntu'
 
 # installing the package adds noise to the repo file in postinst, fix it
 - name: "Fix {{ item.name }} repo file"
@@ -107,8 +58,4 @@
     src: "{{ item.repo_file }}.list.j2"
     dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
     mode: '0644'
-  when: (thirdparty_install.changed) and (item.repo_overwrite is defined) and (item.repo_overwrite == True) and (ansible_distribution == 'Ubuntu')
-
-- name: Run ldconfig
-  command: ldconfig
-  when: thirdparty_install.changed and item.ldconfig is defined and item.ldconfig == True
+  when: (thirdparty_install.changed) and (item.repo_overwrite is defined) and (item.repo_overwrite == True)

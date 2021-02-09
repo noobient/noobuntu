@@ -1,0 +1,5 @@
+- name: "Install {{ item.name }}"
+  yum:
+    name: "{{ item.package }}"
+    state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
+  register: thirdparty_install

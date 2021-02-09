@@ -1,2 +1,16 @@
----
-- include_tasks: 3rdparty.yml
+- include_tasks: gpg_el.yml
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+- include_tasks: gpg_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- include_tasks: repo_el.yml
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+- include_tasks: repo_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- include_tasks: install_el.yml
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+- include_tasks: install_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- include_tasks: ldconfig.yml
