@@ -19,7 +19,7 @@
     cmd: "yum versionlock delete {{ item.package }}"
     warn: false
   register: thirdparty_unlock
-  changed_when: ('versionlock delete{{ ":" }} no matches' not in thirdparty_unlock.stderr)
+  changed_when: (yumlock_del_str not in thirdparty_unlock.stderr)
   failed_when: (thirdparty_unlock.rc != 0) and (thirdparty_unlock.rc != 1)
   when: (item.version is not defined) or (thirdparty_installedversion.rc != 0)
 
@@ -35,5 +35,5 @@
     cmd: "yum versionlock add {{ item.package }}"
     warn: false
   register: thirdparty_lock
-  changed_when: ('versionlock added{{ ":" }} 0' not in thirdparty_lock.stdout)
+  changed_when: (yumlock_add_str not in thirdparty_lock.stdout)
   when: (item.version is defined) and (thirdparty_installedversion.rc != 0)
