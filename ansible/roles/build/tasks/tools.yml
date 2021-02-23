@@ -34,6 +34,7 @@
     - ccache
     - lcov
     - gawk
+    - zstd
 
 - name: Add Git PPA
   apt_repository:
