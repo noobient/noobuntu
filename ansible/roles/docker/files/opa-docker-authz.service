@@ -1,0 +1,11 @@
+[Unit]
+Description=A policy-enabled authorization plugin for Docker
+Before=docker.service
+After=network.target opa-docker-authz.socket
+Requires=opa-docker-authz.socket docker.service
+
+[Service]
+ExecStart=/usr/local/sbin/opa-docker-authz -policy-file /etc/docker/policies/authz.rego
+
+[Install]
+WantedBy=multi-user.target

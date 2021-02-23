@@ -1,8 +1,7 @@
----
 opa_old_versions:
   - 0.4
   - 0.5
-opa_version: 0.7
+  - 0.7
 k8s_config: |
   "exec-opts": ["native.cgroupdriver=systemd"],
   "icc": false,

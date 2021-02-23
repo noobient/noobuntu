@@ -1,24 +1,47 @@
-- name: Set up Docker directories
+# obtain new versions with `docker plugin install openpolicyagent/opa-docker-authz-v2:<opa_version>`
+# then copy the 'opa-docker-authz' binary from under /var/lib/docker/plugins
+# build is impossible since newer releases aren't published in the GitHub repo
+# check current version with `opa-docker-authz -version`
+- name: Install Docker AuthZ plugin
+  copy:
+    src: opa-docker-authz
+    dest: /usr/local/sbin/opa-docker-authz
+    owner: root
+    group: root
+    mode: '0755'
+  notify: Restart Docker daemon
+
+- name: Install Docker AuthZ systemd units
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+  - opa-docker-authz.service
+  - opa-docker-authz.socket
+  register: docker_opa_systemd
+  notify: Restart Docker daemon
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: docker_opa_systemd.changed
+
+- name: Enable Docker AuthZ service
+  systemd:
+    name: opa-docker-authz.service
+    state: "{% if docker_opa_systemd.changed %}re{% endif %}started"
+    enabled: yes
+
+- name: Set up Docker AuthZ policy directory
   file:
     path: /etc/docker/policies
     state: directory
     owner: root
     group: root
     mode: '0755'
-
-- name: Install OPA Docker plugin v{{ opa_version }}
-  command: docker plugin install --grant-all-permissions openpolicyagent/opa-docker-authz-v2:{{ opa_version }} opa-args="-policy-file /opa/policies/authz.rego"
-  register: opa_install
-  failed_when: (opa_install.rc != 0) and ("already exists" not in opa_install.stderr)
-  changed_when: ("already exists" not in opa_install.stderr)
-  notify: Restart Docker daemon
-
-- name: Enable OPA Docker plugin v{{ opa_version }}
-  command: docker plugin enable openpolicyagent/opa-docker-authz-v2:{{ opa_version }}
-  register: opa_enable
-  failed_when: (opa_enable.rc != 0) and ("already enabled" not in opa_enable.stderr)
-  changed_when: ("already enabled" not in opa_enable.stderr)
-  notify: Restart Docker daemon
 
 - name: Deploy Docker AuthZ policies
   copy:

@@ -2,6 +2,6 @@
   {% if (k8s_node is defined and k8s_node == True) or (k8s_nv_node is defined and k8s_nv_node == True) %}
   {{ k8s_config }}
   {% else %}
-  "authorization-plugins": ["openpolicyagent/opa-docker-authz-v2:{{ opa_version }}"]
+  "authorization-plugins": ["opa-docker-authz"]
   {% endif %}
 }

@@ -1,0 +1,8 @@
+[Unit]
+Description=A policy-enabled authorization plugin for Docker
+
+[Socket]
+ListenStream=/run/docker/plugins/opa-docker-authz.sock
+
+[Install]
+WantedBy=sockets.target
