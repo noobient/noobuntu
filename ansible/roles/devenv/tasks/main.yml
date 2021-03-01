@@ -25,11 +25,9 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Clevis', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'clevis', install_recommends: no }
   - { name: 'Google Chrome', gpg_url: 'https://dl.google.com/linux/linux_signing_key.pub', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
   - { name: 'Microsoft Edge', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-edge-dev', package: 'microsoft-edge-dev' }
   - { name: 'Node.js', gpg_url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key', repo_file: 'nodesource', package: 'nodejs' }
-  - { name: 'NoMachine Enterprise Client', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'nomachine-enterprise-client', except: 'nomachine-enterprise-desktop' }
   - { name: 'Spotify', gpg_url: 'https://download.spotify.com/debian/pubkey_0D811D58.gpg', repo_file: 'spotify', package: 'spotify-client' }
   - { name: 'Vagrant', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4', repo_file: 'wolfgang42-vagrant', package: 'vagrant' }
   - { name: 'VirtualBox', gpg_url: 'https://www.virtualbox.org/download/oracle_vbox_2016.asc', repo_file: 'virtualbox', package: "virtualbox-{{ virtualbox_version }}" }
