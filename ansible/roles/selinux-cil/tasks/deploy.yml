@@ -1,6 +1,6 @@
 - name: "Copy {{ item.module }} policy module"
-  copy:
-    src: "{{ item.module }}.cil"
+  template:
+    src: "{{ item.module }}.cil.j2"
     dest: "{{ semodule_dir}}/{{ item.module }}.cil"
     owner: root
     group: root
