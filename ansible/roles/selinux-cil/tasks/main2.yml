@@ -1,0 +1,5 @@
+- include_tasks: deps.yml
+  when: installed_semanage is not defined
+
+- include_tasks: structure.yml
+- include_tasks: deploy.yml

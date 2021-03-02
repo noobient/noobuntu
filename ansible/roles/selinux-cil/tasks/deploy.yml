@@ -1,0 +1,12 @@
+- name: "Copy {{ item.module }} policy module"
+  copy:
+    src: "{{ item.module }}.cil"
+    dest: "{{ semodule_dir}}/{{ item.module }}.cil"
+    owner: root
+    group: root
+    mode: '0644'
+  register: selinux_module
+
+- name: "Install {{ item.module }} policy module"
+  command: "semodule -i {{ semodule_dir}}/{{ item.module }}.cil"
+  when: selinux_module.changed

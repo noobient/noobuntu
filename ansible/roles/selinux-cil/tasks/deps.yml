@@ -1,0 +1,5 @@
+- name: Install semanage
+  yum:
+    name: "policycoreutils-python{% if ansible_distribution_major_version != 7 %}-utils{% endif %}"
+    state: latest
+  register: installed_semanage
