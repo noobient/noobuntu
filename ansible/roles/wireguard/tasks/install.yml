@@ -1,0 +1,4 @@
+- name: Install WireGuard
+  yum:
+    name: wireguard-tools
+    state: latest
