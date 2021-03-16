@@ -54,6 +54,7 @@
     - dos2unix
     - sysstat
     - tree
+    - vagrant
 
 - name: Install Qt HEIF plugin
   apt:

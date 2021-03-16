@@ -1,3 +1,2 @@
----
-- include_tasks: cmake.yml
+#- include_tasks: cmake.yml
 - include_tasks: tools.yml
