@@ -5,6 +5,7 @@
   vars:
     packages:
     - linux-tools-common
+    - "linux-tools-{{ ansible_kernel }}"
     - "linux-generic-hwe-{{ ansible_distribution_version }}-edge"
 
 # https://www.jetbrains.com/help/clion/cpu-profiler.html
