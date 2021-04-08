@@ -69,3 +69,5 @@ EOF
 
     chmod 0600 "${wg_root}/clients.d/$((i+1)).conf"
 done
+
+systemctl restart wg-quick@wg0.service
