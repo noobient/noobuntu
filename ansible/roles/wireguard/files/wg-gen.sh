@@ -65,7 +65,10 @@ PresharedKey = $(cat "${wg_root}/clients.d/$((i+1)).psk")
 #AllowedIPs = 0.0.0.0/0
 AllowedIPs = ${wg_int_net}.0/24
 Endpoint = ${wg_endpoint}:${wg_port}
+PersistentKeepalive = 30
 EOF
 
     chmod 0600 "${wg_root}/clients.d/$((i+1)).conf"
 done
+
+systemctl restart wg-quick@wg0.service

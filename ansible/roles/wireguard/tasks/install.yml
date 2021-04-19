@@ -2,3 +2,10 @@
   yum:
     name: wireguard-tools
     state: latest
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora')
+
+- name: Install WireGuard
+  apt:
+    name: wireguard-tools
+    state: latest
+  when: ansible_distribution == 'Ubuntu'
