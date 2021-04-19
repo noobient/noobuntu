@@ -1,9 +1,9 @@
-# TODO enable for 20.04 once available
+# TODO enable once available for ARM64
 - name: Add Ansible PPA
   apt_repository:
     repo: ppa:ansible/ansible
     mode: '0644'
-  when: (ansible_distribution == 'Ubuntu') and (ansible_distribution_version == '18.04')
+  when: (ansible_distribution == 'Ubuntu') and (ansible_architecture != 'aarch64')
 
 - name: Enable EPEL repo
   yum:
