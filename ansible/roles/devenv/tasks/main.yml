@@ -26,7 +26,7 @@
     name: 3rdparty
   loop:
   - { name: 'Google Chrome', gpg_url: 'https://dl.google.com/linux/linux_signing_key.pub', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: True }
-  - { name: 'Microsoft Edge', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-edge', package: 'microsoft-edge-beta' }
+  - { name: 'Microsoft Edge', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-edge-beta', package: 'microsoft-edge-beta' }
   - { name: 'Node.js', gpg_url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key', repo_file: 'nodesource', package: 'nodejs' }
 #  - { name: 'Spotify', gpg_url: 'https://download.spotify.com/debian/pubkey_0D811D58.gpg', repo_file: 'spotify', package: 'spotify-client' }
 #  - { name: 'Vagrant', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4', repo_file: 'wolfgang42-vagrant', package: 'vagrant' }
