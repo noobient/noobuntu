@@ -2,7 +2,7 @@
 # TODO CUDA 10.1 installs cuda-license-10-2 for whatever reason (most likely libcublas), ignore that
 # cuda-drivers doesn't have a version to begin with, it's just the NV driver anyway
 - name: Check if any mismatching CUDA package is installed
-  shell: apt list --installed | grep cuda | grep -v "cuda{{ cuda_version }}\|{{ cuda_version | replace('.','-') }}/\|cuda-license\|cuda-drivers"
+  shell: apt list --installed | grep cuda | grep -v "{{ cuda_version }}\|{{ cuda_version | replace('.','-') }}/\|cuda-license\|cuda-drivers"
   ignore_errors: yes
   changed_when: no
   no_log: True
