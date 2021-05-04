@@ -23,6 +23,12 @@
   changed_when: no
   register: purge_libnccl
 
+- name: Check libnvinfer availability
+  shell: apt-cache search --names-only "libnvinfer*"
+  no_log: True
+  changed_when: no
+  register: purge_libnvinfer
+
 - name: Check libnvonnxparsers availability
   shell: apt-cache search --names-only "libnvonnxparsers*"
   no_log: True
@@ -70,9 +76,10 @@
 
 - name: Uninstall mismatching NV packages
   shell: >
-    apt purge -y --autoremove nvidia-* libnvidia-* libxnvctrl0 libnvinfer* xserver-xorg-video-nvidia* cuda-*
+    apt purge -y --autoremove nvidia-* libnvidia-* libxnvctrl0 xserver-xorg-video-nvidia* cuda-*
     {% if purge_libcudnn.stdout_lines|length %}libcudnn*{% endif %}
     {% if purge_libnccl.stdout_lines|length %}libnccl*{% endif %}
+    {% if purge_libnvinfer.stdout_lines|length %}libnvinfer*{% endif %}
     {% if purge_libnvonnxparsers.stdout_lines|length %}libnvonnxparsers*{% endif %}
     {% if purge_libnvparsers.stdout_lines|length %}libnvparsers*{% endif %}
     {% if purge_tensorrt.stdout_lines|length %}tensorrt*{% endif %}
