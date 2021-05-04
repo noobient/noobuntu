@@ -2,7 +2,7 @@
 # TODO CUDA 10.1 installs cuda-license-10-2 for whatever reason (most likely libcublas), ignore that
 # cuda-drivers doesn't have a version to begin with, it's just the NV driver anyway
 - name: Check if any mismatching CUDA package is installed
-  shell: apt list --installed | grep cuda | grep -v "cuda{{ cuda_path_version }}\|{{ cuda_package_version }}/\|cuda-license\|cuda-drivers"
+  shell: apt list --installed | grep cuda | grep -v "cuda{{ cuda_version }}\|{{ cuda_version | replace('.','-') }}/\|cuda-license\|cuda-drivers"
   ignore_errors: yes
   changed_when: no
   no_log: True
@@ -12,7 +12,7 @@
 # cuda-license is around 80K, so 1M should suffice for quite a while
 # TODO CUDA 10.1 installs libcublas10-2 which now installs to 10.2 dir so this check is useless
 #- name: Check if any mismatching CUDA directory is present
-#  shell: for f in $(find /usr/local -maxdepth 1 -name "cuda-*"); do du -sm $f; done | grep -v "^1\s*" | grep -v "cuda-{{ cuda_path_version }}"
+#  shell: for f in $(find /usr/local -maxdepth 1 -name "cuda-*"); do du -sm $f; done | grep -v "^1\s*" | grep -v "cuda-{{ cuda_version }}"
 #  ignore_errors: yes
 #  changed_when: no
 #  no_log: True

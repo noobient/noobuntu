@@ -1,5 +1,5 @@
 - name: Install CUDA
   apt:
-    name: "cuda-{{ cuda_package_version }}"
+    name: "cuda-{{ cuda_version | replace('.','-') }}"
     state: latest
     install_recommends: yes
