@@ -6,7 +6,7 @@ pkg_name='nvmupdate'
 pkg_ver=1
 tmp_dir="/tmp/noobuntu"
 work_dir="${tmp_dir}/${pkg_name}"
-pkg_file='700Series_NVMUpdatePackage_v8_00_Linux.tar.gz'
+pkg_file='700Series_NVMUpdatePackage_v8_30_Linux.tar.gz'
 intel_id='25791'
 
 sudo rm -rf ${work_dir}
