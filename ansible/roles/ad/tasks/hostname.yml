@@ -19,7 +19,7 @@
   register: etc_hostname_check2
 
 - fail:
-    msg: "Hostname appears to be in wrong format! Please set it with the following command: 'sudo hostnamectl set-hostname foo999linux.{{ ad_domain }}', then reboot."
+    msg: "Hostname appears to be in wrong format! Please set it with 'sudo hostnamectl set-hostname foo999linux.{{ ad_domain }}', then reboot."
   when: (etc_hostname_check1.rc != 0) or (etc_hostname_check2.rc == 0) or (etc_hostname_content.stdout_lines|length != 1)
 
 - name: Configure /etc/hosts
