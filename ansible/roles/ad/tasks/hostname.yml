@@ -41,7 +41,7 @@
 
 - name: Clear SSSD cache
   shell:
-    cmd: rm -rf /var/lib/sss/db/*
+    cmd: sss_cache --everything
   when: etc_hosts.changed
 
 - name: Start SSSD service
