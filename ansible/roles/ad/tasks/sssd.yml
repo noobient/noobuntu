@@ -1,7 +1,10 @@
+# SSSD services are socket-activated on 20.04 and SSSD throws a misconfiguration error if set
+# We could remove manually from sssd.conf, but that's generated *after* joined to AD via realmd, so it'd take 2 playbook runs to be fixed
+# Use this idempotent workaround instead, where the empty conf.d value overrides the sssd.conf value
 - include_role:
     name: sssd
   loop:
-  - { file: 'services', section: 'sssd', option: 'services', value: 'nss, pam, sudo' }
+  - { file: 'services', section: 'sssd', option: 'services', value: "{% if ansible_distribution_version == '18.04' %}nss, pam, sudo{% else %}{% endif %}" }
   when: ansible_distribution == 'Ubuntu'
 
 # https://bugs.launchpad.net/ubuntu/+source/sssd/+bug/1723350/comments/49
