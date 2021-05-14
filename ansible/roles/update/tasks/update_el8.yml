@@ -7,7 +7,15 @@
   yum:
     name: dnf-automatic
 
-- name: Enable automatic updates
+- name: Enable applying updates
+  ini_file:
+    path: /etc/dnf/automatic.conf
+    section: commands
+    option: apply_updates
+    value: 'yes'
+    mode: '0644'
+
+- name: Enable dnf-automatic
   systemd:
     name: dnf-automatic.timer
     state: started
