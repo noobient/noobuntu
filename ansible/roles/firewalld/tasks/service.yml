@@ -12,10 +12,10 @@
 - name: "Add port {{ port }} to {{ service }} firewall service"
   shell: "firewall-cmd --permanent --service={{ service }} --add-port={{ port }} {% if zone is defined%}--zone={{ zone }}{% endif %} && firewall-cmd --reload"
   register: fw_port
-  changed_when: ("ALREADY_ENABLED" not in fw_port.stderr)
+  changed_when: fw_alreadyenabled_str not in fw_port.stderr
   when: port is defined
 
 - name: "Enable {{ service }} firewall service"
   shell: "firewall-cmd --permanent --add-service={{ service }} {% if zone is defined%}--zone={{ zone }}{% endif %} && firewall-cmd --reload"
   register: fw_svc
-  changed_when: ("ALREADY_ENABLED" not in fw_svc.stderr)
+  changed_when: fw_alreadyenabled_str not in fw_svc.stderr

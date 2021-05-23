@@ -7,4 +7,4 @@
 - name: "Add {{ source }} as source in {{ zone }} zone"
   shell: "firewall-cmd --zone={{ zone }} --add-source={{ source }} --permanent && firewall-cmd --reload"
   register: fw_add_src
-  changed_when: (fw_src_str not in fw_add_src.stderr)
+  changed_when: fw_alreadyenabled_str not in fw_add_src.stderr
