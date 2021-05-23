@@ -1,6 +1,6 @@
-- name: Install yum-versionlock
+- name: Install versionlock plugin
   yum:
-    name: yum-versionlock
+    name: "{% if ansible_pkg_mgr == 'dnf' %}python3-dnf-plugin-versionlock{% else %}yum-versionlock{% endif %}"
     state: latest
   register: installed_yumversionlock
   when: installed_yumversionlock is not defined
