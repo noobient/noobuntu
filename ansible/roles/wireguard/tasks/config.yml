@@ -26,8 +26,9 @@
 
 - include_role:
     name: firewalld
-  loop:
-  - { service: 'wireguard', port: "{{ wg_port }}/udp" }
+  vars:
+  - service: 'wireguard'
+  - port: "{{ wg_port }}/udp"
 
 - name: Enable firewalld masqueare
   shell:

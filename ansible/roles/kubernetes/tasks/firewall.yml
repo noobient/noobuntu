@@ -1,5 +1,8 @@
 - include_role:
     name: firewalld
+  vars:
+  - service: "{{ item.service }}"
+  - port: "{{ item.port }}"
   loop:
   - { service: 'k8s-api-rw', port: '10250/tcp' }
   - { service: 'k8s-api-ro', port: '10255/tcp' }

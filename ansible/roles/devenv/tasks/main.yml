@@ -36,8 +36,8 @@
 
 - include_role:
     name: firewalld
-  loop:
-  - { name: 'ssh' }
+  vars:
+  - service: 'ssh'
 
 - include_tasks: onedrive.yml
 - include_tasks: teams.yml

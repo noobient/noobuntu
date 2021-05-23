@@ -1,21 +1,21 @@
 # a possible check for the existence of a service:
-# firewall-cmd --get-services | grep -E '[[:space:]]{{ item.service }}[[:space:]]|^{{ item.service }}[[:space:]]|[[:space:]]{{ item.service }}$'
+# firewall-cmd --get-services | grep -E '[[:space:]]{{ service }}[[:space:]]|^{{ service }}[[:space:]]|[[:space:]]{{ service }}$'
 # that is, it's either ' http ' (MOL) or 'http ' (SOL) or ' http' (EOL)
 # but it's probably simpler to just omit port number and be done with it
 
-- name: "Create {{ item.service }} firewall service"
-  shell: "firewall-cmd --permanent --new-service {{ item.service }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
+- name: "Create {{ service }} firewall service"
+  shell: "firewall-cmd --permanent --new-service {{ service }} {% if zone is defined%}--zone={{ zone }}{% endif %} && firewall-cmd --reload"
   args:
-    creates: "/etc/firewalld/services/{{ item.service }}.xml"
-  when: item.port is defined
+    creates: "/etc/firewalld/services/{{ service }}.xml"
+  when: port is defined
 
-- name: "Add port {{ item.port }} to {{ item.service }} firewall service"
-  shell: "firewall-cmd --permanent --service={{ item.service }} --add-port={{ item.port }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
+- name: "Add port {{ port }} to {{ service }} firewall service"
+  shell: "firewall-cmd --permanent --service={{ service }} --add-port={{ port }} {% if zone is defined%}--zone={{ zone }}{% endif %} && firewall-cmd --reload"
   register: fw_port
   changed_when: ("ALREADY_ENABLED" not in fw_port.stderr)
-  when: item.port is defined
+  when: port is defined
 
-- name: "Enable {{ item.service }} firewall service"
-  shell: "firewall-cmd --permanent --add-service={{ item.service }} {% if item.zone is defined%}--zone={{ item.zone }}{% endif %} && firewall-cmd --reload"
+- name: "Enable {{ service }} firewall service"
+  shell: "firewall-cmd --permanent --add-service={{ service }} {% if zone is defined%}--zone={{ zone }}{% endif %} && firewall-cmd --reload"
   register: fw_svc
   changed_when: ("ALREADY_ENABLED" not in fw_svc.stderr)

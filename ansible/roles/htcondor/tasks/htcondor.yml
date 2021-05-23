@@ -3,6 +3,9 @@
 
 - include_role:
     name: firewalld
+  vars:
+  - service: "{{ item.service }}"
+  - port: "{{ item.port }}"
   loop:
   - { service: 'ganglia', port: '8649/tcp' }
   - { service: 'ganglia', port: '8649/udp' }
