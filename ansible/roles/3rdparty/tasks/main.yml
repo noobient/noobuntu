@@ -1,16 +1,17 @@
 - include_tasks: gpg_el.yml
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+  when: ansible_distribution in ['CentOS', 'Fedora', 'RedHat']
 - include_tasks: gpg_ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution in ['Ubuntu']
 
 - include_tasks: repo_el.yml
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+
+  when: ansible_distribution in ['CentOS', 'Fedora', 'RedHat']
 - include_tasks: repo_ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution in ['Ubuntu']
 
 - include_tasks: install_el.yml
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+  when: ansible_distribution in ['CentOS', 'Fedora', 'RedHat']
 - include_tasks: install_ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution in ['Ubuntu']
 
 - include_tasks: ldconfig.yml
