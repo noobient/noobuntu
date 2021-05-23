@@ -3,9 +3,8 @@
 # cuda-drivers doesn't have a version to begin with, it's just the NV driver anyway
 - name: Check if any mismatching CUDA package is installed
   shell: apt list --installed | grep cuda | grep -v "{{ cuda_version }}\|{{ cuda_version | replace('.','-') }}/\|cuda-license\|cuda-drivers"
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: cuda_mismatching_pkgs
 
 # find /usr/local/cuda-*, list total size in MiBs, ignore if smaller than 1MiB, ignore if current version
@@ -13,9 +12,8 @@
 # TODO CUDA 10.1 installs libcublas10-2 which now installs to 10.2 dir so this check is useless
 #- name: Check if any mismatching CUDA directory is present
 #  shell: for f in $(find /usr/local -maxdepth 1 -name "cuda-*"); do du -sm $f; done | grep -v "^1\s*" | grep -v "cuda-{{ cuda_version }}"
-#  ignore_errors: yes
+#  failed_when: no
 #  changed_when: no
-#  no_log: True
 #  register: cuda_mismatching_dirs
 
 # we do reverse match, as it's pointless to list all mismatching versions

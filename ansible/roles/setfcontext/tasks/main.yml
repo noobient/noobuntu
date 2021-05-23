@@ -1,8 +1,7 @@
 - name: Check semanage availability
   shell: which semanage
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: semanage_bin
 
 - include_tasks: fcontext.yml

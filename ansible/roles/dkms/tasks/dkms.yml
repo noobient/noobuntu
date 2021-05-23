@@ -27,8 +27,7 @@
 
 - name: "Remove existing {{ dkms_name }} driver from DKMS"
   command: "dkms remove {{ dkms_name }}/{{ dkms_version }} --all"
-  ignore_errors: yes
-  no_log: True
+  failed_when: no
   when: dkms_conf.changed
 
 - name: "Add {{ dkms_name }} driver to DKMS"

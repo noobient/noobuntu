@@ -8,9 +8,8 @@
 # use inline jinja conditional instead of when: so that thirdparty_installedversion is always defined for the next step
 - name: Check if matching version is installed
   shell: "{% if item.version is defined%}rpm -qa | grep {{ item.package }}-{{ item.version }}{% else %}false{% endif %}"
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: thirdparty_installedversion
 
 # rc=1 when not locked

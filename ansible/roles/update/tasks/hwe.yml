@@ -1,9 +1,8 @@
 # gotta use grep for non-zero RC
 - name: Check if target is graphical
   shell: apt list --installed | grep xserver-xorg-video
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: xorg_present
 
 - name: Install HWE kernel

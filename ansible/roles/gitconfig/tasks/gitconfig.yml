@@ -7,9 +7,8 @@
 
 - name: Check system-wide Git "{{ item.key }}"
   shell: git config --system --get "{{ item.key }}"
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: current_value
 
 - name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}"

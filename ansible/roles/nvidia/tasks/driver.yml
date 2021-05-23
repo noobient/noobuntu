@@ -7,24 +7,21 @@
 
 #- name: Check if any NV version is installed
 #  shell: dpkg -l | grep -E "nvidia-driver-[0-9]{3}"
-#  ignore_errors: yes
+#  failed_when: no
 #  changed_when: no
-#  no_log: True
 #  register: nv_any
 
 - name: Check if current NV version is installed
   shell: apt list --installed | grep -E "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: nv_current
 #  when: nv_any.rc == 0
 
 - name: Check if mismatching NV packages are installed
   shell: apt list --installed | grep -E 'nvidia.*\-.*[0-9]{3}\/' | grep -v '{{ nvidia_version | default(nvidia_default_version) }}'
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: nv_mismatch
 
 - include_role:

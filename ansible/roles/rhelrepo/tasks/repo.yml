@@ -1,8 +1,7 @@
 - name: "Check if the {{ item }} repo is enabled"
   shell: subscription-manager repos --list-enabled | grep 'Repo ID:\s*{{ item }}$'
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: rhel_repo
 
 - name: "Enable the {{ item }} repo"

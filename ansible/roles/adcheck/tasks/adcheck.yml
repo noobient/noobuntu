@@ -1,8 +1,7 @@
 - name: Check if machine is AD joined
   shell: "realm list | grep 'configured: kerberos-member'"
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: ad_status
 
 - fail:

@@ -5,9 +5,8 @@
 
 - name: Check Secure Boot state
   command: mokutil --sb-state
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: sb_state
 
 - fail:

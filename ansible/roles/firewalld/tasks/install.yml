@@ -1,9 +1,8 @@
 # this should work regardless of unit path or service state
 - name: Check if UFW service is present
   shell: systemctl cat ufw.service
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: ufw_service
 
 - name: Disable UFW

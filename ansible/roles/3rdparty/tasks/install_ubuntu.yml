@@ -2,9 +2,8 @@
 # thirdparty_conflict is always defined for the next step
 - name: Check if conflicting packages are installed
   shell: "{% if item.except is defined%}apt list --installed | grep \"{{ item.except }}/\"{% else %}false{% endif %}"
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: thirdparty_conflict
 
 # if version is undefined, unhold to ensure the latest is installed
@@ -19,10 +18,9 @@
 # allow upgrades from one specified version to another, but not downgrades
 - name: "Unhold {{ item.package }}"
   shell: "apt install --simulate {{ item.package }}={{ item.version }} | grep 'The following packages will be upgraded' && apt-mark unhold {{ item.package }}"
-  ignore_errors: yes
-  no_log: True
-  register: thirdparty_unhold2
+  failed_when: no
   changed_when: thirdparty_unhold2.rc == 0
+  register: thirdparty_unhold2
   when: item.version is defined
 
 - name: "Install {{ item.name }}"

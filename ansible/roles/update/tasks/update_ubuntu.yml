@@ -35,9 +35,8 @@
 
 - name: Check if release upgrader is installed
   shell: apt list --installed | grep ubuntu-release-upgrader-core
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: ubuntu_release_upgrader
 
 - name: Disable release upgrade prompts

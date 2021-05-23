@@ -22,9 +22,8 @@
 
 - name: PAM inventory
   command: grep "^session\s*optional\s*pam_mkhomedir.so\s*umask.*" /etc/pam.d/common-session
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: mkhomedir
   when: ansible_distribution == 'Ubuntu'
 

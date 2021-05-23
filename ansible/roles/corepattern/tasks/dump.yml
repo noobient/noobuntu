@@ -1,8 +1,7 @@
 - name: Check if Apport is installed
   shell: apt list --installed | grep ^apport/
-  ignore_errors: yes
+  failed_when: no
   changed_when: no
-  no_log: True
   register: apport_pkg
 
 - name: Disable Apport
