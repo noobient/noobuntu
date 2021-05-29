@@ -11,3 +11,11 @@
     regexp: '^CLASS="--class (.*)"$'
     replace: 'CLASS="--unrestricted --class \1"'
   notify: Update GRUB
+
+- name: Allow booting Windows without a password
+  lineinfile:
+    path: /etc/grub.d/30_os-prober
+    insertafter: 'efi\)'
+    firstmatch: yes
+    line: if [ "${CLASS}" = '--class windows' ]; then CLASS="${CLASS} --unrestricted"; fi
+  notify: Update GRUB
