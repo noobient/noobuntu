@@ -13,4 +13,3 @@
 # TODO fix for ARM64
 - include_tasks: hwe.yml
   when: (ansible_distribution == 'Ubuntu') and (ansible_architecture != 'aarch64')
-  
