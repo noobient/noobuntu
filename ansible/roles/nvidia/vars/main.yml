@@ -1,3 +1,2 @@
----
-nvidia_default_version: 450
+nvidia_default_version: 470
 cuda_mirror: developer.download.nvidia.com
