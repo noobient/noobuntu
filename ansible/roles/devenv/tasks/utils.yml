@@ -55,6 +55,7 @@
     - sysstat
     - tree
     - vagrant
+    - gnuplot-x11
 
 - name: Install Qt HEIF plugin
   apt:
