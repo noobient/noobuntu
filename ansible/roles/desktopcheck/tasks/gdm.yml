@@ -1,0 +1,11 @@
+# TODO any better way to check this?
+- name: Check if target is a desktop
+  shell:
+    cmd: apt list --installed | grep gdm3
+  failed_when: no
+  changed_when: no
+  register: apt_gdm3
+
+- name: Register target desktop state
+  set_fact:
+    target_is_desktop: "{% if apt_gdm3.rc == 0 %}True{% else %}False{% endif %}"
