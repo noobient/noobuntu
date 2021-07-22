@@ -1,0 +1,10 @@
+- name: Check default runlevel
+  command:
+    cmd: systemctl get-default
+  changed_when: no
+  register: current_runlevel
+
+- name: Set default runlevel
+  command:
+    cmd: "systemctl set-default {{ runlevel }}"
+  when: current_runlevel.stdout != runlevel
