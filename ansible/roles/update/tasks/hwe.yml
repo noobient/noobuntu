@@ -1,18 +1,14 @@
-# gotta use grep for non-zero RC
-- name: Check if target is graphical
-  shell: apt list --installed | grep xserver-xorg-video
-  failed_when: no
-  changed_when: no
-  register: xorg_present
-
 - name: Install HWE kernel
   apt:
     name: "linux-generic-hwe-{{ ansible_distribution_version }}-edge"
     state: latest
+
+- include_role:
+    name: desktopcheck
 
 # TODO enable for 20.04 once released
 - name: Install HWE X.Org
   apt:
     name: "xserver-xorg-hwe-{{ ansible_distribution_version }}"
     state: latest
-  when: (xorg_present.rc == 0) and (ansible_distribution_version == '18.04')
+  when: (target_is_desktop) and (ansible_distribution_version == '18.04')
