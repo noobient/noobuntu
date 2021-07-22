@@ -29,16 +29,24 @@
 #  when: nv_any.rc == 0 and nv_current.rc != 0
   when: nv_current.rc != 0 or nv_mismatch.rc == 0
 
+- include_role:
+    name: desktopcheck
+
 - name: "Install NV driver v{{ nvidia_version | default(nvidia_default_version) }}"
   apt:
     name: "{{ packages }}"
     state: latest
     update_cache: yes
-    install_recommends: yes
+    install_recommends: "{% if target_is_desktop %}yes{% else %}no{% endif %}"
   vars:
     packages:
     - "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
     - "nvidia-dkms-{{ nvidia_version | default(nvidia_default_version) }}"
     - "nvidia-kernel-source-{{ nvidia_version | default(nvidia_default_version) }}"
     - "nvidia-kernel-common-{{ nvidia_version | default(nvidia_default_version) }}"
-    - nvidia-settings
+
+- name: Install NVIDIA X Server Settings
+  apt:
+    name: nvidia-settings
+    state: latest
+  when: target_is_desktop
