@@ -1,0 +1,37 @@
+- name: Check if any NV package is present
+  shell:
+    cmd: apt list --installed | grep -E 'nvidia|cuda'
+  failed_when: no
+  changed_when: no
+  register: nv_cuda_pkg
+
+- include_role:
+    name: nvpurge
+  when: nv_cuda_pkg.rc == 0
+
+- name: Install containerd
+  apt:
+    name: containerd
+    state: latest
+
+- name: Disable Nouveau driver
+  copy:
+    src: blacklist-nouveau.conf
+    dest: /etc/modprobe.d/blacklist-nouveau.conf
+    mode: '0644'
+  notify: Update initramfs
+
+- name: Load GPU operator dependency modules
+  modprobe:
+    name: "{{ item }}"
+  loop: "{{ gpuop_modules }}"
+
+- name: Load GPU Operator dependency modules on boot
+  lineinfile:
+    path: /etc/modules-load.d/gpuop.conf
+    line: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+    create: yes
+  loop: "{{ gpuop_modules }}"

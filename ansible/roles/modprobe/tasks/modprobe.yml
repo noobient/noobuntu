@@ -1,0 +1,11 @@
+- name: "Check if {{ item }} module is loaded"
+  shell:
+    cmd: "lsmod | grep {{ item }}"
+  failed_when: no
+  changed_when: no
+  register: lsmod
+
+- name: "Load {{ item }} module"
+  shell:
+    cmd: "modprobe {{ item }}"
+  when: lsmod.rc != 0

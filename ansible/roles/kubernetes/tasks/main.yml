@@ -1,7 +1,20 @@
 - include_role:
     name: docker
+  when: (k8s_gpuop is not defined) or (k8s_gpuop is defined and k8s_gpuop != True)
+
+- include_tasks: gpuop.yml
+  when: (k8s_gpuop is defined) and (k8s_gpuop == True)
 
 # TODO figure out how to get K8s to work w/ active firewall
 # till then it's pointless to add rules that'll be unused
 #- include_tasks: firewall.yml
 - include_tasks: install.yml
+
+# enable IPv6 for pods
+- include_role:
+    name: sysctl
+  loop:
+  - { file: '99-k8s-ipv6', option: 'net.bridge.bridge-nf-call-ip6tables', value: '1' }
+  - { file: '99-k8s-ipv6', option: 'net.bridge.bridge-nf-call-iptables', value: '1' }
+  - { file: '99-k8s-ipv6', option: 'net.ipv6.conf.all.forwarding', value: '1' }
+  - { file: '99-k8s-ipv6', option: 'net.ipv4.ip_forward', value: '1' }
