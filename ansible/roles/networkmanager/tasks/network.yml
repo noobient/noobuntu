@@ -6,8 +6,11 @@
 
 - name: Remove netplan configuration
   file:
-    path: /etc/netplan/01-netcfg.yaml
+    path: "/etc/netplan/{{ item }}"
     state: absent
+  loop:
+  - 01-netcfg.yaml
+  - 00-installer-config.yaml
   register: netplan_networkd
 
 - name: Disable netplan on all interfaces
