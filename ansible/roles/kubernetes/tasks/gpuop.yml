@@ -14,6 +14,12 @@
     name: containerd
     state: latest
 
+- name: Enable containerd
+  systemd:
+    name: containerd.service
+    state: started
+    enabled: yes
+
 - name: Disable Nouveau driver
   copy:
     src: blacklist-nouveau.conf
