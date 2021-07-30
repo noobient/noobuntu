@@ -18,3 +18,5 @@
   - { file: '99-k8s-ipv6', option: 'net.bridge.bridge-nf-call-iptables', value: '1' }
   - { file: '99-k8s-ipv6', option: 'net.ipv6.conf.all.forwarding', value: '1' }
   - { file: '99-k8s-ipv6', option: 'net.ipv4.ip_forward', value: '1' }
+
+- include_tasks: swap.yml

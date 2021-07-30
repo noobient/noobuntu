@@ -1,0 +1,16 @@
+- name: Check for active swap partitions
+  command:
+    cmd: swapon --show
+  changed_when: no
+  register: swap_list
+
+- name: Turn off swap partitions
+  command:
+    cmd: swapoff --all
+  when: swap_list.stdout|length
+
+- name: Disable swap partitions
+  replace:
+    path: /etc/fstab
+    regexp: '(^/dev/.* swap .*$)'
+    replace: '#\1'
