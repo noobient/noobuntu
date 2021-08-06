@@ -61,3 +61,8 @@
   apt:
     name: qt-heif-image-plugin
   when: ansible_distribution_version == '18.04'
+
+- name: Install MicroK8s
+  snap:
+    name: microk8s
+    classic: yes
