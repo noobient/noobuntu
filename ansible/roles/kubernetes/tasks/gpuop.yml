@@ -1,27 +1,3 @@
-# TODO working setup: host-installed toolkit, pod-installed driver
-# desired setup: host-installed toolkit + driver
-# till then, remove driver/cuda and install toolkit here
-- name: Check if any NV package is present
-  shell:
-    cmd: apt list --installed | grep -E 'nvidia|cuda' | grep -v 'nvidia-container'
-  failed_when: no
-  changed_when: no
-  register: nv_cuda_pkg
-
-- include_role:
-    name: nvpurge
-  when: nv_cuda_pkg.rc == 0
-
-- include_role:
-    name: 3rdparty
-  loop:
-  - { name: 'NVIDIA Container Toolkit', gpg_url: 'https://nvidia.github.io/nvidia-docker/gpgkey', repo_file: 'nvidia-docker', package: "{{ packages }}" }
-  vars:
-    packages:
-    - nvidia-container-toolkit
-    - nvidia-container-runtime
-# END TODO
-
 - name: Install containerd
   apt:
     name: containerd
