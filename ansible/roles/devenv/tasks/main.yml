@@ -23,11 +23,7 @@
     name: secureboot
 
 # TODO enable on 18.04 if ever released
-# is it enough to just install libcap2-bin and use 20.04 repo?
-- include_role:
-    name: 3rdparty
-  loop:
-  - { name: 'Cloudflare WARP', gpg_url: 'https://pkg.cloudflareclient.com/pubkey.gpg', repo_file: 'cloudflare-client', package: 'cloudflare-warp' }
+- include_tasks: vpn.yml
   when: ansible_distribution_version == '20.04'
 
 - include_role:
