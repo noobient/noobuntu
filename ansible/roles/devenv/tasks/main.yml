@@ -43,6 +43,7 @@
   vars:
   - service: 'ssh'
 
+- include_tasks: miracast.yml
 - include_tasks: onedrive.yml
 - include_tasks: teams.yml
 - include_tasks: ide.yml
