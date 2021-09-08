@@ -1,0 +1,6 @@
+[FirewallD config inspection for users]
+Identity=unix-user:*
+Action=org.fedoraproject.FirewallD1.config.info
+ResultAny=auth_admin_keep
+ResultInactive=auth_admin_keep
+ResultActive=yes
