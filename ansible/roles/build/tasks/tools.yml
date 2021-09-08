@@ -35,6 +35,7 @@
     - lcov
     - gawk
     - zstd
+    - maven
 
 - name: Add Git PPA
   apt_repository:
