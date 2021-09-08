@@ -1,6 +1,5 @@
----
 #gcm4ml_version: 2.0.4
-nodejs_version: 12
+nodejs_version: 14
 virtualbox_version: 6.1
 # uncomment these if you do have Graylog and want to log sudo commands
 #graylog_host: graylog.foobar.com
