@@ -19,5 +19,5 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'NordLayer', gpg_file: 'nordlayer-keyring.asc', repo_file: 'nordlayer', package: 'nordlayer' }
+  - { name: 'NordLayer', gpg_file: 'nordlayer-keyring', repo_file: 'nordlayer', package: 'nordlayer' }
   - { name: 'NordVPN', gpg_url: 'https://repo.nordvpn.com/gpg/nordvpn_public.asc', repo_file: 'nordvpn', package: 'nordvpn' }
