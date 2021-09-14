@@ -1,3 +1,4 @@
+# TODO enable on 18.04 if ever released
 - name: Install ProtonVPN dependencies
   apt:
     name: "{{ packages }}"
@@ -5,11 +6,18 @@
     packages:
     - gnome-shell-extension-appindicator
     - gir1.2-appindicator3-0.1
+  when: ansible_distribution_version == '20.04'
 
 - include_role:
     name: 3rdparty
   loop:
   # is it enough for Warp on 18.04 to just install libcap2-bin and use 20.04 repo?
   - { name: 'Cloudflare WARP', gpg_url: 'https://pkg.cloudflareclient.com/pubkey.gpg', repo_file: 'cloudflare-client', package: 'cloudflare-warp' }
-  - { name: 'NordVPN', gpg_url: 'https://repo.nordvpn.com/gpg/nordvpn_public.asc', repo_file: 'nordvpn', package: 'nordvpn' }
   - { name: 'ProtonVPN', gpg_url: 'https://protonvpn.com/download/public_key.asc', repo_file: 'protonvpn-stable', package: 'protonvpn' }
+  when: ansible_distribution_version == '20.04'
+
+- include_role:
+    name: 3rdparty
+  loop:
+  - { name: 'NordLayer', gpg_file: 'nordlayer-keyring.asc', repo_file: 'nordlayer', package: 'nordlayer' }
+  - { name: 'NordVPN', gpg_url: 'https://repo.nordvpn.com/gpg/nordvpn_public.asc', repo_file: 'nordvpn', package: 'nordvpn' }

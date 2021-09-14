@@ -17,14 +17,11 @@
 - include_tasks: gnome.yml
 - include_tasks: apparmor.yml
 - include_tasks: pgadmin.yml
+- include_tasks: vpn.yml
 
 # for VirtualBox
 - include_role:
     name: secureboot
-
-# TODO enable on 18.04 if ever released
-- include_tasks: vpn.yml
-  when: ansible_distribution_version == '20.04'
 
 - include_role:
     name: 3rdparty
