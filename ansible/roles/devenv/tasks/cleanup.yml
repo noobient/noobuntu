@@ -26,3 +26,21 @@
     enabled: no
     masked: yes
     state: stopped
+    
+- name: Purge Microsoft Edge beta and dev packages
+  apt:
+    name: "{{ packages }}"
+    purge: yes
+  vars:
+    packages:
+    - microsoft-edge-beta
+    - microsoft-edge-dev
+
+- name: Set Microsoft Edge beta and dev files to absent
+  file:
+    name: "/etc/apt/sources.list.d/{{ files }}"
+    state: absent
+  vars:
+    files:
+    - microsoft-edge-beta.list
+    - microsoft-edge-dev.list
