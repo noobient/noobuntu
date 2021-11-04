@@ -36,11 +36,10 @@
     - microsoft-edge-beta
     - microsoft-edge-dev
 
-- name: Set Microsoft Edge beta and dev files to absent
+- name: Delete Microsoft Edge beta and dev files
   file:
-    name: "/etc/apt/sources.list.d/{{ files }}"
+    name: "/etc/apt/sources.list.d/{{ item }}"
     state: absent
-  vars:
-    files:
-    - microsoft-edge-beta.list
-    - microsoft-edge-dev.list
+  loop:
+  - microsoft-edge-beta.list
+  - microsoft-edge-dev.list
