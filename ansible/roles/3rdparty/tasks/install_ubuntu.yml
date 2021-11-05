@@ -15,9 +15,9 @@
   failed_when: (thirdparty_unhold.rc != 0) and (thirdparty_unhold.rc != 100)
   when: item.version is not defined
 
-# allow upgrades from one specified version to another, but not downgrades
+# allow upgrades from one specified version to another
 - name: "Unhold {{ item.package }}"
-  shell: "apt install --simulate {{ item.package }}={{ item.version }} | grep 'The following packages will be upgraded' && apt-mark unhold {{ item.package }}"
+  shell: "apt install --simulate {{ item.package }}={{ item.version }} | grep -E 'The following packages will be upgraded{% if item.allow_downgrade is defined and item.allow_downgrade == True %}|The following packages will be DOWNGRADED{% endif %}' && apt-mark unhold {{ item.package }}"
   failed_when: no
   changed_when: thirdparty_unhold2.rc == 0
   register: thirdparty_unhold2
@@ -29,6 +29,7 @@
     state: "{% if item.version is defined and item.version | length > 0 %}present{% else %}latest{% endif %}"
     update_cache: yes
     install_recommends: "{{ item.install_recommends | default('yes') }}"
+    dpkg_options: "force-confold,force-confdef{% if item.allow_downgrade is defined and item.allow_downgrade == True %},force-downgrade{% endif %}"
   register: thirdparty_install
   when: thirdparty_conflict.rc != 0
 
