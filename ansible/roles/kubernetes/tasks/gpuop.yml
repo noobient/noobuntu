@@ -3,11 +3,6 @@
   loop:
   - { name: 'containerd', package: 'containerd', allow_downgrade: True, version: "{% if containerd_version is defined %}{{ containerd_version }}{% endif %}" }
 
-- name: Install containerd
-  apt:
-    name: containerd
-    state: latest
-
 - name: Enable containerd
   systemd:
     name: containerd.service
