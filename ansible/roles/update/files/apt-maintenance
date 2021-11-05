@@ -3,7 +3,7 @@
 set -eu
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
-apt -y update --allow-releaseinfo-change && apt -y dist-upgrade -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' && apt -y autoremove
+apt -y update --allow-releaseinfo-change && apt -y dist-upgrade -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-downgrade' && apt -y autoremove
 
 if [ -f '/etc/sysctl.d/99-perf.conf' ]
 then
