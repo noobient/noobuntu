@@ -2,6 +2,13 @@
   apt:
     name: containerd
     state: latest
+  when: containerd_version is not defined
+
+ - name: Install containerd
+  apt:
+    name: "containerd={{ conatinerd_version }}"
+    state: installed
+  when: containerd_version is defined
 
 - name: Enable containerd
   systemd:
