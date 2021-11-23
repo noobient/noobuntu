@@ -3,14 +3,11 @@
     state: present
     name: containerd=1.5.2-0ubuntu1~20.04.3
     force: yes
-  register: pkg
-  tags: containerd
 
 - name: Prevent containerd from being upgraded
   dpkg_selections:
     name: containerd
     selection: hold
-  tags: containerd
 
 - name: Enable containerd
   systemd:
