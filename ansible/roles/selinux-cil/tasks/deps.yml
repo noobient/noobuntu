@@ -4,6 +4,10 @@
     state: latest
   vars:
     packages:
+    - checkpolicy
     - policycoreutils
-    - "policycoreutils-python{% if ansible_distribution_major_version != 7 %}-utils{% endif %}"
+    - policycoreutils-python-utils
+    - python3-libselinux
+    - selinux-policy
+    - selinux-policy-targeted
   register: installed_selinux
