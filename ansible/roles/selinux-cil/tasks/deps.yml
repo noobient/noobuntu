@@ -1,5 +1,9 @@
-- name: Install semanage
+- name: Install SELinux fundamentals
   yum:
-    name: "policycoreutils-python{% if ansible_distribution_major_version != 7 %}-utils{% endif %}"
+    name: "{{ packages }}"
     state: latest
-  register: installed_semanage
+  vars:
+    packages:
+    - policycoreutils
+    - "policycoreutils-python{% if ansible_distribution_major_version != 7 %}-utils{% endif %}"
+  register: installed_selinux

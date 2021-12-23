@@ -8,5 +8,6 @@
   register: selinux_module
 
 - name: "Install {{ item.module }} policy module"
-  command: "semodule -i {{ semodule_dir | default(semodule_default_dir) }}/{{ item.module }}.cil"
+  command:
+    cmd: "semodule -i {{ semodule_dir | default(semodule_default_dir) }}/{{ item.module }}.cil"
   when: selinux_module.changed
