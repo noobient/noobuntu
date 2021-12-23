@@ -1,2 +1,2 @@
 - include_tasks: main2.yml
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora')
+  when: ansible_distribution_file_variety != 'RedHat'

@@ -1,0 +1,1 @@
+semodule_default_dir: '/usr/local/etc/selinux/modules'
