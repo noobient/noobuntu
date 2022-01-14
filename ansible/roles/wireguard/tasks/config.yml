@@ -24,18 +24,6 @@
     state: restarted
     enabled: yes
 
-- include_role:
-    name: firewalld
-  vars:
-  - service: 'wireguard'
-  - port: "{{ wg_port }}/udp"
-
-- name: Enable firewalld masqueare
-  shell:
-    cmd: firewall-cmd --add-masquerade --permanent && firewall-cmd --reload
-  register: fw_mq
-  changed_when: (fw_mq_str not in fw_mq.stderr)
-
 # TODO other options https://www.cyberciti.biz/faq/centos-8-set-up-wireguard-vpn-server/
 - include_role:
     name: sysctl
