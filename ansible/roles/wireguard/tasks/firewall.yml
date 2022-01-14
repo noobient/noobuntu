@@ -7,7 +7,12 @@
   file:
     path: "{{ wg_default_svc }}"
     state: absent
-  notify: Reload firewalld
+  register: wg_svc_delete
+
+- name: Reload firewalld
+  command:
+    cmd: firewall-cmd --reload
+  when: wg_svc_delete.changed
 
 - include_role:
     name: firewalld
