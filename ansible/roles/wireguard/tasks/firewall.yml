@@ -14,6 +14,7 @@
     cmd: firewall-cmd --reload
   when: wg_svc_delete.changed
 
+# this is for 'clients' reaching the 'server'
 - include_role:
     name: firewalld
   vars:
@@ -25,3 +26,11 @@
     cmd: firewall-cmd --add-masquerade --permanent && firewall-cmd --reload
   register: fw_mq
   changed_when: (fw_mq_str not in fw_mq.stderr)
+
+# this is for 'clients' talking to each other
+- include_role:
+    name: firewalld
+  vars:
+  - zone: 'wireguard'
+  - interface: 'wg0'
+  - target: 'ACCEPT'
