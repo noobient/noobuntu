@@ -30,6 +30,45 @@ function gen_psk ()
     chmod 0600 "${1}/${2}.psk"
 }
 
+function parse_users ()
+{
+    do_users=0
+    if [ ! -z ${wg_users+x} ]
+    then
+        IFS=',' wg_users_arr=( ${wg_users} )
+        if [ ${wg_clients} -eq ${#wg_users_arr[@]} ]
+        then
+            do_users=1
+        fi
+    fi
+}
+
+function print_users ()
+{
+    if [ ${do_users} -eq 1 ]
+    then
+        for (( i=0; i<${wg_clients}; i++ ))
+        do
+            echo ${wg_users_arr[i]}
+        done
+    fi
+}
+
+function symlink_users ()
+{
+    if [ ${do_users} -eq 1 ]
+    then
+        pushd "${wg_root}/clients.d" > /dev/null
+
+        for (( i=0; i<${wg_clients}; i++ ))
+        do
+            ln -s -f "$((i+2)).conf" "${wg_users_arr[i]}.conf"
+        done
+
+        popd > /dev/null
+    fi
+}
+
 mkdir -p "${wg_root}/clients.d"
 gen_keypair "${wg_root}" server
 
@@ -70,5 +109,8 @@ EOF
 
     chmod 0600 "${wg_root}/clients.d/$((i+1)).conf"
 done
+
+parse_users
+symlink_users
 
 systemctl restart wg-quick@wg0.service
