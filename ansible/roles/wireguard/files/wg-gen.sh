@@ -45,28 +45,38 @@ function parse_users ()
 
 function print_users ()
 {
-    if [ ${do_users} -eq 1 ]
+    if [ ${do_users} -ne 1 ]
     then
-        for (( i=0; i<${wg_clients}; i++ ))
-        do
-            echo ${wg_users_arr[i]}
-        done
+        return
     fi
+
+    for (( i=0; i<${wg_clients}; i++ ))
+    do
+        echo ${wg_users_arr[i]}
+    done
 }
 
-function symlink_users ()
+function publish_config ()
 {
-    if [ ${do_users} -eq 1 ]
+    if [ ${do_users} -ne 1 ]
     then
-        pushd "${wg_root}/clients.d" > /dev/null
-
-        for (( i=0; i<${wg_clients}; i++ ))
-        do
-            ln -s -f "$((i+2)).conf" "${wg_users_arr[i]}.conf"
-        done
-
-        popd > /dev/null
+        return
     fi
+
+    pushd "${wg_root}/repo.d" > /dev/null
+    git reset --hard
+
+    for (( i=0; i<${wg_clients}; i++ ))
+    do
+        \cp -f "${wg_root}/clients.d/$((i+2)).conf" "${wg_users_arr[i]}.conf"
+    done
+
+    git add -A
+    date_str=$(date +%Y%m%d-%H%M%S)
+    git commit -m "Generated config ${date_str}"
+    git push -f
+
+    popd > /dev/null
 }
 
 mkdir -p "${wg_root}/clients.d"
@@ -111,6 +121,6 @@ EOF
 done
 
 parse_users
-symlink_users
+publish_config
 
 systemctl restart wg-quick@wg0.service
