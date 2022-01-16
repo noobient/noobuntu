@@ -69,6 +69,7 @@ function publish_config ()
     for (( i=0; i<${wg_clients}; i++ ))
     do
         \cp -f "${wg_root}/clients.d/$((i+2)).conf" "${wg_users_arr[i]}.conf"
+        \cp -f "${wg_root}/clients.d/$((i+2)).png" "${wg_users_arr[i]}.png"
     done
 
     git add -A
@@ -117,7 +118,9 @@ Endpoint = ${wg_endpoint}:${wg_port}
 PersistentKeepalive = 30
 EOF
 
+    qrencode -t ansiutf8 -r "${wg_root}/clients.d/$((i+1)).conf" -o "${wg_root}/clients.d/$((i+1)).png"
     chmod 0600 "${wg_root}/clients.d/$((i+1)).conf"
+    chmod 0600 "${wg_root}/clients.d/$((i+1)).png"
 done
 
 parse_users

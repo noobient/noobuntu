@@ -1,11 +1,8 @@
 - name: Install WireGuard
-  yum:
-    name: wireguard-tools
+  package:
+    name: "{{ packages }}"
     state: latest
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora')
-
-- name: Install WireGuard
-  apt:
-    name: wireguard-tools
-    state: latest
-  when: ansible_distribution == 'Ubuntu'
+  vars:
+    packages:
+    - wireguard-tools
+    - qrencode
