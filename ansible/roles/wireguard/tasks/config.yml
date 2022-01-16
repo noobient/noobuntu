@@ -24,6 +24,18 @@
     mode: '0600'
   when: wg_credential is defined
 
+- name: Enable Git credential helper
+  ini_file:
+    path: /root/.gitconfig
+    section: credential
+    option: helper
+    value: store
+    create: yes
+    owner: root
+    group: root
+    mode: '0664'
+  when: wg_credential is defined
+
 - name: Obtain WireGuard config repo
   git:
     repo: "{{ wg_repo }}"
