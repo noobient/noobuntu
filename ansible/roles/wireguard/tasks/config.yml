@@ -24,6 +24,13 @@
     mode: '0600'
   when: wg_credential is defined
 
+- name: Obtain WireGuard config repo
+  git:
+    repo: "{{ wg_repo }}"
+    dest: /etc/wireguard/repo.d
+    force: yes
+  when: wg_credential is defined and wg_repo is defined
+
 # TODO idempotency
 - name: Generate WireGuard config
   command: /etc/wireguard/wg-gen.sh
