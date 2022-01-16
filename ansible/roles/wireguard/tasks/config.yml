@@ -14,6 +14,16 @@
     group: root
     mode: '0755'
 
+- name: Deploy WireGuard Git credential file
+  lineinfile:
+    path: /root/.git-credentials
+    line: "{{ wg_credential }}"
+    create: yes
+    owner: root
+    group: root
+    mode: '0600'
+  when: wg_credential is defined
+
 # TODO idempotency
 - name: Generate WireGuard config
   command: /etc/wireguard/wg-gen.sh
