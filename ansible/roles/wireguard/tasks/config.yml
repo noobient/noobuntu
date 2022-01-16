@@ -24,16 +24,20 @@
     mode: '0600'
   when: wg_credential is defined
 
-- name: Enable Git credential helper
+- name: Set Git identity and credential
   ini_file:
     path: /root/.gitconfig
-    section: credential
-    option: helper
-    value: store
+    section: "{{ item }}"
+    option: "{{ item }}"
+    value: "{{ item }}"
     create: yes
     owner: root
     group: root
     mode: '0664'
+  loop:
+  - { section: 'credential', option: 'helper', value: 'store' }
+  - { section: 'user', option: 'name', value: 'wg-gen' }
+  - { section: 'user', option: 'email', value: 'wg-gen@foobar.io' }
   when: wg_credential is defined
 
 - name: Obtain WireGuard config repo
