@@ -8,3 +8,21 @@
   shell: "firewall-cmd --zone={{ zone }} --add-source={{ source }} --permanent && firewall-cmd --reload"
   register: fw_add_src
   changed_when: fw_alreadyenabled_str not in fw_add_src.stderr
+  when: source is defined
+
+- name: "Add {{ interface }} as interface in {{ zone }} zone"
+  shell: "firewall-cmd --zone={{ zone }} --add-interface={{ interface }} --permanent && firewall-cmd --reload"
+  register: fw_add_if
+  changed_when: fw_alreadyenabled_str not in fw_add_if.stderr
+  when: interface is defined
+
+# target is the only property where setting it twice won't trigger 'already ...' messages, need to check manually
+- name: "Check current target of {{ zone }} zone"
+  shell: "firewall-cmd --zone={{ zone }} --get-target --permanent"
+  register: fw_get_target
+  changed_when: no
+  when: target is defined
+
+- name: "Set target to {{ target }} in {{ zone }} zone"
+  shell: "firewall-cmd --zone={{ zone }} --set-target={{ target }} --permanent && firewall-cmd --reload"
+  when: (target is defined) and (fw_get_target.stdout != target)

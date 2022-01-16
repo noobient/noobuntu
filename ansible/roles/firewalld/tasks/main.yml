@@ -1,7 +1,7 @@
 - include_tasks: install.yml
   when: installed_firewalld is not defined
-# a zone is pointless without a source defined
+# a zone is pointless without a source or interface
 - include_tasks: zone.yml
-  when: (zone is defined) and (source is defined) and (k8s_node is not defined)
+  when: (zone is defined) and ((source is defined) or (interface is defined)) and (k8s_node is not defined)
 - include_tasks: service.yml
   when: (service is defined) and (k8s_node is not defined)
