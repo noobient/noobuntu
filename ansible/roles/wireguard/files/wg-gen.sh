@@ -74,7 +74,7 @@ function publish_config ()
 
     git add -A
     date_str=$(date +%Y%m%d-%H%M%S)
-    git commit -m "Generated config ${date_str}"
+    git diff-index --quiet HEAD || git commit -m "Generated config ${date_str}"
     git push -f
 
     popd > /dev/null
