@@ -33,4 +33,4 @@
   vars:
   - zone: 'wireguard'
   - interface: 'wg0'
-  - target: 'ACCEPT'
+  - fw_target: 'ACCEPT'
