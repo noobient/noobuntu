@@ -27,9 +27,9 @@
 - name: Set Git identity and credential
   ini_file:
     path: /root/.gitconfig
-    section: "{{ item }}"
-    option: "{{ item }}"
-    value: "{{ item }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
     create: yes
     owner: root
     group: root
