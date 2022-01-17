@@ -68,12 +68,13 @@
   command:
     cmd: /etc/wireguard/wg-gen.sh
   register: wg_gen_cmd
-  changed_when: (git_uptodate_str not in wg_gen_cmd.stdout)
+  changed_when: (git_uptodate_str not in wg_gen_cmd.stderr)
 
+# no need to non-idempotently restart here, wg-gen restarts it anyway
 - name: Enable WireGuard
   systemd:
     name: wg-quick@wg0
-    state: restarted
+    state: started
     enabled: yes
 
 # TODO other options https://www.cyberciti.biz/faq/centos-8-set-up-wireguard-vpn-server/
