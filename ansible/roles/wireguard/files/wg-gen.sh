@@ -112,11 +112,23 @@ DNS = ${wg_dns}
 [Peer]
 PublicKey = $(cat "${wg_root}/server.pubkey")
 PresharedKey = $(cat "${wg_root}/clients.d/$((i+1)).psk")
-#AllowedIPs = 0.0.0.0/0
-AllowedIPs = ${wg_int_net}.0/24
 Endpoint = ${wg_endpoint}:${wg_port}
 PersistentKeepalive = 30
 EOF
+
+    case ${wg_tunnel} in
+        split)
+            echo "AllowedIPs = ${wg_int_net}.0/24" >> "${wg_root}/clients.d/$((i+1)).conf"
+            ;;
+
+        full)
+            echo "AllowedIPs = 0.0.0.0/0" >> "${wg_root}/clients.d/$((i+1)).conf"
+            ;;
+
+        *)
+            exit 1
+
+    esac
 
     qrencode -t PNG -r "${wg_root}/clients.d/$((i+1)).conf" -o "${wg_root}/clients.d/$((i+1)).png"
     chmod 0600 "${wg_root}/clients.d/$((i+1)).conf"

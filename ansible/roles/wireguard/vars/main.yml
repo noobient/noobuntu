@@ -7,3 +7,4 @@ wg_ip: 10.10.10.1
 wg_clients: 5
 wg_default_svc: /lib/firewalld/services/wireguard.xml
 wg_users: 'john,jane,jules,juan,jose'
+wg_tunnel: 'split'

@@ -4,3 +4,5 @@ wg_port={{ wg_port }}
 wg_clients={{ wg_clients }}
 wg_dns=1.1.1.1
 {% if wg_users is defined %}wg_users='{{ wg_users }}'{% endif %}{{''}}
+# valid tunnel types: split, full
+wg_tunnel='{{ wg_tunnel }}'
