@@ -64,7 +64,7 @@ function publish_config ()
     fi
 
     pushd "${wg_root}/repo.d" > /dev/null
-    git reset --hard
+    git reset --hard > /dev/null
 
     for (( i=0; i<${wg_clients}; i++ ))
     do
