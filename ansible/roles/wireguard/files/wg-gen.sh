@@ -126,6 +126,7 @@ EOF
             ;;
 
         *)
+            echo "Error! Invalid tunnel type: ${wg_tunnel}"
             exit 1
 
     esac
