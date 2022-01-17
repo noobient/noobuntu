@@ -118,7 +118,7 @@ Endpoint = ${wg_endpoint}:${wg_port}
 PersistentKeepalive = 30
 EOF
 
-    qrencode -t ansiutf8 -r "${wg_root}/clients.d/$((i+1)).conf" -o "${wg_root}/clients.d/$((i+1)).png"
+    qrencode -t PNG -r "${wg_root}/clients.d/$((i+1)).conf" -o "${wg_root}/clients.d/$((i+1)).png"
     chmod 0600 "${wg_root}/clients.d/$((i+1)).conf"
     chmod 0600 "${wg_root}/clients.d/$((i+1)).png"
 done
