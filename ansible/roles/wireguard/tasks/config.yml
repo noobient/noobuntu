@@ -61,14 +61,14 @@
   command:
     cmd: git init /etc/wireguard/repo.d
   register: wg_git_init
-  changed_when: 'Reinitialized existing Git repository' not in wg_git_init.stdout
+  changed_when: (git_reinit_str not in wg_git_init.stdout)
   when: wg_credential is not defined or wg_repo is not defined
 
 - name: Generate WireGuard config
   command:
     cmd: /etc/wireguard/wg-gen.sh
   register: wg_gen_cmd
-  changed_when: 'Everything up-to-date' not in wg_gen_cmd.stdout
+  changed_when: (git_uptodate_str not in wg_gen_cmd.stdout)
 
 - name: Enable WireGuard
   systemd:

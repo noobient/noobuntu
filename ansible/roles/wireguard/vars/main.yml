@@ -1,4 +1,7 @@
 fw_mq_str: 'Warning: ALREADY_ENABLED: masquerade'
+git_reinit_str: 'Reinitialized existing Git repository'
+git_uptodate_str: 'Everything up-to-date'
+
 wg_port: 44444
 wg_ip: 10.10.10.1
 wg_clients: 5
