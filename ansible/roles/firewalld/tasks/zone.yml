@@ -21,7 +21,7 @@
   shell: "firewall-cmd --zone={{ zone }} --get-target --permanent"
   register: fw_get_target
   changed_when: no
-  when: target is defined
+  when: fw_target is defined
 
 # apparently 'target' is an undocumented built-in alias for inventory_hostname in ansible...
 - name: "Set target to {{ fw_target }} in {{ zone }} zone"
