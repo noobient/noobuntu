@@ -1,0 +1,10 @@
+- name: Create Tomcat Unix grop
+  group:
+    name: tomcat
+    gid: "{{ tomcat_id }}"
+
+- name: Create Tomcat Unix user
+  user:
+    name: tomcat
+    uid: "{{ tomcat_id }}"
+    group: tomcat

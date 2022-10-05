@@ -7,4 +7,4 @@ RUN add-apt-repository -y ppa:ansible/ansible
 RUN apt -y update
 RUN DEBIAN_FRONTEND=noninteractive apt -y install ansible
 
-RUN git clone https://github.com/noobient/noobuntu.git
+#RUN git clone https://github.com/noobient/noobuntu.git

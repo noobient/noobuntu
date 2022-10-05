@@ -1,0 +1,13 @@
+#- include_tasks: selinux.yml
+
+- include_tasks: unixcred.yml
+#- include_tasks: adcheck.yml
+#- include_tasks: deps.yml
+#- include_tasks: package.yml
+#- include_tasks: structure.yml
+#- include_tasks: logging.yml
+#- include_tasks: hosts.yml
+#- include_tasks: service.yml
+#- include_role:
+#    name: smbmount
+#  when: (smb_user is defined) and (smb_shares is defined)
