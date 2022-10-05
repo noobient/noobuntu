@@ -1,3 +1,5 @@
+# Perf isn't supported in WSL yet
+# https://github.com/microsoft/WSL/issues/8480
 - name: Install perf
   apt:
     name: "{{ packages }}"
@@ -7,6 +9,7 @@
     - linux-tools-common
     - "linux-tools-{{ ansible_kernel }}"
     - "linux-generic-hwe-{{ ansible_distribution_version }}-edge"
+  when: ('microsoft-standard-WSL' not in ansible_kernel)
 
 # https://www.jetbrains.com/help/clion/cpu-profiler.html
 - include_role:
