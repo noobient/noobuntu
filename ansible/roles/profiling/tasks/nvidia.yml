@@ -1,3 +1,4 @@
+---
 - name: Allow NV profiling for users
   copy:
     src: nvidia-profiling.conf

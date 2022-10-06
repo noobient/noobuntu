@@ -1,0 +1,14 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: ubuntu2204
+    image: ubuntu:22.04
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint -c ../../../.yamllint .
+  ansible-lint .
