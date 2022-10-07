@@ -2,8 +2,19 @@
 driver:
   name: docker
 platforms:
+  - name: rocky9
+    image: rockylinux:9
   - name: ubuntu2204
     image: ubuntu:22.04
+# TODO workaround for lack of systemd in Docker
+# Requires WSL 0.67.6, update with wsl --update
+# Insiders-only as of now
+#    command: /sbin/init
+#    tmpfs:
+#      - /run
+#      - /tmp
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
 verifier:

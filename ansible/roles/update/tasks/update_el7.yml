@@ -1,4 +1,5 @@
 ---
+# Leave this here for historical purposes
 - name: Update yum info and all OS packages
   yum:
     name: '*'

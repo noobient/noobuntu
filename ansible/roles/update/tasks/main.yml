@@ -2,14 +2,12 @@
 #- include_tasks: repo.yml
 # TODO extend to EL
 - include_tasks: release.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_pkg_mgr == 'apt'
 - include_tasks: ansible.yml
 - include_tasks: update_ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-- include_tasks: update_el7.yml
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (ansible_distribution_major_version == '7')
+  when: ansible_pkg_mgr == 'apt'
 - include_tasks: update_el8.yml
-  when: ((ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (ansible_distribution_major_version == '8')) or (ansible_distribution == 'Fedora')
+  when: ansible_pkg_mgr == 'dnf'
 # TODO fix for ARM64
 - include_tasks: hwe.yml
-  when: (ansible_distribution == 'Ubuntu') and (ansible_architecture != 'aarch64')
+  when: (ansible_pkg_mgr == 'apt') and (ansible_architecture != 'aarch64')

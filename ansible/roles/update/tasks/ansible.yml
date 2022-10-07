@@ -1,37 +1,45 @@
 ---
+# Bootstrap the package manager, required in Ubuntu Docker
+- name: Update package manager cache
+  apt:
+    update_cache: true
+  when: ansible_pkg_mgr == 'apt'
+
+# The module docs don't mention it, but this is required for apt_repository to work
+- name: Install apt basics
+  apt:
+    name: gnupg
+    state: latest
+  when: ansible_pkg_mgr == 'apt'
+
 # TODO enable once available for ARM64
 - name: Add Ansible PPA
   apt_repository:
     repo: ppa:ansible/ansible
     mode: '0644'
-  when: (ansible_distribution == 'Ubuntu') and (ansible_architecture != 'aarch64')
+  when: (ansible_pkg_mgr == 'apt') and (ansible_architecture != 'aarch64')
 
 - name: Enable EPEL repo
-  yum:
+  dnf:
     name: epel-release
-  when: ansible_distribution == 'CentOS'
-
-- include_role: # noqa name
-    name: rhelrepo
-  loop:
-    - rhel-7-server-ansible-2-rpms
-  when: ansible_distribution == 'RedHat'
+    state: latest
+  when: ansible_pkg_mgr == 'dnf'
 
 - name: Install Ansible
   apt:
     name: ansible
     state: latest
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_pkg_mgr == 'apt'
 
 - name: Install Ansible
-  yum:
+  dnf:
     name: ansible
     state: latest
-  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+  when: ansible_pkg_mgr == 'dnf'
 
 - name: Show IP on login screen
   replace:
     path: /etc/issue
     regexp: '(Ubuntu .*)\\l$'
     replace: '\1\\l (\\4)'
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_pkg_mgr == 'apt'

@@ -1,11 +1,11 @@
 ---
 - name: Update yum info and all OS packages
-  yum:
+  dnf:
     name: '*'
     state: latest
 
 - name: Install dnf-automatic
-  yum:
+  dnf:
     name: dnf-automatic
 
 - name: Enable applying updates
