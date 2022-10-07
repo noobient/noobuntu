@@ -1,3 +1,4 @@
+---
 # TODO enable once available for ARM64
 - name: Add Ansible PPA
   apt_repository:
@@ -10,10 +11,10 @@
     name: epel-release
   when: ansible_distribution == 'CentOS'
 
-- include_role:
+- include_role: # noqa name
     name: rhelrepo
   loop:
-  - rhel-7-server-ansible-2-rpms
+    - rhel-7-server-ansible-2-rpms
   when: ansible_distribution == 'RedHat'
 
 - name: Install Ansible

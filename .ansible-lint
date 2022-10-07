@@ -2,3 +2,5 @@
 skip_list:
   - package-latest
   - fqcn-builtins
+  - yaml[comments] # TODO how do I restrict this to just require-starting-space?
+  - yaml[line-length]

@@ -1,3 +1,4 @@
+---
 - name: Deploy APT maintenance job
   copy:
     src: apt-maintenance
@@ -15,17 +16,17 @@
 
 - name: Update apt cache
   apt:
-    update_cache: yes
-  changed_when: no
+    update_cache: true
+  changed_when: false
 
 - name: Update all packages
   apt:
     upgrade: dist
-    update_cache: no
+    update_cache: false
 
 - name: Remove obsolete packages
   apt:
-    autoremove: yes
+    autoremove: true
 
 - name: List packages needing a reboot
   copy:
@@ -34,9 +35,10 @@
     mode: '0755'
 
 - name: Check if release upgrader is installed
-  shell: apt list --installed | grep ubuntu-release-upgrader-core
-  failed_when: no
-  changed_when: no
+  shell:
+    cmd: apt list --installed | grep ubuntu-release-upgrader-core
+  failed_when: false
+  changed_when: false
   register: ubuntu_release_upgrader
 
 - name: Disable release upgrade prompts
@@ -45,5 +47,6 @@
     section: DEFAULT
     option: Prompt
     value: never
-    no_extra_spaces: yes
+    no_extra_spaces: true
+    mode: '0644'
   when: ubuntu_release_upgrader.rc == 0

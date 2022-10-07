@@ -1,3 +1,4 @@
+---
 - name: Update yum info and all OS packages
   yum:
     name: '*'
@@ -19,4 +20,4 @@
   systemd:
     name: dnf-automatic.timer
     state: started
-    enabled: yes
+    enabled: true

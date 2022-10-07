@@ -1,4 +1,10 @@
+---
 - name: Restart cron service
   systemd:
-    name: cron
+    name: cron.service
+    state: restarted
+
+- name: Restart yum-cron service
+  systemd:
+    name: yum-cron.service
     state: restarted

@@ -1,3 +1,4 @@
+---
 - name: Update yum info and all OS packages
   yum:
     name: '*'
@@ -11,7 +12,7 @@
   systemd:
     name: yum-cron.service
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Enable applying updates
   ini_file:
@@ -20,10 +21,4 @@
     option: apply_updates
     value: 'yes'
     mode: '0644'
-  register: yumcron_apply
-
-- name: Restart yum-cron service
-  systemd:
-    name: yum-cron.service
-    state: restarted
-  when: yumcron_apply.changed
+  notify: Restart yum-cron service

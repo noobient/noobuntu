@@ -1,2 +1,3 @@
-- fail: msg="Error! Your OS release ({{ ansible_distribution }} {{ ansible_distribution_version }}) is not supported!"
+---
+- fail: msg="Error! Your OS release ({{ ansible_distribution }} {{ ansible_distribution_version }}) is not supported!" # noqa name
   when: ansible_distribution_version not in supported_versions
