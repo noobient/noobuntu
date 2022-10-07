@@ -8,5 +8,5 @@ Set up Molecule:
 
 ```
 sudo apt install -y python3-pip libssl-dev
-python3 -m pip install --user ansible-core ansible-lint molecule[docker]
+python3 -m pip install --user ansible ansible-core ansible-lint molecule[docker]
 ```
