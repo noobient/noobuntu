@@ -1,6 +1,8 @@
 ---
 skip_list:
   - package-latest
-  - fqcn-builtins
+  - fqcn[action]
+  - fqcn[action-core]
   - yaml[comments] # TODO how do I restrict this to just require-starting-space?
   - yaml[line-length]
+  - name # this is covered by yamllint with exceptions on include_role
