@@ -5,13 +5,6 @@
     update_cache: true
   when: ansible_pkg_mgr == 'apt'
 
-# The module docs don't mention it, but this is required for apt_repository to work
-- name: Install apt basics
-  apt:
-    name: gnupg
-    state: latest
-  when: ansible_pkg_mgr == 'apt'
-
 # TODO enable once available for ARM64
 - name: Add Ansible PPA
   apt_repository:

@@ -1,20 +1,24 @@
 ---
+# systemd is necessary for most of the roles, enablement requires >= WSL 0.67.6
+# Stable: install manually from https://github.com/microsoft/WSL/releases
+# Insider: update with wsl --update
+#
+# TODO avoid copy-pasting the command/tmpfs/volume stuff for all images.
+#
+# Also, on Ubuntu, SYS_ADMIN is required with or without tmpfs.
+# On EL, you EITHER mount tmpfs OR have SYS_ADMIN. Why?
+#
+# https://framagit.org/rg/ansible-role-template/-/blob/79e3f176/molecule/default/molecule.yml#L13
+#
+# Finally, Ubuntu requires its own Dockerfile, because there's no init/systemd
+# in the base Docker image, and prepare.yml runs AFTER 'molecule create', which
+# therefore fails with 'command not found'.
+#
+# The Dockerfile must have a custom filename, otherwise other platforms use it
+# automatically, even if you don't specify it with the 'dockerfile:' option.
+
 driver:
   name: docker
-platforms:
-  - name: rocky9
-    image: rockylinux:9
-  - name: ubuntu2204
-    image: ubuntu:22.04
-# TODO workaround for lack of systemd in Docker
-# Requires WSL 0.67.6, update with wsl --update
-# Insiders-only as of now
-#    command: /sbin/init
-#    tmpfs:
-#      - /run
-#      - /tmp
-#    volumes:
-#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
 verifier:
@@ -23,3 +27,32 @@ lint: |
   set -e
   yamllint -c ../../../.yamllint .
   ansible-lint .
+
+platforms:
+
+  - name: rocky9
+    groups:
+      - rhel
+    image: rockylinux:9
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#    capabilities:
+#      - SYS_ADMIN
+
+  - name: ubuntu2204
+    groups:
+      - ubuntu
+    image: ubuntu:22.04
+    command: /lib/systemd/systemd
+#    tmpfs:
+#      - /run
+#      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    dockerfile: Dockerfile-Ubuntu.j2
