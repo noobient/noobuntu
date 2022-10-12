@@ -1,23 +1,24 @@
+---
 # This is a slight duplication of 'build', but it's better to be sure
 - name: Add Git PPA
   apt_repository:
     repo: ppa:git-core/ppa
-    update_cache: yes
+    update_cache: true
     mode: '0644'
 
 - name: Install Git and related utils
   apt:
     name: "{{ packages }}"
-    install_recommends: yes
+    install_recommends: true
     state: latest
   vars:
     packages:
-    - git
-    - git-lfs
-    - git-gui
-    - gitg
-    - giggle
-    - git-cola
+      - git
+      - git-lfs
+      - git-gui
+      - gitg
+      - giggle
+      - git-cola
 
 - name: Remove old Git skeleton file
   file:
@@ -27,7 +28,7 @@
 - include_role:
     name: gitconfig
   loop:
-  - { key: 'core.autocrlf', value: 'false' }
-  - { key: 'core.editor', value: 'vi' }
+    - { key: 'core.autocrlf', value: 'false' }
+    - { key: 'core.editor', value: 'vi' }
 
 #- include_tasks: git-gcl.yml

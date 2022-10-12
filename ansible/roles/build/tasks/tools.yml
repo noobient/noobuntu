@@ -1,59 +1,60 @@
+---
 - name: Install build related tools
   apt:
     name: "{{ packages }}"
-    install_recommends: yes
+    install_recommends: true
     state: latest
   vars:
     packages:
-    - make
-    - cmake
-    - gcc
-    - m4
-    - clang
-    - doxygen
-    - graphviz
-    - imagemagick
-    - gnuplot-nox
-    - valgrind
-    - gdb
-    - iwyu
-    - texlive-latex-base
-    - texlive-binaries
-    - p7zip-full
-    - p7zip-rar
-    - zip
-    - unzip
-    - fuse-zip
-    - unrar
-    - python3-pip
-    - virtualenv
-    - python3-venv
-    - python3-dev
-    - python3.8-dev
-    - meson
-    - ccache
-    - lcov
-    - gawk
-    - zstd
-    - maven
+      - make
+      - cmake
+      - gcc
+      - m4
+      - clang
+      - doxygen
+      - graphviz
+      - imagemagick
+      - gnuplot-nox
+      - valgrind
+      - gdb
+      - iwyu
+      - texlive-latex-base
+      - texlive-binaries
+      - p7zip-full
+      - p7zip-rar
+      - zip
+      - unzip
+      - fuse-zip
+      - unrar
+      - python3-pip
+      - virtualenv
+      - python3-venv
+      - python3-dev
+      - python3.8-dev
+      - meson
+      - ccache
+      - lcov
+      - gawk
+      - zstd
+      - maven
 
 - name: Add Git PPA
   apt_repository:
     repo: ppa:git-core/ppa
-    update_cache: yes
+    update_cache: true
     mode: '0644'
 
 - name: Install Git
   apt:
     name: "{{ packages }}"
-    install_recommends: yes
+    install_recommends: true
     state: latest
   vars:
     packages:
-    - git
-    - git-lfs
+      - git
+      - git-lfs
 
 - include_role:
     name: gitconfig
   loop:
-  - { key: 'credential.helper', value: 'cache', except: '{{ gcl_helper }}' }
+    - { key: 'credential.helper', value: 'cache', except: '{{ gcl_helper }}' }

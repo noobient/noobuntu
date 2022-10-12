@@ -1,8 +1,9 @@
+---
 # this should work regardless of unit path or service state
 - name: Check if SSSD service is present
   shell: systemctl cat sssd.service
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: sssd_service
 
 - include_tasks: confd.yml

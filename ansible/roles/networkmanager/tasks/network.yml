@@ -1,3 +1,4 @@
+---
 # netplan appears to be installed in every case
 - name: Install NetworkManager
   apt:
@@ -9,8 +10,8 @@
     path: "/etc/netplan/{{ item }}"
     state: absent
   loop:
-  - 01-netcfg.yaml
-  - 00-installer-config.yaml
+    - 01-netcfg.yaml
+    - 00-installer-config.yaml
   register: netplan_networkd
 
 - name: Disable netplan on all interfaces
@@ -36,7 +37,7 @@
 - name: Ensure NM is running
   systemd:
     name: network-manager
-    enabled: yes
+    enabled: true
     state: started
 
 - name: Make sure network is up and running

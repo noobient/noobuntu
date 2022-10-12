@@ -1,2 +1,3 @@
+---
 - include_tasks: main2.yml
   when: (smb_user is defined) and (smb_shares is defined)

@@ -1,7 +1,8 @@
+---
 - name: Check SMB mount password file
   shell: grep -E 'password=.+' /etc/fstab.password
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: fstab_password
 
 - fail:

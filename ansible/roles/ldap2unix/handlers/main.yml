@@ -1,3 +1,4 @@
+---
 - name: Restart cron service
   systemd:
     name: "cron{% if ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' %}d{% endif %}.service"

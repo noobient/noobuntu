@@ -1,3 +1,4 @@
+---
 - name: "Create {{ zone }} firewall zone"
   shell: "firewall-cmd --permanent --new-zone={{ zone }} && firewall-cmd --reload"
   register: fw_new_zone
@@ -20,7 +21,7 @@
 - name: "Check current target of {{ zone }} zone"
   shell: "firewall-cmd --zone={{ zone }} --get-target --permanent"
   register: fw_get_target
-  changed_when: no
+  changed_when: false
   when: fw_target is defined
 
 # apparently 'target' is an undocumented built-in alias for inventory_hostname in ansible...

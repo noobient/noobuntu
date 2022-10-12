@@ -1,3 +1,4 @@
+---
 - include_tasks: deps.yml
   when: installed_selinux is not defined
 

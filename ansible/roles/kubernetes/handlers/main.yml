@@ -1,2 +1,3 @@
+---
 - name: Update initramfs
   shell: update-initramfs -c -k all

@@ -1,11 +1,12 @@
+---
 - include_role:
     name: firewalld
   vars:
-  - service: "{{ item.service }}"
-  - port: "{{ item.port }}"
+    - service: "{{ item.service }}"
+    - port: "{{ item.port }}"
   loop:
-  - { service: 'k8s-api-rw', port: '10250/tcp' }
-  - { service: 'k8s-api-ro', port: '10255/tcp' }
-  - { service: 'k8s-nodeport', port: '30000-32767/tcp' }
-  - { service: 'k8s-weave', port: '6783-6784/tcp' }
-  - { service: 'k8s-weave', port: '6783-6784/udp' }
+    - { service: 'k8s-api-rw', port: '10250/tcp' }
+    - { service: 'k8s-api-ro', port: '10255/tcp' }
+    - { service: 'k8s-nodeport', port: '30000-32767/tcp' }
+    - { service: 'k8s-weave', port: '6783-6784/tcp' }
+    - { service: 'k8s-weave', port: '6783-6784/udp' }

@@ -1,3 +1,4 @@
+---
 - include_tasks: install.yml
   when: installed_firewalld is not defined
 # a zone is pointless without a source or interface

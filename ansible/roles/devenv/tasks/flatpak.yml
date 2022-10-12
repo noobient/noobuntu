@@ -1,7 +1,8 @@
+---
 - name: Add Flatpak PPA
   apt_repository:
     repo: ppa:alexlarsson/flatpak
-    update_cache: yes
+    update_cache: true
     mode: '0644'
 
 - name: Install Flatpak
@@ -10,8 +11,8 @@
     state: latest
   vars:
     packages:
-    - flatpak
-    - gnome-software-plugin-flatpak
+      - flatpak
+      - gnome-software-plugin-flatpak
 
 # System remotes cannot be used for user installs
 # so this would be pretty useless to have

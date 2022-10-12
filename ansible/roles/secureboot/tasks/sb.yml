@@ -1,3 +1,4 @@
+---
 - name: Install mokutil
   apt:
     name: mokutil
@@ -5,8 +6,8 @@
 
 - name: Check Secure Boot state
   command: mokutil --sb-state
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: sb_state
 
 - fail:

@@ -1,3 +1,4 @@
+---
 - name: Install TFTP server
   apt:
     name: tftpd-hpa
@@ -7,7 +8,7 @@
   file:
     path: "{% if ansible_distribution_version == '18.04' %}/var/lib/tftpboot{% else %}/srv/tftp{% endif %}"
     owner: tftp
-    recurse: yes
+    recurse: true
 
 # TODO options
 # sed -i.orig 's/TFTP_OPTIONS="--secure"/TFTP_OPTIONS="--secure --create"/g' /etc/default/tftpd-hpa
@@ -17,7 +18,7 @@
     section: null
     option: TFTP_OPTIONS
     value: '"--secure --create"'
-    no_extra_spaces: yes
+    no_extra_spaces: true
   register: tftpd_options
 
 - name: Restart TFTP service
@@ -29,4 +30,4 @@
 - include_role:
     name: firewalld
   vars:
-  - service: 'tftp'
+    - service: 'tftp'

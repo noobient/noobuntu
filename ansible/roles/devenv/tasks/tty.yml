@@ -1,3 +1,4 @@
+---
 - name: Show IP address on login screen
   replace:
     path: /etc/issue

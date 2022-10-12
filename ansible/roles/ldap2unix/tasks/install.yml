@@ -1,3 +1,4 @@
+---
 - name: Deploy ldap2unix
   copy:
     src: "{{ item2.src }}"

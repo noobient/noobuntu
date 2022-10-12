@@ -1,3 +1,4 @@
+---
 # need to manually remove old version AND their dependencies
 # also libnvidia packages, some switches may cause older versions
 # to be available in the repo, causing a conflict
@@ -13,38 +14,38 @@
 # TODO we need separate registers for each, is there a way to register different variables in a loop?
 - name: Check libcudnn availability
   shell: apt-cache search --names-only "libcudnn*"
-  no_log: True
-  changed_when: no
+  no_log: true
+  changed_when: false
   register: purge_libcudnn
 
 - name: Check libnccl availability
   shell: apt-cache search --names-only "libnccl*"
-  no_log: True
-  changed_when: no
+  no_log: true
+  changed_when: false
   register: purge_libnccl
 
 - name: Check libnvinfer availability
   shell: apt-cache search --names-only "libnvinfer*"
-  no_log: True
-  changed_when: no
+  no_log: true
+  changed_when: false
   register: purge_libnvinfer
 
 - name: Check libnvonnxparsers availability
   shell: apt-cache search --names-only "libnvonnxparsers*"
-  no_log: True
-  changed_when: no
+  no_log: true
+  changed_when: false
   register: purge_libnvonnxparsers
 
 - name: Check libnvparsers availability
   shell: apt-cache search --names-only "libnvparsers*"
-  no_log: True
-  changed_when: no
+  no_log: true
+  changed_when: false
   register: purge_libnvparsers
 
 - name: Check tensorrt availability
   shell: apt-cache search --names-only "tensorrt*"
-  no_log: True
-  changed_when: no
+  no_log: true
+  changed_when: false
   register: purge_tensorrt
 
 # These may or may not be available, they are not in the CUDA repo.
@@ -99,5 +100,5 @@
   file:
     path: "{{ item.path }}"
     state: absent
-  no_log: True
+  no_log: true
   with_items: "{{ cuda_dirs.files }}"

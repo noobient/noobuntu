@@ -1,3 +1,4 @@
+---
 # obtain new versions with `docker plugin install openpolicyagent/opa-docker-authz-v2:<opa_version>`
 # then copy the 'opa-docker-authz' binary from under /var/lib/docker/plugins
 # build is impossible since newer releases aren't published in the GitHub repo
@@ -19,21 +20,21 @@
     group: root
     mode: '0644'
   loop:
-  - opa-docker-authz.service
-  - opa-docker-authz.socket
+    - opa-docker-authz.service
+    - opa-docker-authz.socket
   register: docker_opa_systemd
   notify: Restart Docker daemon
 
 - name: Reload systemd units
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: docker_opa_systemd.changed
 
 - name: Enable Docker AuthZ service
   systemd:
     name: opa-docker-authz.service
     state: "{% if docker_opa_systemd.changed %}re{% endif %}started"
-    enabled: yes
+    enabled: true
 
 - name: Set up Docker AuthZ policy directory
   file:

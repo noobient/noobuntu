@@ -1,3 +1,4 @@
+---
 - name: Enable sudo via AD
   lineinfile:
     path: /etc/nsswitch.conf

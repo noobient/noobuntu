@@ -1,1 +1,2 @@
+---
 cuda_version: "{% if ansible_distribution_version == '18.04' %}10.1{% else %}11.4{% endif %}"

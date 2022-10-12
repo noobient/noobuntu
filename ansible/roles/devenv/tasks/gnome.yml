@@ -1,3 +1,4 @@
+---
 - include_role:
     name: gsettings
   loop:
@@ -26,5 +27,5 @@
   patch:
     src: static-dock-preview-order.patch
     dest: /usr/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com/windowPreview.js
-    backup: yes
+    backup: true
   when: ansible_distribution_version == '18.04'

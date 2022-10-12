@@ -1,3 +1,4 @@
+---
 - name: Create Docker systemd override directory
   file:
     path: /etc/systemd/system/docker.service.d
@@ -19,5 +20,5 @@
 # use task instead of handler to ensure this is applied before the restart handler is triggered
 - name: Reload systemd config
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: docker_nv_rt.changed

@@ -1,3 +1,4 @@
+---
 - name: Set up AD home directory
   file:
     path: "/home/{{ ad_domain }}"
@@ -17,13 +18,13 @@
     path: /usr/share/pam-configs/mkhomedir
     regexp: '(.*pam_mkhomedir.so$)'
     line: '\1 umask=0077'
-    backrefs: yes
+    backrefs: true
   when: ansible_distribution == 'Ubuntu'
 
 - name: PAM inventory
   command: grep "^session\s*optional\s*pam_mkhomedir.so\s*umask.*" /etc/pam.d/common-session
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: mkhomedir
   when: ansible_distribution == 'Ubuntu'
 
@@ -34,20 +35,20 @@
 # TODO there's no obvious way to detect changes so ignore it for now
 - name: Enable SSSD authentication
   shell: authconfig --enablesssd --enablesssdauth --enablemkhomedir --updateall
-  changed_when: no
-  no_log: True
+  changed_when: false
+  no_log: true
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (ansible_distribution_major_version == '7')
 
 # TODO there's no obvious way to detect changes so ignore it for now
 - name: Enable SSSD authentication
   shell: authselect select sssd with-mkhomedir --force && authselect apply-changes
-  changed_when: no
-  no_log: True
+  changed_when: false
+  no_log: true
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (ansible_distribution_major_version == '8')
 
 - name: Enable oddjobd
   systemd:
     name: oddjobd.service
-    enabled: yes
+    enabled: true
     state: started
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'

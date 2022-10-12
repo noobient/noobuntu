@@ -1,61 +1,62 @@
+---
 - name: Add PPAs
   apt_repository:
     repo: "{{ item }}"
     mode: '0644'
   loop:
-  - ppa:jakar/qt-heif # TODO remove once newer version has this built-in, no 20.04 package yet
-  - ppa:otto-kesselgulasch/gimp # ubuntu pkg newer than ppa
-  - ppa:slgobinath/safeeyes # recent enough
+    - ppa:jakar/qt-heif # TODO remove once newer version has this built-in, no 20.04 package yet
+    - ppa:otto-kesselgulasch/gimp # ubuntu pkg newer than ppa
+    - ppa:slgobinath/safeeyes # recent enough
   when: ansible_distribution_version == '18.04'
 
 - name: Install useful utils (deb)
   apt:
     name: "{{ packages }}"
-    install_recommends: yes
+    install_recommends: true
     state: latest
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
-    - mc
-    - remmina
-    - realmd
-    - filezilla
-    - vlc
-    - gnome-system-monitor
-    - nomacs
-    - htop
-    - nfs-common
-    - usb-creator-gtk
-    - gnome-calculator
-    - gparted
-    - doublecmd-gtk
-    - doublecmd-plugins
-    - libffmpegthumbnailer4v5
-    - mplayer
-    - rabbitvcs-core
-    - ffmpeg
-    - libreoffice
-    - openssh-server
-    - ubuntu-desktop
-    - net-tools
-    - snapd
-    - colordiff
-    - meld
-    - qbittorrent
-    - vim
-    - gstreamer1.0-libav
-    - libcanberra-gtk-module
-    - silversearcher-ag
-    - gimp
-    - gnome-tweaks
-    - putty
-    - screen
-    - safeeyes
-    - dos2unix
-    - sysstat
-    - tree
-    - vagrant
-    - gnuplot-x11
+      - mc
+      - remmina
+      - realmd
+      - filezilla
+      - vlc
+      - gnome-system-monitor
+      - nomacs
+      - htop
+      - nfs-common
+      - usb-creator-gtk
+      - gnome-calculator
+      - gparted
+      - doublecmd-gtk
+      - doublecmd-plugins
+      - libffmpegthumbnailer4v5
+      - mplayer
+      - rabbitvcs-core
+      - ffmpeg
+      - libreoffice
+      - openssh-server
+      - ubuntu-desktop
+      - net-tools
+      - snapd
+      - colordiff
+      - meld
+      - qbittorrent
+      - vim
+      - gstreamer1.0-libav
+      - libcanberra-gtk-module
+      - silversearcher-ag
+      - gimp
+      - gnome-tweaks
+      - putty
+      - screen
+      - safeeyes
+      - dos2unix
+      - sysstat
+      - tree
+      - vagrant
+      - gnuplot-x11
 
 - name: Install Qt HEIF plugin
   apt:
@@ -65,4 +66,4 @@
 - name: Install MicroK8s
   snap:
     name: microk8s
-    classic: yes
+    classic: true

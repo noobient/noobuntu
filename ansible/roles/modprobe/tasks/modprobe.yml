@@ -1,8 +1,9 @@
+---
 - name: "Check if {{ item }} module is loaded"
   shell:
     cmd: "lsmod | grep {{ item }}"
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: lsmod
 
 - name: "Load {{ item }} module"

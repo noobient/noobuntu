@@ -1,12 +1,13 @@
+---
 - name: Remove unused sections from Samba config
   ini_file:
     path: /etc/samba/smb.conf
     section: "{{ item }}"
     state: absent
   loop:
-  - homes
-  - printers
-  - print$
+    - homes
+    - printers
+    - print$
 
 - name: Set Samba options
   ini_file:
@@ -15,10 +16,10 @@
     option: "{{ item.option }}"
     value: "{{ item.value }}"
   loop:
-  - { option: 'workgroup', value: '{{ ad_domain.split(".")[0] }}' }
-  - { option: 'realm', value: '{{ ad_domain }}' }
-  - { option: 'security', value: 'ads' }
-  - { option: 'kerberos method', value: 'secrets and keytab' }
-  - { option: 'client use spnego', value: 'yes' }
-  - { option: 'client signing', value: 'yes' }
-  - { option: 'obey pam restrictions', value: 'yes' }
+    - { option: 'workgroup', value: '{{ ad_domain.split(".")[0] }}' }
+    - { option: 'realm', value: '{{ ad_domain }}' }
+    - { option: 'security', value: 'ads' }
+    - { option: 'kerberos method', value: 'secrets and keytab' }
+    - { option: 'client use spnego', value: 'yes' }
+    - { option: 'client signing', value: 'yes' }
+    - { option: 'obey pam restrictions', value: 'yes' }

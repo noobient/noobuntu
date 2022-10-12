@@ -1,19 +1,20 @@
+---
 - name: Install AD prerequisites
   apt:
     name: "{{ packages }}"
-    install_recommends: no
+    install_recommends: false
   vars:
     packages:
-    - sssd
-    - sssd-tools
-    - libsss-sudo
-    - realmd
-    - libnss-sss
-    - libpam-sss
-    - adcli
-    - samba-common-bin
-    - krb5-user
-    - packagekit
+      - sssd
+      - sssd-tools
+      - libsss-sudo
+      - realmd
+      - libnss-sss
+      - libpam-sss
+      - adcli
+      - samba-common-bin
+      - krb5-user
+      - packagekit
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install AD prerequisites
@@ -21,10 +22,10 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - sssd-ad
-    - krb5-workstation
-    - oddjob-mkhomedir
-    - samba-common-tools
+      - sssd-ad
+      - krb5-workstation
+      - oddjob-mkhomedir
+      - samba-common-tools
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
 
 - name: Install AD prerequisites
@@ -32,5 +33,5 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - authselect
+      - authselect
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and (ansible_distribution_major_version == '8')

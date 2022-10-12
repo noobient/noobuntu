@@ -1,9 +1,10 @@
+---
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Git Credential Libsecret', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'git-credential-libsecret' }
+    - { name: 'Git Credential Libsecret', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'git-credential-libsecret' }
 
 - include_role:
     name: gitconfig
   loop:
-  - { key: 'credential.helper', value: '{{ gcl_helper }}' }
+    - { key: 'credential.helper', value: '{{ gcl_helper }}' }

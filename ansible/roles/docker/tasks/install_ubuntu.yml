@@ -1,11 +1,12 @@
+---
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: "{{ packages }}" }
+    - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: "{{ packages }}" }
   vars:
     packages:
-    - docker-ce
-    - docker-ce-cli
+      - docker-ce
+      - docker-ce-cli
 
 - name: Configure Docker daemon
   template:

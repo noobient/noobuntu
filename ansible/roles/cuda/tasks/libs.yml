@@ -1,15 +1,16 @@
+---
 - name: Install important libs
   apt:
     name: "{{ packages }}"
-    install_recommends: no
+    install_recommends: false
   vars:
     packages:
-    - mesa-common-dev
-    - libglu1-mesa-dev
-    - freeglut3
-    - freeglut3-dev
-    - libvulkan-dev
-    - libglfw3-dev
-    - libegl1-mesa-dev
-    - libgles2-mesa-dev
-    - liblapack-dev
+      - mesa-common-dev
+      - libglu1-mesa-dev
+      - freeglut3
+      - freeglut3-dev
+      - libvulkan-dev
+      - libglfw3-dev
+      - libegl1-mesa-dev
+      - libgles2-mesa-dev
+      - liblapack-dev

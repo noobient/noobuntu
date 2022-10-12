@@ -1,5 +1,6 @@
+---
 # you can specify your desired version with this variable, preferably somewhere else
 #k8s_version: '1.17.3-00'
 gpuop_modules:
-- br_netfilter
-- ipmi_msghandler
+  - br_netfilter
+  - ipmi_msghandler

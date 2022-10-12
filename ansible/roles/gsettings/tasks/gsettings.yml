@@ -1,10 +1,11 @@
+---
 - name: "Adjust defaults for {{ item.section }}/{{ item.option }}"
   ini_file:
     path: /usr/local/share/glib-2.0/schemas/20_corporate-settings.gschema.override
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value | string }}"
-    create: yes
+    create: true
     mode: '0644'
   notify: Compile GLib schema
 

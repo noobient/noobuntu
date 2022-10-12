@@ -1,16 +1,17 @@
+---
 - include_role:
     name: docker
 
 - include_role:
     name: firewalld
   vars:
-  - service: "{{ item.service }}"
-  - port: "{{ item.port }}"
+    - service: "{{ item.service }}"
+    - port: "{{ item.port }}"
   loop:
-  - { service: 'ganglia', port: '8649/tcp' }
-  - { service: 'ganglia', port: '8649/udp' }
-  - { service: 'htcondor', port: '9618/tcp' }
-  - { service: 'htcondor', port: '9618/udp' }
+    - { service: 'ganglia', port: '8649/tcp' }
+    - { service: 'ganglia', port: '8649/udp' }
+    - { service: 'htcondor', port: '9618/tcp' }
+    - { service: 'htcondor', port: '9618/udp' }
 
 - name: Install HTCondor
   apt:
@@ -18,14 +19,14 @@
     state: latest
   vars:
     packages:
-    - htcondor
-    - ganglia-monitor
+      - htcondor
+      - ganglia-monitor
 
 - name: Add condor to docker group
   user:
     name: condor
     groups: docker
-    append: yes
+    append: true
 
 - name: Deploy HTCondor systemd unit
   copy:
@@ -36,14 +37,14 @@
 
 - name: Reload systemd units
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: htcondor_unit.changed
 
 - name: Enable HTCondor unit
   systemd:
     name: htcondor
     state: started
-    enabled: yes
+    enabled: true
 
 # HTCondor fails EVERY TIME after reboots
 - name: Deploy HTCondor reboot watchdog

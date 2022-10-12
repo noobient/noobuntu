@@ -1,3 +1,4 @@
+---
 - name: Generate .mod file
   shell: "checkmodule -M -m -o {{ item.module }}.mod {{ item.module }}.te"
   args:

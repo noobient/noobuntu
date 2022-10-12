@@ -1,3 +1,4 @@
+---
 - name: Restart Docker daemon
   systemd:
     name: docker

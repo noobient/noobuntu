@@ -1,7 +1,8 @@
+---
 - name: Install various tools
   apt:
     name: "{{ packages }}"
     state: latest
   vars:
     packages:
-    - icedtea-netx
+      - icedtea-netx

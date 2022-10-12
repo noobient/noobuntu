@@ -1,13 +1,14 @@
+---
 - name: Check if pgAdmin is installed
   shell: apt list --installed 2>/dev/null|grep pgadmin4
-  changed_when: no
-  failed_when: no
+  changed_when: false
+  failed_when: false
   register: apt_pgadmin
 
 - name: Check if pgAdmin desktop is installed
   shell: apt list --installed 2>/dev/null|grep pgadmin4-desktop
-  changed_when: no
-  failed_when: no
+  changed_when: false
+  failed_when: false
   register: apt_pgadmin_desktop
 
 - name: Remove legacy pgAdmin
@@ -17,8 +18,8 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'pgAdmin', gpg_url: 'https://www.pgadmin.org/static/packages_pgadmin_org.pub', repo_file: 'pgadmin4', package: "{{ packages }}" }
+    - { name: 'pgAdmin', gpg_url: 'https://www.pgadmin.org/static/packages_pgadmin_org.pub', repo_file: 'pgadmin4', package: "{{ packages }}" }
   vars:
     packages:
-    - pgadmin4
-    - pgadmin4-desktop
+      - pgadmin4
+      - pgadmin4-desktop

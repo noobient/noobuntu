@@ -1,3 +1,4 @@
+---
 - name: "Check {{ item.dir }} mode"
   stat:
     path: "{{ item.dir }}"

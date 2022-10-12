@@ -1,3 +1,4 @@
+---
 - name: "Add {{ item.name }} repo"
   template:
     src: "{{ item.repo_file }}.repo.j2"

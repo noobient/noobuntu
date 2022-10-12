@@ -1,3 +1,4 @@
+---
 - name: "Copy {{ item.module }} policy module"
   template:
     src: "{{ item.module }}.cil.j2"

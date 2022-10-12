@@ -1,13 +1,14 @@
+---
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'containerd', package: 'containerd', allow_downgrade: True, version: "{% if containerd_version is defined %}{{ containerd_version }}{% endif %}" }
+    - { name: 'containerd', package: 'containerd', allow_downgrade: true, version: "{% if containerd_version is defined %}{{ containerd_version }}{% endif %}" }
 
 - name: Enable containerd
   systemd:
     name: containerd.service
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Disable Nouveau driver
   copy:
@@ -28,5 +29,5 @@
     owner: root
     group: root
     mode: '0644'
-    create: yes
+    create: true
   loop: "{{ gpuop_modules }}"

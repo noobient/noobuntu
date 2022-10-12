@@ -1,3 +1,4 @@
+---
 # workarounds for resolved randomly failing DNS queries
 - name: Set DNS resolver default domain
   ini_file:
@@ -5,7 +6,7 @@
     section: Resolve
     option: Domains
     value: "{{ ad_domain }}"
-    no_extra_spaces: yes
+    no_extra_spaces: true
   notify: Restart resolved service
 
 - name: Set DNS resolver fallback DNS
@@ -14,7 +15,7 @@
     section: Resolve
     option: FallbackDNS
     value: '{{ ad_dc_ips | join(" ") }}'
-    no_extra_spaces: yes
+    no_extra_spaces: true
   notify: Restart resolved service
 
 # https://askubuntu.com/questions/1058750/new-alert-keeps-showing-up-server-returned-error-nxdomain-mitigating-potential
@@ -23,5 +24,5 @@
     src: /run/systemd/resolve/resolv.conf
     dest: /etc/resolv.conf
     state: link
-    force: yes
+    force: true
   notify: Restart resolved service

@@ -1,3 +1,4 @@
+---
 - name: "Set {{ item.option }} to {{ item.value }} in {{ item.file }}.conf"
   ini_file:
     path: "/etc/sysctl.d/{{ item.file }}.conf"

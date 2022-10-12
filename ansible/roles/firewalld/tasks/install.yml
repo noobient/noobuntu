@@ -1,14 +1,15 @@
+---
 # this should work regardless of unit path or service state
 - name: Check if UFW service is present
   shell: systemctl cat ufw.service
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: ufw_service
 
 - name: Disable UFW
   systemd:
     name: ufw
-    enabled: no
+    enabled: false
     state: stopped
   when: ufw_service.rc == 0
 
@@ -41,14 +42,14 @@
 - name: Enable firewalld
   systemd:
     name: firewalld
-    enabled: yes
+    enabled: true
     state: started
   when: k8s_node is not defined
 
 - name: Disable firewalld
   systemd:
     name: firewalld
-    enabled: no
+    enabled: false
     state: stopped
   when: k8s_node is defined
 

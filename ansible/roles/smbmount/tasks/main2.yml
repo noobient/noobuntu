@@ -1,3 +1,4 @@
+---
 # must use a single user, otherwise the number of users would become dynamic,
 # but vars_prompt is static
 
@@ -5,7 +6,7 @@
 - include_role:
     name: varcheck
   loop:
-  - ad_domain
+    - ad_domain
 
 - include_tasks: deps.yml
   when: installed_cifs is not defined

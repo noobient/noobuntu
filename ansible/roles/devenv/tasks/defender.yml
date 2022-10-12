@@ -1,8 +1,9 @@
+---
 - name: Create Defender ATP config folder
   file:
     path: /etc/opt/microsoft/mdatp
     state: directory
-    recurse: yes
+    recurse: true
 
 - name: Deploy Defender ATP onboarding config
   copy:
@@ -14,16 +15,16 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Defender ATP', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-prod', package: 'mdatp' }
+    - { name: 'Defender ATP', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-prod', package: 'mdatp' }
 
 # TODO restart MDATP hourly for now, otherwise it kills the system within a day or so
 - include_role:
     name: sedtemplate
   loop:
-  - { desc: 'MDATP systemd unit', regex: '/^Restart=.*/a TimeoutStopSec=10', src: '/lib/systemd/system/mdatp.service', dest: '/etc/systemd/system/mdatp.service'}
+    - { desc: 'MDATP systemd unit', regex: '/^Restart=.*/a TimeoutStopSec=10', src: '/lib/systemd/system/mdatp.service', dest: '/etc/systemd/system/mdatp.service'}
 
 - name: Enable and start Defender ATP service
   systemd:
     name: mdatp
     state: started
-    enabled: yes
+    enabled: true

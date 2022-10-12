@@ -1,7 +1,8 @@
+---
 - name: Install IDEs
   snap:
     name: "{{ item }}"
-    classic: yes
+    classic: true
   loop:
     - clion
     - pycharm-community

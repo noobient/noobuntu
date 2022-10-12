@@ -1,3 +1,4 @@
+---
 - name: "Import {{ item.name }} GPG key"
   apt_key:
     url: "{{ item.gpg_url }}"

@@ -1,3 +1,4 @@
+---
 - name: Search mismatching CUDA LD config files
   find:
     paths: /etc/ld.so.conf.d
@@ -10,5 +11,5 @@
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ cuda_ld_conf.files }}"
-  no_log: True
+  no_log: true
   notify: Run ldconfig

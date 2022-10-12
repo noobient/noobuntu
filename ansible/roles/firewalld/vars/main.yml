@@ -1,2 +1,3 @@
+---
 fw_zone_str: 'Error: NAME_CONFLICT: new_zone():'
 fw_alreadyenabled_str: 'Warning: ALREADY_ENABLED:'

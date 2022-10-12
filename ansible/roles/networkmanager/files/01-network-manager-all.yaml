@@ -1,3 +1,4 @@
+---
 # Let NetworkManager manage all devices on this system
 network:
   version: 2

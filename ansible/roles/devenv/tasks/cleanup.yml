@@ -1,3 +1,4 @@
+---
 # make sure these are the last
 - name: Remove broken system monitor snap
   snap:
@@ -16,30 +17,30 @@
     state: absent
   vars:
     packages:
-    - mesa-va-drivers
-    - gstreamer1.0-vaapi
+      - mesa-va-drivers
+      - gstreamer1.0-vaapi
 
 # static service, mask is necessary
 - name: Disable automatic UEFI updates
   systemd:
     name: fwupd
-    enabled: no
-    masked: yes
+    enabled: false
+    masked: true
     state: stopped
-    
+
 - name: Purge Microsoft Edge beta and dev packages
   apt:
     name: "{{ packages }}"
-    purge: yes
+    purge: true
   vars:
     packages:
-    - microsoft-edge-beta
-    - microsoft-edge-dev
+      - microsoft-edge-beta
+      - microsoft-edge-dev
 
 - name: Delete Microsoft Edge beta and dev repos
   file:
     name: "/etc/apt/sources.list.d/{{ item }}"
     state: absent
   loop:
-  - microsoft-edge-beta.list
-  - microsoft-edge-dev.list
+    - microsoft-edge-beta.list
+    - microsoft-edge-dev.list

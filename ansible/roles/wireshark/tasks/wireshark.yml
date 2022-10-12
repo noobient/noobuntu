@@ -1,11 +1,12 @@
+---
 - name: Install Wireshark
   apt:
     name: "{{ packages }}"
   vars:
     packages:
-    - wireshark
-    - expect
-    - tshark
+      - wireshark
+      - expect
+      - tshark
 
 - name: Check Wireshark configuration
   stat:

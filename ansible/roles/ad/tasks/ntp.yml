@@ -1,13 +1,14 @@
+---
 - name: Sync NTP from DCs
   ini_file:
     path: /etc/systemd/timesyncd.conf
     section: Time
     option: NTP
     value: "{{ ad_ntp_dc }}.{{ ad_domain }}"
-    no_extra_spaces: yes
+    no_extra_spaces: true
   notify:
-  - Restart time sync service
-  - Force time sync
+    - Restart time sync service
+    - Force time sync
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install Chrony
@@ -25,6 +26,6 @@
 - name: Enable Chrony
   systemd:
     name: chronyd.service
-    enabled: yes
+    enabled: true
     state: started
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')

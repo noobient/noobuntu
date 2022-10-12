@@ -1,18 +1,19 @@
+---
 # use intermediate file to ensure idempotency
 - name: "Generate new {{ item.desc }} file"
   shell: sed -E '{{ item.regex }}' {{ item.src }} > {{ item.dest }}.new
-  changed_when: No
-  no_log: True
+  changed_when: false
+  no_log: true
 
 - name: "Deploy new {{ item.desc }} file"
   copy:
     src: "{{ item.dest }}.new"
     dest: "{{ item.dest }}"
-    remote_src: yes
+    remote_src: true
     mode: '0644'
 
 - name: Remove intermediate file
   file:
     path: "{{ item.dest }}.new"
     state: absent
-  changed_when: No
+  changed_when: false

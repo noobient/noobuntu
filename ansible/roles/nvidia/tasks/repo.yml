@@ -1,3 +1,4 @@
+---
 - name: Check for local CUDA repos
   find:
     paths: /etc/apt/sources.list.d
@@ -9,7 +10,7 @@
   file:
     path: "{{ item.path }}"
     state: absent
-  no_log: True
+  no_log: true
   with_items: "{{ cuda_local_repos.files }}"
 
 - name: Remove graphics drivers PPA

@@ -1,3 +1,4 @@
+---
 - name: Install cifs-utils
   yum:
     name: cifs-utils

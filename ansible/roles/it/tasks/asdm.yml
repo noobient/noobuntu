@@ -1,3 +1,4 @@
+---
 #- name: Install ASDM dependencies
 #  apt:
 #    name: "{{ packages }}"
@@ -21,7 +22,7 @@
   unarchive:
     src: "/usr/local/src/jre-{{ jre_version }}.tar.gz"
     dest: /opt
-    remote_src: yes
+    remote_src: true
 
 - name: Create JRE symlink
   file:

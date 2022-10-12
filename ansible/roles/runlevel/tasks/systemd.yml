@@ -1,7 +1,8 @@
+---
 - name: Check default runlevel
   command:
     cmd: systemctl get-default
-  changed_when: no
+  changed_when: false
   register: current_runlevel
 
 - name: Set default runlevel

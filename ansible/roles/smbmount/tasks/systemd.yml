@@ -1,3 +1,4 @@
+---
 # https://unix.stackexchange.com/a/345518/88217
 # example mount point: /mnt/foo, then the unit file becomes mnt-foo.mount, so
 # assume the first character is /, skip it, and replace the remaining slashes
@@ -19,7 +20,7 @@
 
 - name: "Enable auto-mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }}"
   systemd:
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true
     name: "{{ smb_unit }}.automount"

@@ -1,3 +1,4 @@
+---
 - name: Restart time sync service
   systemd:
     name: systemd-timesyncd

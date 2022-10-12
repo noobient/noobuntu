@@ -1,3 +1,4 @@
+---
 - include_role:
     name: secureboot
 
@@ -7,8 +8,8 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'NVIDIA Container Toolkit', gpg_url: 'https://nvidia.github.io/nvidia-docker/gpgkey', repo_file: 'nvidia-docker', package: "{{ packages }}" }
+    - { name: 'NVIDIA Container Toolkit', gpg_url: 'https://nvidia.github.io/nvidia-docker/gpgkey', repo_file: 'nvidia-docker', package: "{{ packages }}" }
   vars:
     packages:
-    - nvidia-container-toolkit
-    - nvidia-container-runtime
+      - nvidia-container-toolkit
+      - nvidia-container-runtime

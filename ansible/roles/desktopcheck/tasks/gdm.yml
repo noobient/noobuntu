@@ -1,9 +1,10 @@
+---
 # TODO any better way to check this?
 - name: Check if target is a desktop
   shell:
     cmd: apt list --installed | grep gdm3
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: apt_gdm3
 
 - name: Register target desktop state

@@ -1,7 +1,8 @@
+---
 - name: "Check current {{ item.dir }} ACL"
   shell: setfacl -R --test --set="{{ item.acl }}" "{{ item.dir }}" | grep -v "{{ acl_pattern }}"
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: item_acl
 
 - name: "Set {{ item.dir }} ACL"

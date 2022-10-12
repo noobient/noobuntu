@@ -1,3 +1,4 @@
+---
 - name: Remove MS Teams snap version
   snap:
     name: teams-for-linux
@@ -25,4 +26,4 @@
 - include_role:
     name: 3rdparty
   loop:
-  - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams' }
+    - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams' }

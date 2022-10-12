@@ -1,7 +1,8 @@
+---
 - name: Check if Vulkan is installed
   shell: apt list --installed | grep vulkan-sdk
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: vulkan_any
 
 # Example output for apt list:
@@ -12,8 +13,8 @@
 
 - name: Get installed Vulkan version
   shell: apt list --installed 2>/dev/null | grep vulkan-sdk | awk -F'[ ~]' '{print $2}' | cut -d'.' -f1-3
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: vulkan_current
   when: vulkan_any.rc == 0
 
@@ -21,12 +22,12 @@
   apt:
     name: "{{ packages }}"
     state: absent
-    autoremove: yes
-    purge: yes
+    autoremove: true
+    purge: true
   vars:
     packages:
-    - "libvulkan*"
-    - "vulkan-*"
-    - "lunarg-vulkan-*"
+      - "libvulkan*"
+      - "vulkan-*"
+      - "lunarg-vulkan-*"
   # we only include this task if vulkan_version is defined, no need to check
   when: (vulkan_current.stdout is defined) and (vulkan_current.stdout is version(vulkan_version, '<>'))

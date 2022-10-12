@@ -1,3 +1,4 @@
+---
 - name: Add GRUB password file
   template:
     src: 50_corporate.j2
@@ -16,6 +17,6 @@
   lineinfile:
     path: /etc/grub.d/30_os-prober
     insertafter: 'efi\)'
-    firstmatch: yes
+    firstmatch: true
     line: if [ "${CLASS}" = '--class windows' ]; then CLASS="${CLASS} --unrestricted"; fi
   notify: Update GRUB

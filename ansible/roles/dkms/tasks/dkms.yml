@@ -1,3 +1,4 @@
+---
 - name: Install DKMS
   apt:
     name: dkms
@@ -16,7 +17,7 @@
   unarchive:
     src: "/usr/src/{{ dkms_name }}-{{ dkms_version }}.{{ file_ext }}"
     dest: /usr/src
-    remote_src: yes
+    remote_src: true
 
 - name: "Install dkms.conf for {{ dkms_name }}"
   template:
@@ -27,7 +28,7 @@
 
 - name: "Remove existing {{ dkms_name }} driver from DKMS"
   command: "dkms remove {{ dkms_name }}/{{ dkms_version }} --all"
-  failed_when: no
+  failed_when: false
   when: dkms_conf.changed
 
 - name: "Add {{ dkms_name }} driver to DKMS"

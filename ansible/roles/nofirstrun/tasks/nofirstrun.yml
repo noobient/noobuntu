@@ -1,8 +1,9 @@
+---
 - name: Remove GNOME initial setup package
   apt:
     name: gnome-initial-setup
     state: absent
-    purge: yes
+    purge: true
 
 - name: Blacklist GNOME initial setup package
   copy:

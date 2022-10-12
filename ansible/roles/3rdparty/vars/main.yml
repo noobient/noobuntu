@@ -1,2 +1,3 @@
+---
 yumlock_del_str: 'versionlock delete: no matches'
 yumlock_add_str: 'versionlock added: 0'

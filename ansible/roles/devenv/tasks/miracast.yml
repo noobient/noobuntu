@@ -1,3 +1,4 @@
+---
 - name: Allow users to inspect firewall settings
   copy:
     src: 99-firewalld-inspect.pkla

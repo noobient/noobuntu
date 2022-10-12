@@ -1,3 +1,4 @@
+---
 - name: Allow users to access network settings and SATA disks
   copy:
     src: "{{ item }}"
@@ -6,6 +7,6 @@
     owner: root
     group: root
   loop:
-  - 99-printer-control.pkla
-  - 99-network-control.pkla
-  - 99-sata-access.pkla
+    - 99-printer-control.pkla
+    - 99-network-control.pkla
+    - 99-sata-access.pkla

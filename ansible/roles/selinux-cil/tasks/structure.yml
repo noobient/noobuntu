@@ -1,3 +1,4 @@
+---
 - name: Create SELinux policy folder
   file:
     path: "{{ semodule_dir | default(semodule_default_dir) }}"

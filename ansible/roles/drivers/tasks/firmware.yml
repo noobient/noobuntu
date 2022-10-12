@@ -1,3 +1,4 @@
+---
 - name: Update QCA6174 firmware
   get_url:
     url: https://github.com/kvalo/ath10k-firmware/raw/master/QCA6174/hw3.0/4.4.1.c3/firmware-6.bin_RM.4.4.1.c3-00013-QCARMSWPZ-1

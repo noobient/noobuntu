@@ -1,9 +1,10 @@
+---
 - name: "Add members of the {{ item.ldap_groups }} LDAP groups to the {{ item.unix_groups }} Unix groups"
   shell: /usr/local/sbin/ldap2unix
   register: ldap2unix_run
-  changed_when: False
+  changed_when: false
 
 - debug:
     msg: "{{ ldap2unix_run.stdout_lines }}"
   when: ldap2unix_run.stdout_lines|length > 1
-  changed_when: True
+  changed_when: true

@@ -1,13 +1,14 @@
+---
 - hosts: "{{ target | default('127.0.0.1') }}"
   connection: "{% if target is defined %}ssh{% else %}local{% endif %}"
-  become: yes
+  become: true
   module_defaults:
     apt:
-      force_apt_get: yes
+      force_apt_get: true
   roles:
-  - update
-  - networkmanager
-  - build
-  - vulkan
-  - docker
-  - devenv
+    - update
+    - networkmanager
+    - build
+    - vulkan
+    - docker
+    - devenv

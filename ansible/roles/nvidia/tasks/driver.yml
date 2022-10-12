@@ -1,3 +1,4 @@
+---
 - name: Install HWE X.Org
   apt:
     name: "xserver-xorg-hwe-{{ ansible_distribution_version }}"
@@ -13,15 +14,15 @@
 
 - name: Check if current NV version is installed
   shell: apt list --installed | grep -E "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: nv_current
 #  when: nv_any.rc == 0
 
 - name: Check if mismatching NV packages are installed
   shell: apt list --installed | grep -E 'nvidia.*\-.*[0-9]{3}\/' | grep -v '{{ nvidia_version | default(nvidia_default_version) }}'
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
   register: nv_mismatch
 
 - include_role:
@@ -36,14 +37,14 @@
   apt:
     name: "{{ packages }}"
     state: latest
-    update_cache: yes
+    update_cache: true
     install_recommends: "{% if target_is_desktop %}yes{% else %}no{% endif %}"
   vars:
     packages:
-    - "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
-    - "nvidia-dkms-{{ nvidia_version | default(nvidia_default_version) }}"
-    - "nvidia-kernel-source-{{ nvidia_version | default(nvidia_default_version) }}"
-    - "nvidia-kernel-common-{{ nvidia_version | default(nvidia_default_version) }}"
+      - "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
+      - "nvidia-dkms-{{ nvidia_version | default(nvidia_default_version) }}"
+      - "nvidia-kernel-source-{{ nvidia_version | default(nvidia_default_version) }}"
+      - "nvidia-kernel-common-{{ nvidia_version | default(nvidia_default_version) }}"
 
 - name: Install NVIDIA X Server Settings
   apt:

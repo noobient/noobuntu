@@ -1,8 +1,9 @@
+---
 - name: Ensure SSSD conf.d directory exists
   file:
     state: directory
     path: /etc/sssd/conf.d
-    recurse: yes
+    recurse: true
 
 - name: Set up SSSD options
   ini_file:

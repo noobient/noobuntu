@@ -1,21 +1,22 @@
+---
 - name: Install PAM mount prerequisites
   apt:
     name: "{{ packages }}"
-    install_recommends: no
+    install_recommends: false
   vars:
     packages:
-    - libpam-mount
-    - python-lxml
-    - python3-lxml
-    - cifs-utils
-    - sshfs
+      - libpam-mount
+      - python-lxml
+      - python3-lxml
+      - cifs-utils
+      - sshfs
 
 - name: Install PAM mount prerequisites
   apt:
     name: "{{ packages }}"
   vars:
     packages:
-    - libpam-mount-bin
+      - libpam-mount-bin
   when: ansible_distribution_version == '20.04'
 
 # the XML is non-compliant so this will result in 2 keys but it works
@@ -25,10 +26,10 @@
     xpath: "{{ item.xpath }}"
     attribute: "{{ item.attribute }}"
     value: "{{ item.value }}"
-  with_items:
-  - { xpath: /pam_mount/luserconf, attribute: name, value: '.pam_mount.conf.xml' }
-  - { xpath: /pam_mount/mntoptions, attribute: allow, value: '*' }
-  - { xpath: /pam_mount/mntoptions, attribute: require, value: '' }
+  loop:
+    - { xpath: /pam_mount/luserconf, attribute: name, value: '.pam_mount.conf.xml' }
+    - { xpath: /pam_mount/mntoptions, attribute: allow, value: '*' }
+    - { xpath: /pam_mount/mntoptions, attribute: require, value: '' }
 
 - name: Add default user PAM mount file
   template:
@@ -36,7 +37,7 @@
     dest: /etc/skel/.pam_mount.conf.xml
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
 
 - name: Add pam_remount command
   copy:
