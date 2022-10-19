@@ -11,7 +11,7 @@
     path: "{{ item.path }}"
     state: absent
   no_log: true
-  with_items: "{{ cuda_local_repos.files }}"
+  loop: "{{ cuda_local_repos.files }}"
 
 - name: Remove graphics drivers PPA
   apt_repository:

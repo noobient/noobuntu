@@ -101,4 +101,4 @@
     path: "{{ item.path }}"
     state: absent
   no_log: true
-  with_items: "{{ cuda_dirs.files }}"
+  loop: "{{ cuda_dirs.files }}"

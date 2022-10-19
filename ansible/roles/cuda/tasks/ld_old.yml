@@ -10,6 +10,6 @@
   file:
     path: "{{ item.path }}"
     state: absent
-  with_items: "{{ cuda_ld_conf.files }}"
+  loop: "{{ cuda_ld_conf.files }}"
   no_log: true
   notify: Run ldconfig
