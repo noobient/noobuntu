@@ -27,21 +27,25 @@
   register: dkms_conf
 
 - name: "Remove existing {{ dkms_name }} driver from DKMS"
-  command: "dkms remove {{ dkms_name }}/{{ dkms_version }} --all"
+  command:
+    cmd: "dkms remove {{ dkms_name }}/{{ dkms_version }} --all"
   failed_when: false
   when: dkms_conf.changed
 
 - name: "Add {{ dkms_name }} driver to DKMS"
-  command: "dkms add {{ dkms_name }}/{{ dkms_version }}"
+  command:
+    cmd: "dkms add {{ dkms_name }}/{{ dkms_version }}"
   args:
     creates: "/var/lib/dkms/{{ dkms_name }}/{{ dkms_version }}/source"
 
 - name: "Build {{ dkms_name }} driver via DKMS"
-  command: "dkms build {{ dkms_name }}/{{ dkms_version }}"
+  command:
+    cmd: "dkms build {{ dkms_name }}/{{ dkms_version }}"
   register: dkms_build
   changed_when: '"already built for kernel" not in dkms_build.stdout'
 
 - name: "Install {{ dkms_name }} driver via DKMS"
-  command: "dkms install {{ dkms_name }}/{{ dkms_version }} --force"
+  command:
+    cmd: "dkms install {{ dkms_name }}/{{ dkms_version }} --force"
   register: dkms_install
   changed_when: '"already installed on kernel" not in dkms_install.stdout'

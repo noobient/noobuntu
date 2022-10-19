@@ -1,3 +1,4 @@
 ---
 - name: Run ldconfig
-  command: ldconfig
+  command:
+    cmd: ldconfig

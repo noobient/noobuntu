@@ -1,3 +1,4 @@
 ---
 - name: Reload sysctl
-  shell: sysctl -p && sysctl --system
+  shell:
+    cmd: sysctl -p && sysctl --system

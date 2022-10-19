@@ -1,7 +1,8 @@
 ---
 # use intermediate file to ensure idempotency
-- name: "Generate new {{ item.desc }} file"
-  shell: sed -E '{{ item.regex }}' {{ item.src }} > {{ item.dest }}.new
+- name: "Generate new {{ item.desc }} file" # noqa command-instead-of-module
+  shell:
+    cmd: sed -E '{{ item.regex }}' {{ item.src }} > {{ item.dest }}.new
   changed_when: false
   no_log: true
 

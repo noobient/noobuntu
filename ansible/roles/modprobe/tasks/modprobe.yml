@@ -7,6 +7,6 @@
   register: lsmod
 
 - name: "Load {{ item }} module"
-  shell:
+  command:
     cmd: "modprobe {{ item }}"
   when: lsmod.rc != 0

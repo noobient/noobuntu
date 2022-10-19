@@ -4,7 +4,7 @@
   when: (k8s_gpuop is not defined) or (k8s_gpuop is defined and k8s_gpuop != True)
 
 - include_tasks: gpuop.yml
-  when: (k8s_gpuop is defined) and (k8s_gpuop == True)
+  when: (k8s_gpuop is defined) and (k8s_gpuop)
 
 # TODO figure out how to get K8s to work w/ active firewall
 # till then it's pointless to add rules that'll be unused

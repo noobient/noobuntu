@@ -5,13 +5,15 @@
     state: reloaded
 
 - name: Update PAM auth
-  command: "{{ item }}"
+  command:
+    cmd: "{{ item }}"
   loop:
     - pam-auth-update --enable fscrypt
     - pam-auth-update --enable keyinit-fix
 
 - name: Update GRUB
-  shell: update-grub
+  command:
+    cmd: update-grub
 
 - name: Restart rsyslog
   systemd:

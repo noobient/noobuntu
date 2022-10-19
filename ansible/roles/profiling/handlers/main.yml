@@ -1,3 +1,4 @@
 ---
 - name: Update initramfs
-  command: update-initramfs -c -k all
+  command:
+    cmd: update-initramfs -c -k all

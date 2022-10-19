@@ -1,6 +1,7 @@
 ---
 - name: Check if Vulkan is installed
-  shell: apt list --installed | grep vulkan-sdk
+  shell:
+    cmd: apt list --installed | grep vulkan-sdk
   failed_when: false
   changed_when: false
   register: vulkan_any
@@ -12,7 +13,8 @@
 # Extract '1.1.126' from that.
 
 - name: Get installed Vulkan version
-  shell: apt list --installed 2>/dev/null | grep vulkan-sdk | awk -F'[ ~]' '{print $2}' | cut -d'.' -f1-3
+  shell:
+    cmd: apt list --installed 2>/dev/null | grep vulkan-sdk | awk -F'[ ~]' '{print $2}' | cut -d'.' -f1-3
   failed_when: false
   changed_when: false
   register: vulkan_current

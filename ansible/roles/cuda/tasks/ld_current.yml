@@ -1,7 +1,7 @@
 ---
 - name: Add CUDA libs to library path
   lineinfile:
-    path: "/etc/ld.so.conf.d/cuda-{{ cuda_version | replace('.','-') }}.conf"
+    path: "/etc/ld.so.conf.d/cuda-{{ cuda_version | replace('.', '-') }}.conf"
     create: true
     mode: '0644'
     owner: root

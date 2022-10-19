@@ -3,7 +3,7 @@
   find:
     paths: /etc/ld.so.conf.d
     patterns: 'cuda-*.conf'
-    excludes: "cuda-{{ cuda_version | replace('.','-') }}.conf"
+    excludes: "cuda-{{ cuda_version | replace('.', '-') }}.conf"
   register: cuda_ld_conf
 
 - name: Remove mismatching CUDA LD config files

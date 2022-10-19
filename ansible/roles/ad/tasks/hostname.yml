@@ -7,7 +7,7 @@
 
 - name: Check /etc/hostname format
   shell:
-    cmd: echo "{{ etc_hostname_content.stdout }}" | grep -E "^[[:alnum:]\-]+\.{{ ad_domain}}$"
+    cmd: echo "{{ etc_hostname_content.stdout }}" | grep -E "^[[:alnum:]\-]+\.{{ ad_domain }}$"
   failed_when: false
   changed_when: false
   register: etc_hostname_check1
@@ -41,7 +41,7 @@
   when: etc_hosts.changed
 
 - name: Clear SSSD cache
-  shell:
+  command:
     cmd: sss_cache --everything
   when: etc_hosts.changed
 

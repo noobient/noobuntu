@@ -1,6 +1,7 @@
 ---
 - name: Check if Apport is installed
-  shell: apt list --installed | grep ^apport/
+  shell:
+    cmd: apt list --installed | grep ^apport/
   failed_when: false
   changed_when: false
   register: apport_pkg

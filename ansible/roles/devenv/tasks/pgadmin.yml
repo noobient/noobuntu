@@ -1,18 +1,21 @@
 ---
 - name: Check if pgAdmin is installed
-  shell: apt list --installed 2>/dev/null|grep pgadmin4
+  shell:
+    cmd: apt list --installed 2>/dev/null | grep pgadmin4
   changed_when: false
   failed_when: false
   register: apt_pgadmin
 
 - name: Check if pgAdmin desktop is installed
-  shell: apt list --installed 2>/dev/null|grep pgadmin4-desktop
+  shell:
+    cmd: apt list --installed 2>/dev/null | grep pgadmin4-desktop
   changed_when: false
   failed_when: false
   register: apt_pgadmin_desktop
 
 - name: Remove legacy pgAdmin
-  shell: apt purge -y --autoremove pgadmin4*
+  command:
+    cmd: apt purge -y --autoremove pgadmin4*
   when: apt_pgadmin.rc == 0 and apt_pgadmin_desktop.rc != 0
 
 - include_role:

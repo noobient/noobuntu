@@ -1,30 +1,35 @@
 ---
 - name: "Create {{ zone }} firewall zone"
-  shell: "firewall-cmd --permanent --new-zone={{ zone }} && firewall-cmd --reload"
+  shell:
+    cmd: "firewall-cmd --permanent --new-zone={{ zone }} && firewall-cmd --reload"
   register: fw_new_zone
   failed_when: (fw_new_zone.rc != 0) and (fw_zone_str not in fw_new_zone.stderr)
   changed_when: ('success' in fw_new_zone.stdout)
 
 - name: "Add {{ source }} as source in {{ zone }} zone"
-  shell: "firewall-cmd --zone={{ zone }} --add-source={{ source }} --permanent && firewall-cmd --reload"
+  shell:
+    cmd: "firewall-cmd --zone={{ zone }} --add-source={{ source }} --permanent && firewall-cmd --reload"
   register: fw_add_src
   changed_when: fw_alreadyenabled_str not in fw_add_src.stderr
   when: source is defined
 
 - name: "Add {{ interface }} as interface in {{ zone }} zone"
-  shell: "firewall-cmd --zone={{ zone }} --add-interface={{ interface }} --permanent && firewall-cmd --reload"
+  shell:
+    cmd: "firewall-cmd --zone={{ zone }} --add-interface={{ interface }} --permanent && firewall-cmd --reload"
   register: fw_add_if
   changed_when: fw_alreadyenabled_str not in fw_add_if.stderr
   when: interface is defined
 
 # target is the only property where setting it twice won't trigger 'already ...' messages, need to check manually
 - name: "Check current target of {{ zone }} zone"
-  shell: "firewall-cmd --zone={{ zone }} --get-target --permanent"
+  command:
+    cmd: "firewall-cmd --zone={{ zone }} --get-target --permanent"
   register: fw_get_target
   changed_when: false
   when: fw_target is defined
 
 # apparently 'target' is an undocumented built-in alias for inventory_hostname in ansible...
 - name: "Set target to {{ fw_target }} in {{ zone }} zone"
-  shell: "firewall-cmd --zone={{ zone }} --set-target={{ fw_target }} --permanent && firewall-cmd --reload"
+  shell:
+    cmd: "firewall-cmd --zone={{ zone }} --set-target={{ fw_target }} --permanent && firewall-cmd --reload"
   when: (fw_target is defined) and (fw_get_target.stdout != fw_target)

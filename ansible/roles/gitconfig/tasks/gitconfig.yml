@@ -6,18 +6,21 @@
   register: installed_git
   when: installed_git is not defined
 
-- name: Check system-wide Git "{{ item.key }}"
-  shell: git config --system --get "{{ item.key }}"
+- name: Check system-wide Git "{{ item.key }}" # noqa command-instead-of-module
+  command:
+    cmd: git config --system --get "{{ item.key }}"
   failed_when: false
   changed_when: false
   register: current_value
 
-- name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}"
-  command: git config --system "{{ item.key }}" "{{ item.value }}"
+- name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}" # noqa command-instead-of-module
+  command:
+    cmd: git config --system "{{ item.key }}" "{{ item.value }}"
   when: (item.value != current_value.stdout) and (item.except is not defined)
 
 # Don't override if some blocker value is specified.
 # E.g. don't set to cache when GCM4ML is in use already.
-- name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}"
-  command: git config --system "{{ item.key }}" "{{ item.value }}"
+- name: Set system-wide Git "{{ item.key }}" to "{{ item.value }}" # noqa command-instead-of-module
+  command:
+    cmd: git config --system "{{ item.key }}" "{{ item.value }}"
   when: (item.value != current_value.stdout) and (item.except is defined) and (item.except != current_value.stdout)

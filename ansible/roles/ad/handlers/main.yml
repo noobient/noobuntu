@@ -5,7 +5,8 @@
     state: restarted
 
 - name: Force time sync
-  command: "timedatectl --adjust-system-clock"
+  command:
+    cmd: timedatectl --adjust-system-clock
 
 - name: Restart resolved service
   systemd:

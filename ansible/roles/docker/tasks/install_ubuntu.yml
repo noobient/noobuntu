@@ -19,7 +19,7 @@
 
 # if (k8s_nv) then {...}
 - include_tasks: nv_runtime.yml
-  when: k8s_nv_node is defined and k8s_nv_node == True
+  when: k8s_nv_node is defined and k8s_nv_node
 
 # if (!k8s) then {...}
 - include_tasks: opa.yml

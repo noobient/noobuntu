@@ -1,5 +1,5 @@
 ---
-- name: Check default runlevel
+- name: Check default runlevel # noqa command-instead-of-module
   command:
     cmd: systemctl get-default
   changed_when: false

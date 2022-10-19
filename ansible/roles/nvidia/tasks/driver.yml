@@ -7,20 +7,23 @@
   when: ansible_distribution_version == '18.04'
 
 #- name: Check if any NV version is installed
-#  shell: dpkg -l | grep -E "nvidia-driver-[0-9]{3}"
+#  shell:
+#    dpkg -l | grep -E "nvidia-driver-[0-9]{3}"
 #  failed_when: no
 #  changed_when: no
 #  register: nv_any
 
 - name: Check if current NV version is installed
-  shell: apt list --installed | grep -E "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
+  shell:
+    cmd: apt list --installed | grep -E "nvidia-driver-{{ nvidia_version | default(nvidia_default_version) }}"
   failed_when: false
   changed_when: false
   register: nv_current
 #  when: nv_any.rc == 0
 
 - name: Check if mismatching NV packages are installed
-  shell: apt list --installed | grep -E 'nvidia.*\-.*[0-9]{3}\/' | grep -v '{{ nvidia_version | default(nvidia_default_version) }}'
+  shell:
+    cmd: apt list --installed | grep -E 'nvidia.*\-.*[0-9]{3}\/' | grep -v '{{ nvidia_version | default(nvidia_default_version) }}'
   failed_when: false
   changed_when: false
   register: nv_mismatch

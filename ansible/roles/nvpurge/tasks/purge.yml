@@ -13,37 +13,43 @@
 # and apt errors out if they aren't from a repo
 # TODO we need separate registers for each, is there a way to register different variables in a loop?
 - name: Check libcudnn availability
-  shell: apt-cache search --names-only "libcudnn*"
+  command:
+    cmd: apt-cache search --names-only "libcudnn*"
   no_log: true
   changed_when: false
   register: purge_libcudnn
 
 - name: Check libnccl availability
-  shell: apt-cache search --names-only "libnccl*"
+  command:
+    cmd: apt-cache search --names-only "libnccl*"
   no_log: true
   changed_when: false
   register: purge_libnccl
 
 - name: Check libnvinfer availability
-  shell: apt-cache search --names-only "libnvinfer*"
+  command:
+    cmd: apt-cache search --names-only "libnvinfer*"
   no_log: true
   changed_when: false
   register: purge_libnvinfer
 
 - name: Check libnvonnxparsers availability
-  shell: apt-cache search --names-only "libnvonnxparsers*"
+  command:
+    cmd: apt-cache search --names-only "libnvonnxparsers*"
   no_log: true
   changed_when: false
   register: purge_libnvonnxparsers
 
 - name: Check libnvparsers availability
-  shell: apt-cache search --names-only "libnvparsers*"
+  command:
+    cmd: apt-cache search --names-only "libnvparsers*"
   no_log: true
   changed_when: false
   register: purge_libnvparsers
 
 - name: Check tensorrt availability
-  shell: apt-cache search --names-only "tensorrt*"
+  command:
+    cmd: apt-cache search --names-only "tensorrt*"
   no_log: true
   changed_when: false
   register: purge_tensorrt
@@ -52,7 +58,8 @@
 # But when they are installed, they must be purged first, otherwise the other purge fails.
 # Edit: actually, this won't work either, tensorrt 6 depends on them
 #- name: Uninstall optional NV libs
-#  shell: apt purge -y --autoremove "libnvparsers*" "libnvonnxparsers*"
+#  command:
+#    cmd: apt purge -y --autoremove "libnvparsers*" "libnvonnxparsers*"
 #  ignore_errors: yes
 #  no_log: True
 
@@ -78,12 +85,12 @@
 - name: Uninstall mismatching NV packages
   shell: >
     apt purge -y --autoremove nvidia-* libnvidia-* libxnvctrl0 xserver-xorg-video-nvidia* cuda-*
-    {% if purge_libcudnn.stdout_lines|length %}libcudnn*{% endif %}
-    {% if purge_libnccl.stdout_lines|length %}libnccl*{% endif %}
-    {% if purge_libnvinfer.stdout_lines|length %}libnvinfer*{% endif %}
-    {% if purge_libnvonnxparsers.stdout_lines|length %}libnvonnxparsers*{% endif %}
-    {% if purge_libnvparsers.stdout_lines|length %}libnvparsers*{% endif %}
-    {% if purge_tensorrt.stdout_lines|length %}tensorrt*{% endif %}
+    {% if purge_libcudnn.stdout_lines | length %}libcudnn*{% endif %}
+    {% if purge_libnccl.stdout_lines | length %}libnccl*{% endif %}
+    {% if purge_libnvinfer.stdout_lines | length %}libnvinfer*{% endif %}
+    {% if purge_libnvonnxparsers.stdout_lines | length %}libnvonnxparsers*{% endif %}
+    {% if purge_libnvparsers.stdout_lines | length %}libnvparsers*{% endif %}
+    {% if purge_tensorrt.stdout_lines | length %}tensorrt*{% endif %}
   register: nv_purge
   failed_when: (nv_purge.rc != 0) and (nv_purge.rc != 100)
 

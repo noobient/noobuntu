@@ -1,6 +1,7 @@
 ---
 - name: "Add members of the {{ item.ldap_groups }} LDAP groups to the {{ item.unix_groups }} Unix groups"
-  shell: /usr/local/sbin/ldap2unix
+  command:
+    cmd: /usr/local/sbin/ldap2unix
   register: ldap2unix_run
   changed_when: false
 

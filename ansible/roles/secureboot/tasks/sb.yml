@@ -5,7 +5,8 @@
     state: present
 
 - name: Check Secure Boot state
-  command: mokutil --sb-state
+  command:
+    cmd: mokutil --sb-state
   failed_when: false
   changed_when: false
   register: sb_state
