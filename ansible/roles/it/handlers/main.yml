@@ -1,0 +1,5 @@
+---
+- name: Restart tftpd service
+  systemd:
+    name: tftpd-hpa
+    state: restarted

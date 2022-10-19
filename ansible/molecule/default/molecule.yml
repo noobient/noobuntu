@@ -34,8 +34,8 @@ verifier:
   name: ansible
 lint: |
   set -e
-  yamllint -c ../.yamllint .
-  ansible-lint .
+  yamllint --strict --config-file ../.yamllint .
+  ansible-lint --strict --config-file ../.ansible-lint
 
 platforms:
 

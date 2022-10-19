@@ -1,6 +1,7 @@
 ---
 - name: Check semanage availability
-  shell: which semanage
+  command:
+    cmd: which semanage
   failed_when: false
   changed_when: false
   register: semanage_bin

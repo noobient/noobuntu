@@ -6,3 +6,5 @@ skip_list:
   - yaml[comments] # TODO how do I restrict this to just require-starting-space?
   - yaml[line-length]
   - name # this is covered by yamllint with exceptions on include_role
+  - risky-shell-pipe
+  - schema[tasks] # TODO ansible-lint randomly complains, e.g. it/tftpd

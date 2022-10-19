@@ -4,7 +4,7 @@
 # assume the first character is /, skip it, and replace the remaining slashes
 # with dashes
 - set_fact:
-    smb_unit: "{{ item.mountpoint[1:] | replace('/','-') }}"
+    smb_unit: "{{ item.mountpoint[1:] | replace('/', '-') }}"
 
 - name: "Add mounts for {{ item.host }}.{{ ad_domain }}/{{ item.path }} as {{ item.mountpoint }}"
   template:

@@ -1,0 +1,24 @@
+---
+driver:
+  name: docker
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles
+
+platforms:
+
+  - name: noobuntu_it_ubuntu1804
+    image: ubuntu:18.04
+    privileged: true
+    override_command: false
+
+  - name: noobuntu_it_ubuntu2004
+    image: ubuntu:20.04
+    privileged: true
+    override_command: false
+
+  - name: noobuntu_it_ubuntu2204
+    image: ubuntu:22.04
+    privileged: true
+    override_command: false

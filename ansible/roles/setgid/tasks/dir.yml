@@ -1,5 +1,5 @@
 ---
-- name: "Ensure {{ item.dir }} exists"
+- name: "Ensure {{ item.dir }} exists" # noqa risky-file-permissions
   file:
     path: "{{ item.dir }}"
     state: directory

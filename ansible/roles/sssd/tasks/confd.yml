@@ -26,4 +26,4 @@
   systemd:
     name: sssd.service
     state: restarted
-  when: (sssd_opts is defined) and (sssd_opts.changed) and (krb5_keytab.stat.exists == True)
+  when: (sssd_opts is defined) and (sssd_opts.changed) and (krb5_keytab.stat.exists)

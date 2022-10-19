@@ -19,13 +19,8 @@
     option: TFTP_OPTIONS
     value: '"--secure --create"'
     no_extra_spaces: true
-  register: tftpd_options
-
-- name: Restart TFTP service
-  systemd:
-    name: tftpd-hpa
-    state: restarted
-  when: tftpd_options.changed
+    mode: '0644'
+  notify: Restart tftpd service
 
 - include_role:
     name: firewalld

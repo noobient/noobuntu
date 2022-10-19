@@ -8,50 +8,6 @@ default_ext: tar.gz
 sf_mirror: liquidtelecom
 
 drivers:
-#  atlantic:
-#    version: 2.2.6
-#    dkms_version: 2.2.6
-#    url: https://github.com/noobient/noobuntu/files/3718200/atlantic-2.2.6.tar.gz
-#    checksum: 36ff7685d090ac9c19085e470121ae5448c4b7d947e6566b8efb59f21dc6b1e2
-#    file_ext: '{{ default_ext }}'
-#    ko_name: atlantic
-#    dkms_name: atlantic
-#  e1000e:
-#    version: 3.6.0
-#    dkms_version: 3.6.0
-#    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/e1000e%20stable/3.6.0/e1000e-3.6.0.tar.gz'
-#    checksum: 41d90fd6d236faba0b36e4be4a15c0f71c901ccf61ebf1c2719375daf390e820
-#    file_ext: '{{ default_ext }}'
-#    ko_name: e1000e
-#    dkms_name: e1000e
-#    make_dir: src
-#  i40e:
-#    version: 2.10.19.30
-#    dkms_version: 2.10.19.30
-#    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/i40e%20stable/2.10.19.30/i40e-2.10.19.30.tar.gz'
-#    checksum: 23bdbc12a71e58ae68fb6a7173d104dcbd85f97e6a62fa08e8a99521bab6eb77
-#    file_ext: '{{ default_ext }}'
-#    ko_name: i40e
-#    dkms_name: i40e
-#    make_dir: src
-#  igb:
-#    version: 5.3.5.42
-#    dkms_version: 5.3.5.42
-#    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/igb%20stable/5.3.5.42/igb-5.3.5.42.tar.gz'
-#    checksum: 8feccf37b10cde1d68caa883a153d7584ae03312ad93101fe873c51e43e8b517
-#    file_ext: '{{ default_ext }}'
-#    ko_name: igb
-#    dkms_name: igb
-#    make_dir: src
-#  ixgbe:
-#    version: 5.6.3
-#    dkms_version: 5.6.3
-#    url: 'https://{{ sf_mirror }}.dl.sourceforge.net/project/e1000/ixgbe%20stable/5.6.3/ixgbe-5.6.3.tar.gz'
-#    checksum: d6a5129b7be0a25bed65843be37e4ac913deab4ca169b215521088e10eb03ef1
-#    file_ext: '{{ default_ext }}'
-#    ko_name: ixgbe
-#    dkms_name: ixgbe
-#    make_dir: src
   tn40xx:
     version: 0.3.6.17.2
     dkms_version: 0.3.6.17.2
