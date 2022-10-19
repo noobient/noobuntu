@@ -5,24 +5,29 @@
     update_cache: true
   when: ansible_pkg_mgr == 'apt'
 
+# TODO add-apt-repository / apt_repository doesn't support HTTPS so do it manually
+#- name: Add Ansible PPA
+  #apt_repository:
+    #repo: ppa:ansible/ansible
+    #mode: '0644'
 # TODO enable once available for ARM64
-- name: Add Ansible PPA
-  apt_repository:
-    repo: ppa:ansible/ansible
-    mode: '0644'
+- include_role:
+    name: thirdparty
+  loop:
+    - { name: 'Ansible', gpg_server: 'keyserver.ubuntu.com', gpg_id: '6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367', repo_file: 'ansible', package: 'ansible' }
   when: (ansible_pkg_mgr == 'apt') and (ansible_architecture != 'aarch64')
+
+#- name: Install Ansible
+  #apt:
+    #name: ansible
+    #state: latest
+  #when: ansible_pkg_mgr == 'apt'
 
 - name: Enable EPEL repo
   dnf:
     name: epel-release
     state: latest
   when: ansible_pkg_mgr == 'dnf'
-
-- name: Install Ansible
-  apt:
-    name: ansible
-    state: latest
-  when: ansible_pkg_mgr == 'apt'
 
 - name: Install Ansible
   dnf:
