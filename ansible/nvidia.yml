@@ -6,6 +6,6 @@
     apt:
       force_apt_get: true
   roles:
-# avoid installing / removing NV back and forth
-#  - update
+    # avoid installing / removing NV back and forth
+    #- update
     - nvidia
