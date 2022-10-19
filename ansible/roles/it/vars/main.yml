@@ -2,4 +2,4 @@
 jre_url: https://javadl.oracle.com/webapps/download/AutoDL?BundleId=243727_61ae65e088624f5aaa0b1d2d801acb16
 jre_checksum: 4211bc4fe4b7fca1acabca75082fd3d968ad306a50e44e68c22bca3149c710ae
 jre_version: 1.8.0_271
-ceph_codename: octopus
+ceph_codename: quincy
