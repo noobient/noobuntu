@@ -1,6 +1,6 @@
 ---
 - name: IT
-  hosts: noobuntu_it_ubuntu1804
+  hosts: all
   roles:
     - role: update
     - role: it
