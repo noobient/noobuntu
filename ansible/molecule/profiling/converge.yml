@@ -1,0 +1,6 @@
+---
+- name: Profiling
+  hosts: all
+  roles:
+    - role: update
+    - role: profiling
