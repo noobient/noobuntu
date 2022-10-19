@@ -10,4 +10,4 @@
   when: ansible_pkg_mgr == 'dnf'
 # TODO fix for ARM64
 - include_tasks: hwe.yml
-  when: (ansible_pkg_mgr == 'apt') and (ansible_architecture != 'aarch64')
+  when: (ansible_virtualization_type != 'docker') and (ansible_pkg_mgr == 'apt') and (ansible_architecture != 'aarch64')
