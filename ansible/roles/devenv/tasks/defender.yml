@@ -13,7 +13,7 @@
   notify: Restart Defender ATP
 
 - include_role:
-    name: 3rdparty
+    name: thirdparty
   loop:
     - { name: 'Defender ATP', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-prod', package: 'mdatp' }
 

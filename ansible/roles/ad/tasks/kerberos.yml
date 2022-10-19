@@ -19,8 +19,8 @@
     block: |
       {{ ad_domain | upper }} = {
           {% for dc in ad_dc_names %}
-          kdc = {{ dc|upper }}.{{ ad_domain | upper }}
+          kdc = {{ dc | upper }}.{{ ad_domain | upper }}
           {% endfor %}
-          admin_server = {{ ad_admin_dc|upper }}.{{ ad_domain | upper }}
+          admin_server = {{ ad_admin_dc | upper }}.{{ ad_domain | upper }}
       }
   notify: Restart resolved service

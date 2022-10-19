@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: 3rdparty
+    name: thirdparty
   loop:
     - { name: 'containerd', package: 'containerd', allow_downgrade: true, version: "{% if containerd_version is defined %}{{ containerd_version }}{% endif %}" }
 

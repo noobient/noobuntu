@@ -24,6 +24,6 @@
     state: absent
 
 - include_role:
-    name: 3rdparty
+    name: thirdparty
   loop:
     - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams' }

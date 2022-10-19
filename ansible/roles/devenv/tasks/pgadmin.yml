@@ -19,7 +19,7 @@
   when: apt_pgadmin.rc == 0 and apt_pgadmin_desktop.rc != 0
 
 - include_role:
-    name: 3rdparty
+    name: thirdparty
   loop:
     - { name: 'pgAdmin', gpg_url: 'https://www.pgadmin.org/static/packages_pgadmin_org.pub', repo_file: 'pgadmin4', package: "{{ packages }}" }
   vars:

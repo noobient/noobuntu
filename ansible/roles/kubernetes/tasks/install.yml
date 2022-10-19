@@ -1,7 +1,7 @@
 ---
 # kubeadm depends on kubelet and kubectl so make sure it's installed last
 - include_role:
-    name: 3rdparty
+    name: thirdparty
   loop:
     # you can't conditionally pass parameters using jinja, so the next best thing is passing them as empty strings
     - { name: 'Kubernetes', gpg_url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg', repo_file: 'kubernetes', package: kubelet, version: "{% if k8s_version is defined %}{{ k8s_version }}{% endif %}" }

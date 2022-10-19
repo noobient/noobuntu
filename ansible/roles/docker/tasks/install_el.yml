@@ -5,7 +5,7 @@
     - rhel-7-server-extras-rpms
 
 - include_role:
-    name: 3rdparty
+    name: thirdparty
   loop:
     - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/centos/gpg', repo_file: 'docker-ce', package: "{{ packages }}" }
   vars:
