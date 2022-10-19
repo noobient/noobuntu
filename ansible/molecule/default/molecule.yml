@@ -24,6 +24,14 @@
 # CMD on its own. This appears to work on Rocky, but not on Ubuntu. So stop the
 # guess work and specify things explicitly.
 
+# Unused, but can't be empty, so...
+platforms:
+  - name: rocky9
+    groups:
+      - rhel
+    image: rockylinux:9
+    privileged: true
+    override_command: false
 driver:
   name: docker
 provisioner:
@@ -36,19 +44,3 @@ lint: |
   set -e
   yamllint --strict --config-file ../.yamllint .
   ansible-lint --strict --config-file ../.ansible-lint
-
-platforms:
-
-  - name: rocky9
-    groups:
-      - rhel
-    image: rockylinux:9
-    privileged: true
-    override_command: false
-
-  - name: ubuntu2204
-    groups:
-      - ubuntu
-    image: ubuntu:22.04
-    privileged: true
-    override_command: false
