@@ -7,8 +7,8 @@
   loop:
     - { name: 'Azure CLI', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'azure-cli', package: 'azure-cli' }
     - { name: 'ceph-deploy', gpg_url: 'https://download.ceph.com/keys/release.asc', repo_file: 'ceph', package: 'ceph-deploy' }
+    - { name: 'PowerShell', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-prod', package: 'powershell' }
 
 - include_tasks: tftpd.yml
-- include_tasks: powershell.yml
 - include_tasks: asdm.yml
   when: asa_host is defined

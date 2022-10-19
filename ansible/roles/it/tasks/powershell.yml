@@ -1,5 +1,0 @@
----
-- name: Install PowerShell Core snap
-  snap:
-    name: powershell
-    classic: true
