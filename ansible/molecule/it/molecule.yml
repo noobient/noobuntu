@@ -12,13 +12,19 @@ platforms:
     image: ubuntu:18.04
     privileged: true
     override_command: false
+    volumes:
+      - /lib/modules:/lib/modules:ro
 
   - name: noobuntu_it_ubuntu2004
     image: ubuntu:20.04
     privileged: true
     override_command: false
+    volumes:
+      - /lib/modules:/lib/modules:ro
 
   - name: noobuntu_it_ubuntu2204
     image: ubuntu:22.04
     privileged: true
     override_command: false
+    volumes:
+      - /lib/modules:/lib/modules:ro
