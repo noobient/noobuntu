@@ -25,7 +25,16 @@ RUN apt -y update
 # on a manually installed system, so only do that in the Dockerfile instead of
 # the playbook. Also, starting the container with systemd *requires* systemd to
 # be present, so there's simply no other way than doing it here.
-RUN apt -y install --no-install-recommends sudo bash gnupg software-properties-common systemd cron
+RUN apt -y install --no-install-recommends sudo bash gnupg software-properties-common systemd cron kmod
+
+# Alleged fix for firewalld failing on tftp service
+# Totally doesn't work
+#RUN apt -y install kmod
+#RUN echo 'nf_conntrack_tftp' >> /etc/modules-load.d/modules.conf
+#RUN mkdir -p /lib/modules/$(uname -r)
+#RUN touch /lib/modules/$(uname -r)/modules.{builtin,order}
+#RUN for i in /sys/module/*; do echo kernel/${i##**/}.ko; done >> /lib/modules/$(uname -r)/modules.builtin
+#RUN depmod -a
 
 # Let the container start with systemd
 CMD [ "/lib/systemd/systemd" ]
