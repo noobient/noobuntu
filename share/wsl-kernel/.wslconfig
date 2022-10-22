@@ -1,2 +1,2 @@
 [wsl2]
-kernel=C:\\temp\\wsl-conntrack.kernel
+kernel=C:\\wsl\\vmlinuz
