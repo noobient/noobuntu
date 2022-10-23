@@ -1,2 +1,2 @@
 [wsl2]
-kernel=C:\\wsl\\vmlinuz
+kernel=C:\\wsl\\current\\vmlinuz

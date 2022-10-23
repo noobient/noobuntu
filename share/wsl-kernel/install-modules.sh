@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rmdir /lib/modules
-ln -s /mnt/c/wsl/lib/modules /lib/modules
+ln -s /mnt/c/wsl/current/lib/modules /lib/modules
