@@ -1,0 +1,20 @@
+---
+- name: Install jmespath for JSON parsing
+  local_action:
+    module: pip
+    name: jmespath
+    state: latest
+
+- name: Fetch latest release info
+  uri:
+    url: "https://api.github.com/repos/{{ item.owner }}/{{ item.repo }}/releases/latest"
+  register: gh_rel
+
+# Lovely JMESPath expression to extract asset URL for a certain prefix/suffix.
+# Oh yes, gotta love that beautiful and trivial escaping <3
+# TODO:
+# - Maybe support something other than latest.
+# - Maybe add support for "contains", prefix and suffix may not always suffice.
+# - Decide if this role should do the download itself. Prolly not.
+- debug:
+    msg: "{{ gh_rel.json | json_query('assets[? starts_with(name, `\"' + item.prefix + '\"`) && ends_with(name, `\"' + item.suffix + '\"`)].browser_download_url') }}"
