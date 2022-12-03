@@ -1,5 +1,6 @@
 ---
 skip_list:
+  - git-latest
   - package-latest
   - fqcn[action]
   - fqcn[action-core]
