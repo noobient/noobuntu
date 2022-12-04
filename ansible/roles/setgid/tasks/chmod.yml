@@ -7,6 +7,4 @@
 - name: "Set sticky bit on {{ item.dir }}"
   command:
     cmd: "chmod g+s {{ item.dir }}"
-  args:
-    warn: false
   when: dir_info.stat.mode[0] != '2'
