@@ -11,7 +11,7 @@ RUN apt -y install --no-install-recommends wget ca-certificates
 RUN apt -y install --no-install-recommends make gcc bc bison python3-minimal dwarves flex
 
 # Install misc utilities
-RUN apt -y install --no-install-recommends kmod bash libxml2-utils
+RUN apt -y install --no-install-recommends kmod bash libxml2-utils jq
 
 # Install headers
 RUN apt -y install --no-install-recommends libc6-dev libelf-dev libssl-dev

@@ -36,12 +36,18 @@ function enable_module ()
     sed -E -i "s@.*(${1})[ =]+.*@\1=${2}@g" .config
 }
 
-REL_PAGE='https://github.com/microsoft/WSL2-Linux-Kernel/releases/latest'
-wget -O release.html "${REL_PAGE}"
+REL_PAGE='https://api.github.com/repos/microsoft/WSL2-Linux-Kernel/releases/latest'
+REL_FILE='release.html'
+wget -O "${REL_FILE}" "${REL_PAGE}"
 
-export WSL_VER=$(xmllint --html --nowarning --xpath '/html/head/title/text()' release.html 2>/dev/null | awk '{print $2}' | cut -d'/' -f3) # '
-export REL_URL="https://github.com/microsoft/WSL2-Linux-Kernel/archive/refs/tags/rolling-lts/wsl/${WSL_VER}.tar.gz"
-export CANON_REL="WSL2-Linux-Kernel-rolling-lts-wsl-${WSL_VER}"
+# This only applied to that "rolling" 5.15.68.1 release we'll prolly never see again
+#export WSL_VER=$(xmllint --html --nowarning --xpath '/html/head/title/text()' release.html 2>/dev/null | awk '{print $2}' | cut -d'/' -f3) # '
+#export REL_URL="https://github.com/microsoft/WSL2-Linux-Kernel/archive/refs/tags/rolling-lts/wsl/${WSL_VER}.tar.gz"
+#export CANON_REL="WSL2-Linux-Kernel-rolling-lts-wsl-${WSL_VER}"
+
+export CANON_REL=$(jq -r '.tag_name' "${REL_FILE}")
+export REL_URL=$(jq -r '.tarball_url' "${REL_FILE}")
+export WSL_VER="${CANON_REL##*-}" # trim anything before the last '-'
 
 if [ -f "${WSL_DIR}/${CANON_REL}.tar.gz" ]
 then
@@ -52,7 +58,7 @@ else
 fi
 
 tar xf wsl.tgz
-cd "${CANON_REL}"
+cd microsoft-WSL2-Linux-Kernel-*
 
 # This won't work if you're already on a modified kernel
 #cat /proc/config.gz | gunzip > .config.stock
