@@ -10,8 +10,17 @@ loadables=(
 )
 
 builtins=(
+    # firewalld won't be workable without these
     CONFIG_NETFILTER_XT_TARGET_CT
     CONFIG_NETFILTER_XT_MATCH_HELPER
+    # I thought these were needed for ipsec and docker-swarm firewalld services
+    #CONFIG_NETFILTER_XT_MATCH_ESP
+    #CONFIG_INET_AH
+    #CONFIG_INET6_AH
+    # Podman under WSL, but works even without
+    #CONFIG_BPFILTER
+    #CONFIG_BPFILTER_UMH
+    #CONFIG_NETFILTER_XT_MATCH_BPF
 )
 
 # Let these stay here until 22.04 is also sorted out
@@ -82,7 +91,12 @@ make -j $(nproc)
 
 mkdir -p "${KERNEL_DIR}"
 INSTALL_PATH="${KERNEL_DIR}" make install
-INSTALL_MOD_PATH="${KERNEL_DIR}" make modules_install
+
+if [ ${#loadables[@]} -gt 0 ]
+then
+    # Depmod is really slow on WSL, skip if possible
+    INSTALL_MOD_PATH="${KERNEL_DIR}" make modules_install
+fi
 
 cd "${KERNEL_DIR}"
 ln -sf "vmlinuz-${WSL_VER}-microsoft-noobuntu-WSL2" vmlinuz
