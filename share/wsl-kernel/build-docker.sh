@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t noobuntu/wsl-kernel .
+podman build -t noobuntu/wsl-kernel .
