@@ -6,7 +6,7 @@
     apt:
       force_apt_get: true
   roles:
-    - update
+    - bviktor.update
     - { role: networkmanager, when: ansible_distribution == 'Ubuntu' }
     - { role: nofirstrun, when: ansible_distribution == 'Ubuntu' }
     - ad

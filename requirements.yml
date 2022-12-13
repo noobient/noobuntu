@@ -3,3 +3,4 @@
 - src: bviktor.firewalld
 - src: bviktor.sysctl
 - src: bviktor.thirdparty
+- src: bviktor.update

@@ -3,5 +3,5 @@
   connection: "{% if target is defined %}ssh{% else %}local{% endif %}"
   become: true
   roles:
-    - update
+    - bviktor.update
     - tomcat

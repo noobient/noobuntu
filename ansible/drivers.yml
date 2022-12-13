@@ -6,6 +6,6 @@
     apt:
       force_apt_get: true
   roles:
-    - update
+    - bviktor.update
     - build
     - drivers
