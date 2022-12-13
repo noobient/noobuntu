@@ -23,6 +23,6 @@
   when: apport_pkg.rc == 0
 
 - include_role:
-    name: sysctl
+    name: bviktor.sysctl
   loop:
     - { file: '99-corepattern', option: 'kernel.core_pattern', value: "{{ item }}" }

@@ -14,7 +14,7 @@
 
 # https://www.jetbrains.com/help/clion/cpu-profiler.html
 - include_role: # noqa name
-    name: sysctl
+    name: bviktor.sysctl
   loop:
     - { file: '99-perf', option: 'kernel.perf_event_paranoid', value: '1' }
     - { file: '99-perf', option: 'kernel.kptr_restrict', value: '0' }
