@@ -12,6 +12,9 @@
   vars:
     - parent: ad
 
+- include_tasks: nofirstrun.yml
+  when: ansible_distribution == 'Ubuntu'
+
 - include_tasks: install.yml
 
 - include_tasks: hostname.yml

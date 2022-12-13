@@ -8,5 +8,4 @@
   roles:
     - bviktor.update
     - { role: networkmanager, when: ansible_distribution == 'Ubuntu' }
-    - { role: nofirstrun, when: ansible_distribution == 'Ubuntu' }
     - ad
