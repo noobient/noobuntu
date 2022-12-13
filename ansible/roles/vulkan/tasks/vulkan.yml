@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Vulkan SDK', gpg_url: 'https://packages.lunarg.com/lunarg-signing-key-pub.asc', repo_file: 'lunarg-vulkan', package: 'vulkan-sdk', ldconfig: true }
 

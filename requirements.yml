@@ -2,3 +2,4 @@
 - src: bviktor.desktopcheck
 - src: bviktor.firewalld
 - src: bviktor.sysctl
+- src: bviktor.thirdparty

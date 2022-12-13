@@ -1,6 +1,0 @@
----
-- name: "Add {{ item.name }} repo"
-  template:
-    src: "{{ item.repo_file }}.repo.j2"
-    dest: "/etc/yum.repos.d/{{ item.repo_file }}.repo"
-    mode: '0644'

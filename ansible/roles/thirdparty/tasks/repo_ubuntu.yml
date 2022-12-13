@@ -1,7 +1,0 @@
----
-- name: "Add {{ item.name }} repo"
-  template:
-    src: "{{ item.repo_file }}.list.j2"
-    dest: "/etc/apt/sources.list.d/{{ item.repo_file }}.list"
-    mode: '0644'
-  when: item.repo_file is defined

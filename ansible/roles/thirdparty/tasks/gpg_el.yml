@@ -1,6 +1,0 @@
----
-- name: "Import {{ item.name }} GPG key"
-  rpm_key:
-    key: "{{ item.gpg_url }}"
-    state: present
-  when: item.gpg_url is defined

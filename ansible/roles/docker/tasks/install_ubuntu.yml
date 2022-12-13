@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Docker', gpg_url: 'https://download.docker.com/linux/ubuntu/gpg', repo_file: 'docker', package: "{{ packages }}" }
   vars:

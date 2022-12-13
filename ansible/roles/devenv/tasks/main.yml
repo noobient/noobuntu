@@ -25,7 +25,7 @@
     name: secureboot
 
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Google Chrome', gpg_url: 'https://dl.google.com/linux/linux_signing_key.pub', repo_file: 'google-chrome', package: 'google-chrome-stable', repo_overwrite: true }
     - { name: 'Microsoft Edge', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'microsoft-edge-stable', package: 'microsoft-edge-stable' }

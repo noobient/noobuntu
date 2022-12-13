@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Insync', gpg_server: 'keyserver.ubuntu.com', gpg_id: 'ACCAF35C', repo_file: 'insync', package: '{{ packages }}', repo_overwrite: true }
   vars:

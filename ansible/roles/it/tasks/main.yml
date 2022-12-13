@@ -3,7 +3,7 @@
 - include_tasks: azure.yml
 
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Azure CLI', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'azure-cli', package: 'azure-cli' }
     #- { name: 'ceph-deploy', gpg_url: 'https://download.ceph.com/keys/release.asc', repo_file: 'ceph', package: 'ceph-deploy' }

@@ -24,6 +24,6 @@
     state: absent
 
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Teams', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'teams', package: 'teams' }

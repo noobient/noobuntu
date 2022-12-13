@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'Git Credential Libsecret', gpg_url: 'https://apt.noobient.com/files/noobuntu.asc', repo_file: 'noobuntu', package: 'git-credential-libsecret' }
 

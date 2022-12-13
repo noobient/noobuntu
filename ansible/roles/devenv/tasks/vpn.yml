@@ -10,7 +10,7 @@
   when: ansible_distribution_version == '20.04'
 
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     # is it enough for Warp on 18.04 to just install libcap2-bin and use 20.04 repo?
     - { name: 'Cloudflare WARP', gpg_url: 'https://pkg.cloudflareclient.com/pubkey.gpg', repo_file: 'cloudflare-client', package: 'cloudflare-warp' }
@@ -18,7 +18,7 @@
   when: ansible_distribution_version == '20.04'
 
 - include_role:
-    name: thirdparty
+    name: bviktor.thirdparty
   loop:
     - { name: 'NordLayer', gpg_file: 'nordlayer-keyring', repo_file: 'nordlayer', package: 'nordlayer' }
     - { name: 'NordVPN', gpg_url: 'https://repo.nordvpn.com/gpg/nordvpn_public.asc', repo_file: 'nordvpn', package: 'nordvpn' }
