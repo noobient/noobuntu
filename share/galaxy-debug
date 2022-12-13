@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -eu
+
+if [ ! -f 'tests/main.yml' ]
+then
+    echo -e "\e[31mError! Tests not found. Ensure you're in the right directory.\e[0m"
+    exit 1
+fi
+
+if [ $# -lt 1 ]
+then
+    platform="fedora:37"
+else
+    platform="${1}"
+fi
+
+role=$(basename ${PWD} | sed 's/ansible-galaxy-//')
+
+echo -e "\nRunning Galaxy role tests on:\n - Role: \e[36m${role}\e[0m\n - Platform: \e[36m${platform}\e[0m\n"
+
+# Fire up instance
+CONT_ID=$(docker run --rm -v $(pwd):/repo -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /tmp --tmpfs /run --privileged --detach "bviktor/ansible-systemd-${platform}")
+# Ensure ansible-playbook doesn't bug out trying to run dependencies by default.
+# Don't error out if not found, assume it was interrupted before reverting.
+docker exec "${CONT_ID}" mv meta meta-skip || true
+# Install dependencies
+docker exec "${CONT_ID}" bash -c "if [ -f requirements.yml ]; then ansible-galaxy role install --force -r requirements.yml -p ..; fi"
+# Run the actual tests
+docker exec "${CONT_ID}" bash -c "ANSIBLE_ROLES_PATH=.. ANSIBLE_FORCE_COLOR=true ansible-playbook tests/main.yml"
+# Let us check stuff before exiting
+docker exec -it "${CONT_ID}" bash
+# Clean up
+docker exec "${CONT_ID}" mv meta-skip meta
+# Stop instance
+docker stop "${CONT_ID}"
