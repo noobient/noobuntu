@@ -1,8 +1,0 @@
----
-- name: Create SELinux policy folder
-  file:
-    path: "{{ semodule_dir | default(semodule_default_dir) }}"
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'

@@ -1,6 +1,0 @@
----
-- include_tasks: deps.yml
-  when: installed_selinux is not defined
-
-- include_tasks: structure.yml
-- include_tasks: deploy.yml

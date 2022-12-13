@@ -1,3 +1,0 @@
----
-- include_tasks: main2.yml
-  when: ansible_distribution_file_variety == 'RedHat'
