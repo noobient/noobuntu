@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: desktopcheck
+    name: bviktor.desktopcheck
 
 - name: Install CUDA
   apt:

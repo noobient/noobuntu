@@ -5,7 +5,7 @@
     state: latest
 
 - include_role: # noqa name
-    name: desktopcheck
+    name: bviktor.desktopcheck
 
 # TODO enable for 20.04 once released
 - name: Install HWE X.Org

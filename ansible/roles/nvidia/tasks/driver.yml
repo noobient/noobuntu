@@ -34,7 +34,7 @@
   when: nv_current.rc != 0 or nv_mismatch.rc == 0
 
 - include_role:
-    name: desktopcheck
+    name: bviktor.desktopcheck
 
 - name: "Install NV driver v{{ nvidia_version | default(nvidia_default_version) }}"
   apt:

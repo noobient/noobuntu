@@ -1,0 +1,4 @@
+---
+- src: bviktor.desktopcheck
+- src: bviktor.firewalld
+- src: bviktor.sysctl
