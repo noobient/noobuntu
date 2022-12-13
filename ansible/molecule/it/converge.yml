@@ -1,6 +1,0 @@
----
-- name: IT
-  hosts: all
-  roles:
-    - role: bviktor.update
-    - role: it

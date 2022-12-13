@@ -1,7 +1,0 @@
----
-- name: Profiling
-  hosts: ubuntu
-
-  roles:
-    - role: update
-    - role: profiling
