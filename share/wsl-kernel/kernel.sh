@@ -1,48 +1,28 @@
 #!/bin/bash
 
+set -eu
+
 export WSL_DIR='/c/wsl'
 export KERNEL_DIR="${WSL_DIR}/new"
+export SRC_DIR='/usr/src/wsl-kernel'
 
-# Apparently these work even as builtins after all
-loadables=(
-#    CONFIG_NF_CONNTRACK_TFTP
-#    CONFIG_NF_NAT_TFTP
-)
-
-builtins=(
-    # firewalld won't be workable without these
-    CONFIG_NETFILTER_XT_TARGET_CT
-    CONFIG_NETFILTER_XT_MATCH_HELPER
-    # I thought these were needed for ipsec and docker-swarm firewalld services
-    #CONFIG_NETFILTER_XT_MATCH_ESP
-    #CONFIG_INET_AH
-    #CONFIG_INET6_AH
-    # Podman under WSL, but works even without
-    #CONFIG_BPFILTER
-    #CONFIG_BPFILTER_UMH
-    #CONFIG_NETFILTER_XT_MATCH_BPF
-)
-
-# Let these stay here until 22.04 is also sorted out
-# Reference: https://cateee.net/lkddb/web-lkddb/
-#CONFIG_IP_NF_TARGET_REJECT
-#CONFIG_NF_CONNTRACK
-#CONFIG_IP_NF_IPTABLES
-#CONFIG_NF_REJECT_IPV4
-#CONFIG_IP6_NF_IPTABLES
-#CONFIG_NET_SCH_FQ_CODEL
-#CONFIG_BPFILTER_UMH
-#CONFIG_IP_SET
-#CONFIG_NETFILTER_NETLINK
-#CONFIG_NF_REJECT_IPV6
-#CONFIG_NF_TABLES
-#CONFIG_NFT_COUNTER
-#CONFIG_NETFILTER_XTABLES
+source "${SRC_DIR}/kernel.conf"
 
 function enable_module ()
 {
-    echo "Enabling ${1} (${2})"
-    sed -E -i "s@.*(${1})[ =]+.*@\1=${2}@g" .config
+    # Make sure it works even if it's completely missing from the file due to
+    # dependencies not being fulfilled.
+    MATCH=0
+    grep "${1}['='/' is not set']" .config > /dev/null && MATCH=1 || true
+
+    if [ ${MATCH} -eq 1 ]
+    then
+        sed -E -i "s@.*(${1})[ =]+.*@\1=${2}@g" .config
+        echo "Enabling ${1} (${2})"
+    else
+        echo "${1}=${2}" >> .config
+        echo "Adding ${1} (${2})"
+    fi
 }
 
 REL_PAGE='https://api.github.com/repos/microsoft/WSL2-Linux-Kernel/releases/latest'
@@ -73,7 +53,6 @@ cd microsoft-WSL2-Linux-Kernel-*
 #cat /proc/config.gz | gunzip > .config.stock
 cp Microsoft/config-wsl .config.stock
 cp .config.stock .config
-make olddefconfig
 
 for module in ${loadables[@]}
 do
@@ -84,6 +63,8 @@ for module in ${builtins[@]}
 do
     enable_module "${module}" 'y'
 done
+
+make olddefconfig
 
 sed -E -i 's@^(CONFIG_LOCALVERSION)=.*@\1="-microsoft-noobuntu-WSL2"@' .config
 

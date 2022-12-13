@@ -24,7 +24,8 @@ RUN apt -y install --no-install-recommends libncurses-dev pkg-config
 
 # Install the kernel and the modules
 RUN mkdir -p /usr/src/wsl-kernel
-COPY build-kernel.sh /usr/src/wsl-kernel/build-kernel.sh
+COPY kernel.sh /usr/src/wsl-kernel/kernel.sh
+COPY kernel.conf /usr/src/wsl-kernel/kernel.conf
 
 # Run the builder script
-CMD /usr/src/wsl-kernel/build-kernel.sh
+CMD /usr/src/wsl-kernel/kernel.sh
