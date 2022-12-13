@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: firewalld
+    name: bviktor.firewalld
   vars:
     - service: "{{ item.service }}"
     - port: "{{ item.port }}"

@@ -37,7 +37,7 @@
     - { name: 'VS Code', gpg_url: 'https://packages.microsoft.com/keys/microsoft.asc', repo_file: 'vscode', package: 'code' }
 
 - include_role:
-    name: firewalld
+    name: bviktor.firewalld
   vars:
     - service: 'ssh'
 
