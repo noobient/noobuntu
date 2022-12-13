@@ -2,5 +2,5 @@
 - name: Profiling
   hosts: all
   roles:
-    - role: update
+    - role: bviktor.update
     - role: profiling
