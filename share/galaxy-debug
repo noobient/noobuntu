@@ -8,12 +8,23 @@ then
     exit 1
 fi
 
-if [ $# -lt 1 ]
-then
-    platform="fedora:37"
-else
-    platform="${1}"
-fi
+
+arguments=()
+platform="fedora:37"
+
+while [[ $# -gt 0 ]]
+do
+    case "${1}" in
+      --platform)
+        platform="${2}"
+        shift 2
+        ;;
+      *)
+        arguments+=("${1}")
+        shift 1
+        ;;
+    esac
+done
 
 role=$(basename ${PWD} | sed 's/ansible-galaxy-//')
 
@@ -24,7 +35,7 @@ CONT_ID=$(docker run --rm -v $(pwd):/repo -v /sys/fs/cgroup:/sys/fs/cgroup:ro --
 # Install dependencies
 docker exec "${CONT_ID}" bash -c "if [ -f requirements.yml ]; then ansible-galaxy role install --force -r requirements.yml -p ..; fi"
 # Run the actual tests
-docker exec "${CONT_ID}" bash -c "ANSIBLE_ROLES_PATH=.. ANSIBLE_FORCE_COLOR=true ansible-playbook tests/main.yml"
+docker exec "${CONT_ID}" bash -c "ANSIBLE_ROLES_PATH=.. ANSIBLE_FORCE_COLOR=true ansible-playbook ${arguments[*]} tests/main.yml"
 # Let us check stuff before exiting
 docker exec -it "${CONT_ID}" bash
 # Stop instance
