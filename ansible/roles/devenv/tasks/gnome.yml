@@ -1,6 +1,11 @@
 ---
 - include_role:
-    name: gsettings
+    name: bviktor.gsettings
+  vars:
+    filename: '20_corporate-settings'
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
   loop:
     # default domain for browsing shares
     # TODO use {{ ad_domain.split(".")[0] }} conditionally if set

@@ -1,4 +1,0 @@
----
-- name: Compile GLib schema
-  command:
-    cmd: glib-compile-schemas /usr/share/glib-2.0/schemas
