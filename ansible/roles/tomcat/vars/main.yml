@@ -1,3 +1,0 @@
----
-# this is the ID used on CentOS 7, let's default to that
-tomcat_id: 53
