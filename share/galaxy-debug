@@ -4,7 +4,7 @@ set -eu
 
 docker --version &> /dev/null || true
 
-if [ ! $? -ne 0 ]
+if [ $? -ne 0 ]
 then
     echo -e "\e[31mError! Docker not found. Ensure Docker is installed and running.\e[0m"
     exit 1
