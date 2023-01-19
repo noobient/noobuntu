@@ -26,9 +26,12 @@
     state: absent
 
 - include_role:
-    name: gitconfig
+    name: bviktor.gitconfig
+  vars:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
   loop:
-    - { key: 'core.autocrlf', value: 'false' }
-    - { key: 'core.editor', value: 'vi' }
+    - { name: 'core.autocrlf', value: 'false' }
+    - { name: 'core.editor', value: 'vi' }
 
 #- include_tasks: git-gcl.yml

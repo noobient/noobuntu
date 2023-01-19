@@ -55,6 +55,8 @@
       - git-lfs
 
 - include_role:
-    name: gitconfig
-  loop:
-    - { key: 'credential.helper', value: 'cache', except: '{{ gcl_helper }}' }
+    name: bviktor.gitconfig
+  vars:
+    name: 'credential.helper'
+    value: 'cache'
+    conflict: "{{ gcl_helper }}"

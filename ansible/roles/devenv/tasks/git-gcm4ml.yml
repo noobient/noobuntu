@@ -29,6 +29,7 @@
     state: link
 
 - include_role:
-    name: gitconfig
-  loop:
-    - { key: 'credential.helper', value: "{{ gcm4ml_helper }}" }
+    name: bviktor.gitconfig
+  vars:
+    name: 'credential.helper'
+    value: "{{ gcm4ml_helper }}"
