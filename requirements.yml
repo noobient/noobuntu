@@ -2,6 +2,7 @@
 - src: bviktor.desktopcheck
 - src: bviktor.firewalld
 - src: bviktor.gitconfig
+- src: bviktor.gsettings
 - src: bviktor.sysctl
 - src: bviktor.thirdparty
 - src: bviktor.update
